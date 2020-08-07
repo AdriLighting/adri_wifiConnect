@@ -24,12 +24,12 @@
     class wifi_credential_ap
     {
         String _ssid;
-        String _psk     = "adilight1234";
+        String _psk     = "adrilight1234";
         String _ip      = "192.168.0.93";
         String _subnet  = "255.255.255.0";       
     public:
 
-        wifi_credential_ap(String value);
+        wifi_credential_ap(const char * value);
         ~wifi_credential_ap(){};
 
         void hostname_set   (String value);
@@ -97,6 +97,8 @@
     public:
         String last;
         String best;      
+        String ip;      
+        String psk;      
           
         wifi_credential_sta_best();
         ~wifi_credential_sta_best(){};
@@ -148,20 +150,23 @@
         WIFICONNECT_MOD         _connect        = AWC_SETUP; 
         WIFICONNECTSSID_MOD     _connectSSID    = AWCS_MULTI;
         WiFiMode_t              _station        = WIFI_STA;
-        wifiConnect_progress    _porgress       = NULL;
         int                     _credential_sta_pos = 0;
-        wifi_credential_sta *   _credential_sta;
 
         WIFICONFIGIP_MOD        _statu_ip           = _cfgIp;
-        WiFiMode_t              _statu_sta          = _station;
         WIFICONNECT_MOD         _statu_connect      = _connect;
         WIFICONNECTSSID_MOD     _statu_connectSSID  = _connectSSID;
         WIFI_STATU              _statu_current      = wifi_statu_none;
-       
+        
+        const char *            _hostName = "";
     public:
+        wifi_credential_sta *   _credential_sta;
+        WiFiMode_t              _statu_sta          = _station;
+        wifiConnect_progress    _porgress       = NULL;
+
         wifiConnect();
         ~wifiConnect(){};
 
+        void hostName_set       (const char * mod);
         void connect_set        (WIFICONNECT_MOD mod);
         void connectSSID_set    (WIFICONNECTSSID_MOD mod);
         void station_set        (WiFiMode_t mod);
@@ -169,6 +174,7 @@
         void credential_sta_set (wifi_credential_sta * mod);
         void credential_sta_pos_set (int mod);
 
+        String hostName_get();
         String ip_get();
         String connect_get();
         String connectSSID_get();
@@ -182,11 +188,15 @@
         boolean setup_ap();
 
         void setup();
+        void stationIsSTA(boolean & result);
         void statuPrint(String header);
 
         void connect_sta_normal();
         void configIp();
         boolean setup_sta_normal();
+
+        boolean setup_sta_multi();
+        boolean WIFImulti_setup_id();
 
         boolean setup_id();
         boolean setup_ip();
@@ -205,6 +215,9 @@
     boolean isValidIp(String ip);
     boolean isValidIp(const char * string);
     boolean isValidIp(String sIp, String sSubnet, String sGateway  );
-    wl_status_t ESP8266WiFiMulti_run(uint32_t connectTimeoutMs);
+    wl_status_t ESP8266WiFiMulti_run(wifiConnect * obj,  WiFiMode_t mod, wifiConnect_progress * _porgress);    
+    // wl_status_t ESP8266WiFiMulti_run(uint32_t connectTimeoutMs);
+    void wifiConnect_connect_sta_normal(char * ssid, char * password, WiFiMode_t mod, wifiConnect_progress * _porgress);
+
 #endif
 
