@@ -12,6 +12,7 @@
     #endif
 
     #include <Arduino.h>
+    #include <adri_timer.h>
 
     #define CREDENTIAL_MAX 3
     #define CREDENTIALAp_MAX 1
@@ -19,8 +20,15 @@
     #define CREDENTIALAP_FILENAME String("wifi_credentialAp") 
     #define WIFICONNECT_FILENAME String("wifi_connect") 
 
-
-
+    
+    /**
+     * @class   wifi_credential_ap
+     *
+     * @brief   mange wifi ifentifiant.
+     *
+     * @author  Adri
+     * @date    18/08/2020
+     */
     class wifi_credential_ap
     {
         String _ssid;
@@ -30,7 +38,6 @@
     public:
 
         wifi_credential_ap(const char * value);
-        ~wifi_credential_ap(){};
 
         void hostname_set   (String value);
         void psk_set        (String value);
@@ -41,15 +48,15 @@
         String ip_get       ();
         String subnet_get   ();        
         void print          ();        
-        void load_fromSpiif ();        
+        boolean load_fromSpiif ();        
         void sav_toSpiff    ();    
         boolean setup_id    ();
         boolean setup_ip    ();
 
     };
-    extern wifi_credential_ap wifi_credential_AP;
-
-
+    // extern wifi_credential_ap wifi_credential_AP;
+    void wifi_credential_ap_register(wifi_credential_ap * ptr);
+    wifi_credential_ap * wifi_credentialAp_ptr_get();
 
     class wifi_credential_sta
     {
@@ -84,7 +91,7 @@
     };
 
     void                    wifi_credential_set(int pos, String ssid, String psk, String ip, String subnet, String gateway) ;
-    void                    wifi_credential_sta_fromSPIFF();
+    boolean                 wifi_credential_sta_fromSPIFF();
     boolean                 wifi_credential_sta_toSpiff();
     void                    wifi_credential_sta_print();
     wifi_credential_sta *   wifi_credential_get(int pos);
@@ -144,6 +151,7 @@
 
     typedef void (*wifiConnect_progress)(int x);
 
+    extern wifi_credential_sta * wifi_credential_sta_array[];
     class wifiConnect
     {
         WIFICONFIGIP_MOD        _cfgIp          = AWIP_IP;
@@ -157,14 +165,24 @@
         WIFICONNECTSSID_MOD     _statu_connectSSID  = _connectSSID;
         WIFI_STATU              _statu_current      = wifi_statu_none;
         
-        const char *            _hostName = "";
+        const char *            _hostName   = "";
+        char                    _DNSname[80];
     public:
-        wifi_credential_sta *   _credential_sta;
+        wifi_credential_sta *   _credential_sta;;
         WiFiMode_t              _statu_sta          = _station;
         wifiConnect_progress    _porgress       = NULL;
 
         wifiConnect();
         ~wifiConnect(){};
+
+        
+
+        void MDSN_begin();
+        void MDSN_loop();
+        
+        void wifi_loop();
+        WIFI_STATU wifi_loop_statu();
+
 
         void hostName_set       (const char * mod);
         void connect_set        (WIFICONNECT_MOD mod);
@@ -174,6 +192,7 @@
         void credential_sta_set (wifi_credential_sta * mod);
         void credential_sta_pos_set (int mod);
 
+        String dnsName_get();
         String hostName_get();
         String ip_get();
         String connect_get();
@@ -181,13 +200,25 @@
         String station_get();
         String credential_sta_pos_get();
 
+        String statuConnect();
+        String statuConnectSSID();
+        String statSta();
+        String statuIpMod();
+        String statuStatu();
+        String espStationMod_get();
+        String currentSSID_get();
+        String currentIp_get();
+        IPAddress _currentIp_get();
+        
         void print_cfg();
         void print_sta();
 
         void connect_ap();
         boolean setup_ap();
 
+        void setupLoop();
         void setup();
+        
         void stationIsSTA(boolean & result);
         void statuPrint(String header);
 
@@ -195,6 +226,7 @@
         void configIp();
         boolean setup_sta_normal();
 
+        boolean loop_sta_multi();
         boolean setup_sta_multi();
         boolean WIFImulti_setup_id();
 
@@ -202,22 +234,23 @@
         boolean setup_ip();
 
         boolean savToSpiff();
-        void load_fromSpiif();
+        boolean load_fromSpiif();
     };
 
     struct wifiConnect_getValue {
         char *  name;
         String  (*getValue)(wifiConnect * obj);
     };
-
-
-    boolean wifi_connect_result();
+    extern int wifiConnect_getValues_count;
+    extern PROGMEM wifiConnect_getValue wifiConnect_getValues [];
+    wifiConnect * wifiConnect_instance();
+    boolean wifi_connect_result(String debug = "");
     boolean isValidIp(String ip);
     boolean isValidIp(const char * string);
     boolean isValidIp(String sIp, String sSubnet, String sGateway  );
     wl_status_t ESP8266WiFiMulti_run(wifiConnect * obj,  WiFiMode_t mod, wifiConnect_progress * _porgress);    
     // wl_status_t ESP8266WiFiMulti_run(uint32_t connectTimeoutMs);
     void wifiConnect_connect_sta_normal(char * ssid, char * password, WiFiMode_t mod, wifiConnect_progress * _porgress);
-
+    void wifi_connect_statu();
 #endif
 

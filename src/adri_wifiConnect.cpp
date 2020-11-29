@@ -1,3 +1,9 @@
+/**
+ * @file	C:\Users\adri\Documents\Arduino\libraries\adri_wifiConnect\src\adri_wifiConnect.cpp.
+ *
+ * @brief	Implements the adri WiFi connect class
+ */
+
 #include "adri_wifiConnect.h"
 
 #include <arduino.h>
@@ -6,7 +12,7 @@
 
 #define ARRAY_SIZE(A) (sizeof(A) / sizeof((A)[0]))
 
-#define DEBUG
+// #define DEBUG
 
 
 
@@ -24,8 +30,6 @@ fs(awc_str_psk,         "psk");
 fs(awc_str_subnet,      "subnet");
 fs(awc_str_gateway,     "gateway");
 
-
-
 char b_host_name[80];
 void build_host_name(char * hostnamePrefix) {
    unsigned char mac[6];
@@ -34,25 +38,149 @@ void build_host_name(char * hostnamePrefix) {
    for (int i=4; i<6; i++) {char b[2]; sprintf(b,"%02x",mac[i]); strcat(b_host_name, b); }
 }
 
+wifi_credential_ap * wifi_credentialAp_ptr;
+wifi_credential_ap * wifi_credentialAp_ptr_get(){
+    return wifi_credentialAp_ptr;
+}
+void wifi_credential_ap_register(wifi_credential_ap* ptr){
+    wifi_credentialAp_ptr = ptr;
+}
+/**
+ * @fn	wifi_credential_ap::wifi_credential_ap(const char * value)
+ *
+ * @brief	Constructor for an static ojet
+ *
+ * @author	Adri
+ * @date	18/08/2020
+ *
+ * @param 	value	The value.
+ */
+
 wifi_credential_ap::wifi_credential_ap(const char * value){
-    hostname_set(ch_toString(value));
+    wifi_credentialAp_ptr = this;
+    if (value!="") hostname_set(ch_toString(value));
 }
 
-void wifi_credential_ap::hostname_set(String value){
+/**
+ * @fn	void wifi_credential_ap::hostname_set(String value)
+ *
+ * @brief	set ap HostName
+ *
+ * @author	Adri
+ * @date	18/08/2020
+ *
+ * @param 	value	The HostName.
+ */
 
+void wifi_credential_ap::hostname_set(String value){
     char buffer[80];
     sprintf(buffer, "%s_", value.c_str());
     build_host_name(buffer);
 
     _ssid = String(b_host_name);
 }
+
+/**
+ * @fn	void wifi_credential_ap::psk_set(String value)
+ *
+ * @brief	set the ap password
+ *
+ * @author	Adri
+ * @date	18/08/2020
+ *
+ * @param 	value	The value.
+ */
 void wifi_credential_ap::psk_set(String value)      { _psk       = value;}
-void wifi_credential_ap::ip_set(String value)       { _ip        = value;}
+
+/**
+ * @fn	void wifi_credential_ap::ip_set(String value)
+ *
+ * @brief	set the ap ip
+ * @brief	string format "192.168.0.0"
+ *
+ * @author	Adri
+ * @date	18/08/2020
+ *
+ * @param 	value	The value.
+ */
+void wifi_credential_ap::ip_set(String value)       {
+    #ifdef DEBUG 
+        fsprintf("\n[wifi_credential_ap::ip_set] current : %S - set to : %s\n", _ip.c_str(), value.c_str());
+    #endif
+    _ip = value;
+}
+
+/**
+ * @fn	void wifi_credential_ap::subnet_set(String value)
+ *
+ * @brief	set the ap subnet mask adress
+ * @brief	string format "255.255.255.0"
+ *
+ * @author	Adri
+ * @date	18/08/2020
+ *
+ * @param 	value	The value.
+ */
 void wifi_credential_ap::subnet_set(String value)   { _subnet    = value;}
+
+/**
+ * @fn	String wifi_credential_ap::psk_get()
+ *
+ * @brief	get the ap password
+ *
+ * @author	Adri
+ * @date	18/08/2020
+ *
+ * @returns	String.
+ */
 String wifi_credential_ap::psk_get()                { return _psk;    }
+
+/**
+ * @fn	String wifi_credential_ap::ip_get()
+ *
+ * @brief	get the ap ip
+ * @brief	string format "192.168.0.0"
+ *
+ * @author	Adri
+ * @date	18/08/2020
+ *
+ * @returns	String.
+ */
 String wifi_credential_ap::ip_get()                 { return _ip;     }
+
+/**
+ * @fn	String wifi_credential_ap::subnet_get()
+ *
+ * @brief	get the ap subnet massk
+ * @brief	string format "255.255.255.0"
+ *
+ * @author	Adri
+ * @date	18/08/2020
+ *
+ * @returns	String.
+ */
 String wifi_credential_ap::subnet_get()             { return _subnet; }
+
+/**
+ * @fn	String wifi_credential_ap::hostname_get()
+ *
+ * @brief	get the ap hostname
+ *
+ * @author	Adri
+ * @date	18/08/2020
+ *
+ * @returns	String.
+ */
 String wifi_credential_ap::hostname_get()           { return _ssid;   }
+
+/**
+ * @fn	void wifi_credential_ap::print()
+ *
+ * @brief	Serial Prints ap identifiants .
+ *
+ * @author	Adri
+ * @date	18/08/2020
+ */
 void wifi_credential_ap::print(){
     fsprintf("\n[wifi_credential_ap print]\n")
     fsprintf("%-15s : %s\n", fsget(awc_str_ssid).c_str(),   _ssid.c_str());
@@ -61,6 +189,19 @@ void wifi_credential_ap::print(){
     fsprintf("%-15s : %s\n", fsget(awc_str_subnet).c_str(), _subnet.c_str());
 
 }
+
+/**
+ * @fn	boolean wifi_credential_ap_fromSPIFF(String & result)
+ *
+ * @brief	load saved ap identifiants from the SPIFF MEMORY
+ *
+ * @author	Adri
+ * @date	18/08/2020
+ *
+ * @param [in,out]	result ptr ver la string with the identifiants as xml format .
+ *
+ * @returns	True if the file can be open, false if the file is not created.
+ */
 boolean wifi_credential_ap_fromSPIFF(String & result) {
 
     String filename = "/" + CREDENTIALAP_FILENAME + ".txt";
@@ -92,13 +233,22 @@ boolean wifi_credential_ap_fromSPIFF(String & result) {
 
     return true;
 }
-void wifi_credential_ap::load_fromSpiif(){
+
+/**
+ *
+ * @brief	Loads from spiif
+ *
+ * @author	Adri
+ * @date	18/08/2020
+ */
+
+boolean wifi_credential_ap::load_fromSpiif(){
 
     String result = "";
 
     boolean load = wifi_credential_ap_fromSPIFF(result);
 
-    if (!load) return;
+    if (!load) return false;
 
     String value = "";
 
@@ -111,6 +261,7 @@ void wifi_credential_ap::load_fromSpiif(){
     value = literal_value("subnet", result);
     _subnet = value;
 
+    return true;
 }
 boolean wifi_credential_ap::setup_id(){
     String sSSID, sPsk;
@@ -137,24 +288,59 @@ boolean wifi_credential_ap::setup_ip(){
 
 
 
+/** @brief	The WiFi credential sta array[ credential max] */
 wifi_credential_sta * wifi_credential_sta_array[CREDENTIAL_MAX];
 
 wifi_credential_sta_best wifi_credential_sta_best;
 wifi_credential_sta_best::wifi_credential_sta_best(){}
 
 void _porgress_def(int v){}
+wifiConnect * wifiConnect_ptr = nullptr;
+wifiConnect * wifiConnect_instance(){
+    return wifiConnect_ptr;
+}
 wifiConnect::wifiConnect(){
+   wifiConnect_ptr = this; 
+    _credential_sta = wifi_credential_sta_array[0];
    _porgress =  _porgress_def;
 }
 
-void wifiConnect::hostName_set(const char * mod)                    {_hostName               = mod;}
+void wifiConnect::hostName_set(const char * mod)                    {
+    _hostName = mod;
+
+    // char buffer[80];
+    // sprintf(buffer, "%s_", mod);
+
+    // String escapedMac = WiFi.macAddress();
+    // escapedMac.replace(":", "");
+    // escapedMac.toLowerCase();
+    // strcpy(_DNSname, buffer);
+    // sprintf(_DNSname + 5, "%*s", 6, escapedMac.c_str() + 6);
+    // fsprintf("\n[DNS]: %s\n", _DNSname);
+
+    char buffer[80];
+    sprintf(buffer, "%s", mod);
+
+    unsigned char mac[6];
+    WiFi.macAddress(mac);
+    strcpy(_DNSname, buffer);
+    // for (int i=4; i<6; i++) {char b[2]; sprintf(b,"%02x",mac[i]); strcat(_DNSname, b); }
+    // fsprintf("\n[DNS]: %s\n", _DNSname);
+
+}
+void wifiConnect::MDSN_begin() {
+    MDNS.begin(_DNSname);
+    MDNS.addService("http", "tcp", 80);
+}
+void wifiConnect::MDSN_loop() {
+    MDNS.update();
+}
 void wifiConnect::connect_set(WIFICONNECT_MOD mod)                  {_connect               = mod;}
 void wifiConnect::connectSSID_set(WIFICONNECTSSID_MOD mod)          {_connectSSID           = mod;}
 void wifiConnect::station_set(WiFiMode_t mod)                       {_station               = mod;}
 void wifiConnect::progress_set(wifiConnect_progress mod)            {_porgress              = mod;}
 void wifiConnect::credential_sta_set(wifi_credential_sta * mod)     {_credential_sta        = mod;}
 void wifiConnect::credential_sta_pos_set(int mod)                   {_credential_sta_pos    = mod;}
-
 
 void WIFI_STATU_toString(WIFI_STATU mod, String & result){
     switch(mod){
@@ -220,12 +406,36 @@ void WiFiMode_t_toString(WiFiMode_t mod, String & result){
         default :           result = "WIFI_STA";        break;
     }
 }
+void wl_status_t_toString(wl_status_t mod, String & result){
+    switch(mod){
+        case WL_NO_SHIELD:          result = "WL_NO_SHIELD";        break;
+        case WL_IDLE_STATUS:        result = "WL_IDLE_STATUS";      break;
+        case WL_NO_SSID_AVAIL:      result = "WL_NO_SSID_AVAIL";    break;
+        case WL_CONNECTED:          result = "WL_CONNECTED";        break;
+        case WL_CONNECT_FAILED:     result = "WL_CONNECT_FAILED";   break;
+        case WL_CONNECTION_LOST:    result = "WL_CONNECTION_LOST";  break;
+        case WL_DISCONNECTED:       result = "WL_DISCONNECTED";     break;
+        default :                   result = "NULL";                break;
+    }
+}
+void station_status_t_toString(station_status_t mod, String & result){
+    switch(mod){
+        case STATION_IDLE:              result = "STATION_IDLE";        break;
+        case STATION_CONNECTING:        result = "STATION_CONNECTING";      break;
+        case STATION_WRONG_PASSWORD:    result = "STATION_WRONG_PASSWORD";    break;
+        case STATION_NO_AP_FOUND:       result = "STATION_NO_AP_FOUND";        break;
+        case STATION_CONNECT_FAIL:      result = "STATION_CONNECT_FAIL";   break;
+        case STATION_GOT_IP:            result = "STATION_GOT_IP";  break;
+        default :                       result = "NULL";                break;
+    }
+}
 void WiFiMode_t_stringToMod(String mod, WiFiMode_t & result){
     if      (mod == "WIFI_STA")     result = WIFI_STA;
     else if (mod == "WIFI_AP_STA")  result = WIFI_AP_STA;
     else                            result = WIFI_STA;
 }
 
+String wifiConnect::dnsName_get()               { return String(_DNSname);}
 String wifiConnect::hostName_get()              { return ch_toString(_hostName);}
 String wifiConnect::ip_get()                    { String result; WIWIFICONFIGIP_MOD_toString    (_cfgIp,        result); return result;}
 String wifiConnect::connect_get()               { String result; WIFICONNECT_MOD_toString       (_connect,      result); return result;}
@@ -233,18 +443,65 @@ String wifiConnect::connectSSID_get()           { String result; WIFICONNECTSSID
 String wifiConnect::station_get()               { String result; WiFiMode_t_toString            (_station,      result); return result;}
 String wifiConnect::credential_sta_pos_get()    { return String(_credential_sta_pos);}
 
+String wifiConnect::statuConnect()      {String result; WIFICONNECT_MOD_toString(_statu_connect, result);           return result;}
+String wifiConnect::statuConnectSSID()  {String result; WIFICONNECTSSID_MOD_toString(_statu_connectSSID, result);   return result;}
+String wifiConnect::statSta()           {String result; WiFiMode_t_toString(_statu_sta, result);                    return result;}
+String wifiConnect::statuIpMod()        {String result; WIWIFICONFIGIP_MOD_toString(_statu_ip, result);             return result;}
+String wifiConnect::statuStatu()        {String result; WIFI_STATU_toString(_statu_current, result);                return result;}
+String wifiConnect::espStationMod_get() {String result; WiFiMode_t_toString(WiFi.getMode(), result);                return result;}
+
+String wifiConnect::currentSSID_get() {
+    if (wifiConnect_ptr == nullptr) return "SSID";
+   
+    if (_statu_sta == WIFI_STA) { if (WiFi.status() != WL_CONNECTED) return "SSID"; else return WiFi.SSID();}
+    if (_statu_sta == WIFI_AP)  return wifi_credentialAp_ptr->hostname_get();
+}
+String wifiConnect::currentIp_get() {
+    if (wifiConnect_ptr == nullptr) return "IP";
+    if (_statu_sta == WIFI_STA) return WiFi.localIP().toString();
+    if (_statu_sta == WIFI_AP)  return WiFi.softAPIP().toString();
+}
+IPAddress wifiConnect::_currentIp_get() {
+    if (wifiConnect_ptr == nullptr) return WiFi.localIP();
+    if (_statu_sta == WIFI_STA)     return WiFi.localIP();
+    if (_statu_sta == WIFI_AP_STA)  return WiFi.localIP();
+    if (_statu_sta == WIFI_AP)      return WiFi.softAPIP();
+}
+
 String wifiConnect_get_ip(wifiConnect * obj)             {return obj->ip_get();}
 String wifiConnect_get_connect(wifiConnect * obj)        {return obj->connect_get();}
 String wifiConnect_get_connectSSID(wifiConnect * obj)    {return obj->connectSSID_get();}
 String wifiConnect_get_station(wifiConnect * obj)        {return obj->station_get();}
 String wifiConnect_get_credential_sta(wifiConnect * obj) {return obj->credential_sta_pos_get();}
 
+String wifiConnect_get_statu_ip(wifiConnect * obj)              {return obj->statuIpMod();}
+String wifiConnect_get_statu_connect(wifiConnect * obj)         {return obj->statuConnect();}
+String wifiConnect_get_statu_connectSSID(wifiConnect * obj)     {return obj->statuConnectSSID();}
+String wifiConnect_get_statu_station(wifiConnect * obj)         {return obj->statSta();}
+
+String wifiConnect_get_hostname(wifiConnect * obj)              {return obj->hostName_get();}
+String wifiConnect_get_dnsname(wifiConnect * obj)               {return obj->dnsName_get();}
+String wifiConnect_get_ssid(wifiConnect * obj)                  {return obj->currentSSID_get();}
+
 PROGMEM wifiConnect_getValue wifiConnect_getValues [] = {           
-    {"ip",              wifiConnect_get_ip},
-    {"connect",         wifiConnect_get_connect},
-    {"connectSSID",     wifiConnect_get_connectSSID},
-    {"station",         wifiConnect_get_station},
-    {"credential_sta",  wifiConnect_get_credential_sta},
+    {"ssid",                wifiConnect_get_ssid},
+    {"dnsname",             wifiConnect_get_dnsname},
+    {"hostname",            wifiConnect_get_hostname},
+
+    {"ip",                  wifiConnect_get_ip},
+    {"statu_ip",            wifiConnect_get_statu_ip},
+
+    {"connect",             wifiConnect_get_connect},
+    {"statu_connect",       wifiConnect_get_statu_connect},
+
+    {"connectSSID",         wifiConnect_get_connectSSID},
+    {"statu_connectSSID",   wifiConnect_get_statu_connectSSID},
+
+    {"station",             wifiConnect_get_station},
+    {"statu_station",       wifiConnect_get_statu_station},
+
+    {"credential_sta",      wifiConnect_get_credential_sta},
+
 };
 int wifiConnect_getValues_count = ARRAY_SIZE(wifiConnect_getValues);
 
@@ -283,13 +540,13 @@ boolean wifiConnect_load_fromSPIFF(String & result) {
 
     if (!f) {
         #ifdef DEBUG
-            fsprintf("\n[wifi_credential_ap_fromSPIFF] Error reading : %S\n", filename.c_str())
+            fsprintf("\n[wifiConnect_load_fromSPIFF] Error reading : %S\n", filename.c_str())
         #endif  
         return false;
     }
 
     #ifdef DEBUG
-        fsprintf("\n[wifi_credential_ap_fromSPIFF]\n")
+        fsprintf("\n[wifiConnect_load_fromSPIFF]\n")
     #endif
 
     String line = "";
@@ -306,13 +563,17 @@ boolean wifiConnect_load_fromSPIFF(String & result) {
 
     return true;
 }
-void wifiConnect::load_fromSpiif(){
+boolean wifiConnect::load_fromSpiif(){
 
     String result = "";
 
     boolean load = wifiConnect_load_fromSPIFF(result);
 
-    if (!load) return;
+    if (!load)
+    {
+        
+        return false;
+    }
 
     String value = "";
 
@@ -327,6 +588,8 @@ void wifiConnect::load_fromSpiif(){
 
     value = literal_value("station", result);
     WiFiMode_t_stringToMod(value, _station);   
+
+    return true;
 
 }
 
@@ -353,23 +616,24 @@ void wifiConnect::print_cfg(){
             wifiConnect_getValues[j].getValue(this).c_str()
         );
     }
-
-    
-   
 }
 void wifiConnect::print_sta(){
     _credential_sta->print();
 }
 
 boolean wifiConnect::setup_ap(){
+
     if (_statu_connectSSID != AWCS_AP) return false;
-    fsprintf("\n\t[setup_ap]\n");
+
+    #ifdef DEBUG
+        fsprintf("\n\t[setup_ap]\n");
+    #endif
 
      _statu_sta          = WIFI_AP;
 
-    if (!wifi_credential_AP.setup_id()) _statu_current = wifi_statu_connect_ap_idFail;
+    if (!wifi_credentialAp_ptr->setup_id()) _statu_current = wifi_statu_connect_ap_idFail;
     else {
-        if (!wifi_credential_AP.setup_ip()) _statu_ip = AWIP_NOIP;
+        if (!wifi_credentialAp_ptr->setup_ip()) _statu_ip = AWIP_NOIP;
         _statu_current      = wifi_statu_connect_ap_begin;                
         connect_ap();
     }    
@@ -387,7 +651,7 @@ boolean wifiConnect::WIFImulti_setup_id(){
         return false;
     }
 
-    print_sta();
+    // print_sta();
 
     return true;
 }
@@ -403,7 +667,7 @@ boolean wifiConnect::setup_id(){
         return false;
     }
 
-    print_sta();
+    // print_sta();
 
     return true;
 }
@@ -420,49 +684,121 @@ boolean wifiConnect::setup_ip(){
     return true;
 }
 boolean wifiConnect::setup_sta_normal(){
+
     if (_statu_connectSSID != AWCS_NORMAL) return false;
-    fsprintf("\n\t[setup_sta_normal]\n");
+
+    #ifdef DEBUG
+        fsprintf("\n\t[setup_sta_normal]\n");
+    #endif
 
     if (!setup_id()) {
         _statu_current = wifi_statu_connect_sta_idFail;
         return false;
     }
     
-    if (!setup_ip()) _statu_ip = AWIP_NOIP;
-
     switch(_statu_connect) {
         case AWC_SETUP:
 
             _statu_current = wifi_statu_connect_sta_begin;
 
+            // ###############################################
+            WiFi.disconnect(true);
+            WiFi.softAPdisconnect(true);
+            WiFi.setPhyMode(WIFI_PHY_MODE_11B);
+
+            delay(1000);
+            WiFi.mode(WIFI_STA);   
+
             if (_hostName != "") WiFi.hostname(_hostName);
+            wifi_set_sleep_type(NONE_SLEEP_T);            
+            // ###############################################
 
             connect_sta_normal();
 
             return true;
         break;
+
+         case AWC_LOOP:
+
+            _statu_current = wifi_statu_connect_sta_begin;
+
+            if (_hostName != "") WiFi.hostname(_hostName);
+
+            return true;
+        break;       
     }
+
 
     return false;
 }
+
+String  ESP8266WiFiMulti_tested[CREDENTIAL_MAX];
+int     ESP8266WiFiMulti_testedCnt = 0;
+boolean ESP8266WiFiMulti_testedSearch(String search){
+   boolean result = false;
+   for (int i = 0; i < CREDENTIAL_MAX; ++i)
+    {
+        if (search == ESP8266WiFiMulti_tested[i]) {result = true; break;}
+    }
+    return result;
+}
 boolean wifiConnect::setup_sta_multi(){
+
     if (_statu_connectSSID != AWCS_MULTI) return false;
-    fsprintf("\n\t[setup_sta_multi]\n");
+
+    #ifdef DEBUG
+        fsprintf("\n\t[setup_sta_multi]\n");
+    #endif
+
+    ESP8266WiFiMulti_testedCnt = 0;
+    for (int i = 0; i < CREDENTIAL_MAX; ++i)
+    {
+       ESP8266WiFiMulti_tested[i]="";
+    }
 
     switch(_statu_connect) {
         case AWC_SETUP:
 
             _statu_current = wifi_statu_connect_sta_begin;
 
+            // ###############################################
+            WiFi.disconnect(true);
+            WiFi.softAPdisconnect(true);
+            WiFi.setPhyMode(WIFI_PHY_MODE_11B);
+
+            delay(1000);
+            WiFi.mode(WIFI_STA);   
+
             if (_hostName != "") WiFi.hostname(_hostName);
+            wifi_set_sleep_type(NONE_SLEEP_T);            
+            // ###############################################
 
-            WiFi.mode(_statu_sta);
-
+            adri_timer * timer = new adri_timer(60000, "", true);
             while (true) {
-                if (ESP8266WiFiMulti_run(this, _statu_sta, &_porgress) == WL_CONNECTED) break;
+                wl_status_t statu = ESP8266WiFiMulti_run(this, _statu_sta, &_porgress);
+                if (statu == WL_CONNECTED) break;
+
+                if (timer->loop()) {
+
+                     _statu_sta = WIFI_AP;
+                    if (!wifi_credentialAp_ptr->setup_id()) _statu_current = wifi_statu_connect_ap_idFail;
+                    else {
+                        if (!wifi_credentialAp_ptr->setup_ip()) _statu_ip = AWIP_NOIP;
+                        _statu_current      = wifi_statu_connect_ap_begin;    
+                        _statu_connectSSID  = AWCS_AP;              
+                        setup_ap();
+                    }   
+                    break;
+                }
+
                 yield();
             }
-            fsprintf("\n\t[ESP8266WiFiMulti_run DONE]\n");
+
+            delete timer;
+
+            #ifdef DEBUG
+                fsprintf("\n\t[ESP8266WiFiMulti_run DONE]\n");
+            #endif
 
             return true;
         break;
@@ -470,6 +806,14 @@ boolean wifiConnect::setup_sta_multi(){
 
     return false;
 }
+
+// boolean wifiConnect::loop_sta_multi(){
+//     if (ESP8266WiFiMulti_run(this, _statu_sta, &_porgress) == WL_CONNECTED) return false;
+//     return true;
+
+// }
+
+
 void wifiConnect::statuPrint(String header){
     String result;
 
@@ -504,7 +848,15 @@ void wifiConnect::stationIsSTA(boolean & result) {
     }
     result = ret;
 }
+
+
+
+WIFI_STATU wifiLoop_statu = wifi_statu_none;
+unsigned long wifi_statu_sta_search_last;
+unsigned long wifi_statu_sta_search_max = 15000;
+
 void wifiConnect::setup(){
+    wifiLoop_statu = wifi_statu_none;
 
     boolean resultConnect;
 
@@ -514,80 +866,113 @@ void wifiConnect::setup(){
     _statu_connectSSID  = _connectSSID;
     _statu_current      = wifi_statu_none;
 
-    statuPrint("\n[statuPrint] START\n");
-
-    // if (_station == WIFI_AP_STA){
-    //     _statu_connectSSID  = AWCS_AP;
-    //     setup_ap();
-
-    //     WiFi.mode(WIFI_SHUTDOWN, &nv->wss);
-             
-    //     _statu_ip           = _cfgIp;
-    //     _statu_sta          = _station;
-    //     _statu_connect      = _connect;
-    //     _statu_connectSSID  = _connectSSID;
-    //     _statu_current      = wifi_statu_none;
-
-    // }   else setup_ap();
+    #ifdef DEBUG
+        statuPrint("\n[wifiConnect::setup] statuPrint START\n");
+    #endif
 
     setup_ap();
     setup_sta_normal();
     setup_sta_multi();
 
+    if (_statu_connectSSID == AWCS_NORMAL) {
+        wl_status_t statu = WiFi.status(); 
+        if (statu != WL_CONNECTED) {
+             _statu_sta = WIFI_AP;
+            if (!wifi_credentialAp_ptr->setup_id()) _statu_current = wifi_statu_connect_ap_idFail;
+            else {
+                _statu_current      = wifi_statu_connect_ap_begin;    
+                _statu_connectSSID  = AWCS_AP;              
+                setup_ap();
+            }   
+        }
+    }
+
     WiFiMode_t w_mod = WiFi.getMode(); 
     switch(_statu_current){
         case wifi_statu_connect_sta_begin:
-            resultConnect = wifi_connect_result();
-            if (resultConnect) {
+            resultConnect = wifi_connect_result("[wifiConnect::setup]");
+            if (resultConnect)  {
                 _statu_current = wifi_statu_connect_sta_succes;
-
-                switch(_statu_connectSSID){
-                    case AWCS_MULTI:
-
-                    break;
-                }
-                if (_statu_ip != AWIP_NOIP) configIp();
-
-
-            } else {
-                _statu_current = wifi_statu_connect_sta_coFail;
+                if (!setup_ip()) _statu_ip = AWIP_NOIP; 
+                if (_statu_ip == AWIP_IP) configIp();                
             }
+            else                _statu_current = wifi_statu_connect_sta_coFail;
         break;   
         case wifi_statu_connect_ap_begin:
-            if (w_mod != WIFI_AP) _statu_current = wifi_statu_connect_ap_coFail;
-            else _statu_current = wifi_statu_connect_ap_succes;
+            if (w_mod != WIFI_AP)   _statu_current = wifi_statu_connect_ap_coFail;
+            else                    _statu_current = wifi_statu_connect_ap_succes;
         break;
-            
     }
+    #ifdef DEBUG
+        statuPrint("\n[wifiConnect::setup] statuPrint END\n");
+        if (_statu_sta == WIFI_STA){
+             Serial.printf("\n[WIFICLASS WIFI_STA]\n\t%s - %s - %s\n\n", 
+                WiFi.localIP().toString().c_str(), 
+                WiFi.gatewayIP().toString().c_str(), 
+                WiFi.subnetMask().toString().c_str()
+            );       
+        }
+        if (_statu_sta == WIFI_AP){
+             Serial.printf("\n[WIFICLASS WIFI_AP]\n\t%s - %s - %s\n\n", 
+                WiFi.softAPIP().toString().c_str(), 
+                WiFi.apGatewayIP().toString().c_str(), 
+                WiFi.apSubnetMask().toString().c_str()
+            );       
+        }
+    #endif
+}
 
-    statuPrint("\n[statuPrint] END\n");
+void wifiConnect::setupLoop(){
 
-    Serial.printf("%s - %s - %s\n\n", 
-        WiFi.localIP().toString().c_str(), 
-        WiFi.gatewayIP().toString().c_str(), 
-        WiFi.subnetMask().toString().c_str()
-    );
+    boolean resultConnect;
+
+    _statu_ip           = _cfgIp;
+    _statu_sta          = _station;
+    _statu_connect      = _connect;
+    _statu_connectSSID  = _connectSSID;
+    _statu_current      = wifi_statu_none;
+
+    #ifdef DEBUG
+        statuPrint("\n[wifiConnect::setupLoop] statuPrint START\n");
+    #endif
+
+    if (_statu_connectSSID != AWCS_NORMAL) return ;
+
+
+    if (!setup_id()) {
+        _statu_current = wifi_statu_connect_sta_idFail;
+        return ;
+    }
+    
+    if (!setup_ip()) _statu_ip = AWIP_NOIP;
+
+    _statu_current = wifi_statu_connect_sta_begin;
+
+    wifiLoop_statu = wifi_statu_sta_begin;
+
+
 }
 
 void wifiConnect::connect_ap(){
     char ssid[80];
     char password[80];
-    sprintf(ssid, "%s",     wifi_credential_AP.hostname_get().c_str());
-    sprintf(password, "%s", wifi_credential_AP.psk_get().c_str());  
+
+    sprintf(ssid, "%s",     wifi_credentialAp_ptr->hostname_get().c_str());
+    sprintf(password, "%s", wifi_credentialAp_ptr->psk_get().c_str());  
 
     WiFi.disconnect();
+    WiFi.softAPdisconnect(true);
     delay(1000);
 
     WiFi.mode(WIFI_AP);
-    WiFi.softAP(ssid, password);
 
     if (_statu_ip == AWIP_IP) {
         IPAddress staticIP; 
         IPAddress subnet(255, 255, 255, 0);
-        staticIP = string2ip(wifi_credential_AP.ip_get());
-        // staticIP = {192,168,0,1};
+        staticIP = string2ip(wifi_credentialAp_ptr->ip_get());
         WiFi.softAPConfig(staticIP, staticIP, subnet);
     }
+    WiFi.softAP(ssid, password);
 
     String ap_ssid   = String(ssid);
     String ap_ip     = ip2string(WiFi.softAPIP());
@@ -637,6 +1022,11 @@ void wifiConnect::configIp(){
          * @param dns1       Static DNS server 1
          * @param dns2       Static DNS server 2
          */
+         Serial.printf("\n[WiFi.config]\n\tstaticIP:%s - gateway:%s - subnet:%s\n\n", 
+            staticIP.toString().c_str(), 
+            gateway.toString().c_str(), 
+            subnet.toString().c_str());
+
         WiFi.config(staticIP, gateway, subnet);
 
 
@@ -646,12 +1036,133 @@ void wifiConnect::configIp(){
 
     }  else {_statu_ip = AWIP_NOIP;}
 } 
+
 void wifiConnect::connect_sta_normal(){
     char ssid[80];
     char password[80];
     sprintf(ssid, "%s",     _credential_sta->ssid_get().c_str());
     sprintf(password, "%s", _credential_sta->psk_get().c_str());   
     wifiConnect_connect_sta_normal(ssid, password, _statu_sta, &_porgress);
+}
+
+WIFI_STATU wifiConnect::wifi_loop_statu(){return wifiLoop_statu;}
+void wifiConnect::wifi_loop(){
+    if (_statu_connect != AWC_LOOP)                     return ;
+    if (wifiLoop_statu == wifi_statu_none)              return ;
+    if (wifiLoop_statu == wifi_statu_sta_isconnected)   return ;
+
+
+    IPAddress ap_subnet(255, 255, 255, 0);
+    IPAddress staticIP; 
+    IPAddress gateway;
+    IPAddress subnet;  
+    char sSSID[80];
+    char sPSWD[80]; 
+    WiFiMode_t w_mod; 
+    boolean resultConnect = false;
+
+    switch (wifiLoop_statu) {
+
+        case wifi_statu_sta_begin:
+            // fsprintf("\n[wifiConnect::wifi_loop - wifi_statu_sta_begin]\n");
+
+            char ssid[80];
+            char password[80];
+            sprintf(ssid, "%s",     _credential_sta->ssid_get().c_str());
+            sprintf(password, "%s", _credential_sta->psk_get().c_str());  
+
+            // if (_statu_ip != AWIP_NOIP) configIp();
+
+            // // WiFi.setAutoReconnect(true);  
+            // WiFi.disconnect();
+            // WiFi.softAPdisconnect(true);
+            // delay(1000);
+            // WiFi.mode(WIFI_STA);   
+            // WiFi.begin(ssid, password);
+
+            // ###############################################
+            WiFi.disconnect(true);
+            WiFi.softAPdisconnect(true);
+            WiFi.setPhyMode(WIFI_PHY_MODE_11B);
+
+            delay(1000);
+            WiFi.mode(WIFI_STA);   
+
+            if (_hostName != "") WiFi.hostname(_hostName);
+            wifi_set_sleep_type(NONE_SLEEP_T);            
+            // ###############################################
+
+            WiFi.begin(ssid, password);
+
+            wifi_statu_sta_search_last = millis();
+
+            wifiLoop_statu = wifi_statu_sta_search;
+        break;
+
+        case wifi_statu_sta_search:
+
+            if (WiFi.status() == WL_CONNECTED){
+
+
+                // Serial.printf("\n[wifiConnect::wifi_loop - wifi_statu_sta_search] : %s - %s - %s\n", 
+                //     WiFi.localIP().toString().c_str(), 
+                //     WiFi.gatewayIP().toString().c_str(), 
+                //     WiFi.subnetMask().toString().c_str()
+                // );
+
+                if (!setup_ip()) _statu_ip = AWIP_NOIP; 
+                if (_statu_ip == AWIP_IP) configIp();
+            
+                _statu_current = wifi_statu_connect_sta_succes;
+                wifiLoop_statu = wifi_statu_sta_isconnected;
+                
+
+            }
+            else {
+                if ((millis()-wifi_statu_sta_search_last)>wifi_statu_sta_search_max){
+                    wifiLoop_statu = wifi_statu_sta_fail;
+                    _statu_current = wifi_statu_connect_sta_coFail;
+                }
+            }
+        break;
+
+        case wifi_statu_sta_fail:
+
+            // fsprintf("\n[wifiConnect::wifi_loop - wifi_statu_sta_fail]\n");
+
+            if (!wifi_credentialAp_ptr->setup_ip()) _statu_ip = AWIP_NOIP;
+            _statu_current      = wifi_statu_connect_ap_begin;    
+            _statu_connectSSID  = AWCS_AP;              
+            setup_ap();
+
+            w_mod = WiFi.getMode(); 
+            switch(_statu_current){
+                case wifi_statu_connect_ap_begin:
+                    if (w_mod != WIFI_AP)   _statu_current = wifi_statu_connect_ap_coFail;
+                    else                    _statu_current = wifi_statu_connect_ap_succes;
+                break;
+            }
+
+            wifiLoop_statu = wifi_statu_sta_isconnected;
+            
+
+        break; 
+    }
+
+
+    // WiFi.mode(WIFI_STA);   
+    // WiFi.setAutoReconnect(true);  
+
+    // WiFi.disconnect();
+    // delay(20);
+
+    // #ifdef OLED_ENABLE
+    //     int count = 0;
+    // #endif 
+
+    // WiFi.begin(ssid, password);
+
+     
 }
 
 
@@ -749,7 +1260,7 @@ wifi_credential_sta * wifi_credential_get(int pos){
     return wifi_credential_sta_array[pos];
 }
 
-void wifi_credential_sta_fromSPIFF() {
+boolean wifi_credential_sta_fromSPIFF() {
     char buffer_1[255];
 
     String  cr_array[CREDENTIAL_MAX+1];
@@ -762,7 +1273,7 @@ void wifi_credential_sta_fromSPIFF() {
         }  
         wifi_credential_sta_best.last = "";
         wifi_credential_sta_best.best = "";
-        return;
+        return false;
     }
 
     wifi_credential_sta_best.last = literal_value("last", cr_array[CREDENTIAL_MAX]);
@@ -779,6 +1290,7 @@ void wifi_credential_sta_fromSPIFF() {
             literal_value("subnet",     cr_array[i]).c_str(), 
             literal_value("gateway",    cr_array[i]).c_str());
     }  
+    return true;
 
 
 }
@@ -900,10 +1412,12 @@ boolean isValidIp(String sIp, String sSubnet, String sGateway  ){
     IPAddress gateway   = string2ip(sGateway);
     IPAddress subnet    = string2ip(sSubnet);
 
-    fsprintf("\n[isValidIp] ");
-    fsprintf("ip: %s ",         ip2string(ip).c_str());
-    fsprintf("sGateway: %s ",   ip2string(gateway).c_str());
-    fsprintf("sSubnet: %s ",    ip2string(subnet).c_str());
+    #ifdef DEBUG
+        fsprintf("\n[isValidIp] ");
+        fsprintf("ip: %s ",         ip2string(ip).c_str());
+        fsprintf("sGateway: %s ",   ip2string(gateway).c_str());
+        fsprintf("sSubnet: %s ",    ip2string(subnet).c_str());
+    #endif
 
     for (int i = 0; i < 4; ++i)
     {
@@ -919,7 +1433,9 @@ boolean isValidIp(String sIp, String sSubnet, String sGateway  ){
         } 
     }
 
-    fsprintf(" -> result: %d\n", ret);
+    #ifdef DEBUG
+        fsprintf(" -> result: %d\n", ret);
+    #endif
 
     return ret;
 }
@@ -930,16 +1446,12 @@ void wifiConnect_connect_sta_normal(char * ssid, char * password, WiFiMode_t mod
 
 
     #ifdef DEBUG
-        fsprintf("\n[wifi_connect] ssid: %s - pswd: %s \n", ssid, password);
+        fsprintf("\n[wifiConnect_connect_sta_normal v1] ssid: %s - pswd: %s \n", ssid, password);
     #endif  
 
     int retries = 0;
     int maxRetries = 0;   
 
-    WiFi.disconnect();
-    delay(1000);
-
-    WiFi.mode(mod);   
     WiFi.begin(ssid, password);
 
     #ifdef DEBUG
@@ -960,7 +1472,6 @@ void wifiConnect_connect_sta_normal(char * ssid, char * password, WiFiMode_t mod
             WiFi.disconnect();
             delay(1000);
             
-            WiFi.mode(mod);   
             WiFi.begin(ssid, password);
 
             retries = 0;
@@ -971,7 +1482,7 @@ void wifiConnect_connect_sta_normal(char * ssid, char * password, WiFiMode_t mod
             #endif
         }   
 
-        delay(250);
+        delay(200);
         #ifdef DEBUG
             Serial.print(".");
         #endif
@@ -979,9 +1490,14 @@ void wifiConnect_connect_sta_normal(char * ssid, char * password, WiFiMode_t mod
         if (maxRetries > 4) break;
     }
 
+
+
+
+
+
     #ifdef DEBUG
         Serial.println("");
-        Serial.println("[wifi_connect] Done");
+        Serial.println("[wifiConnect_connect_sta_normal v1] Done");
     #endif  
 }
 
@@ -989,26 +1505,21 @@ wl_status_t wifiConnect_connect_sta_normal(char * ssid, char * password, int32_t
 
 
     #ifdef DEBUG
-        fsprintf("\n[wifi_connect] ssid: %s - pswd: %s \n", ssid, password);
+        fsprintf("\n[wifiConnect_connect_sta_normal v2] ssid: %s - pswd: %s \n", ssid, password);
     #endif  
 
     int retries = 0;
     int maxRetries = 0;   
 
-    WiFi.disconnect();
-    delay(1000);
-
-    WiFi.mode(mod);  
-
     WiFi.begin(ssid, password, bestChannel, bestBSSID);
-    status = WiFi.status();
 
     #ifdef DEBUG
         fsprintfs("\n");
     #endif    
 
     uint8_t count=0;
-    while (status != WL_CONNECTED && status != WL_NO_SSID_AVAIL && status != WL_CONNECT_FAILED )  {
+
+    while (WiFi.status() != WL_CONNECTED )  {
         retries++;
 
         // #ifdef OLED_ENABLE
@@ -1016,12 +1527,11 @@ wl_status_t wifiConnect_connect_sta_normal(char * ssid, char * password, int32_t
             if(_porgress!=NULL) (*_porgress)(count);
         // #endif
 
-        if (retries > 40) {  
+        if (retries > 20) {  
 
             WiFi.disconnect();
             delay(1000);
             
-            WiFi.mode(mod);   
             WiFi.begin(ssid, password, bestChannel, bestBSSID);
 
             retries = 0;
@@ -1033,44 +1543,78 @@ wl_status_t wifiConnect_connect_sta_normal(char * ssid, char * password, int32_t
         }   
 
         delay(250);
+
         #ifdef DEBUG
             Serial.print(".");
         #endif
 
-        if (maxRetries > 4) break;
-        status = WiFi.status();
+        if (maxRetries > 3) break;
+
     }
 
     #ifdef DEBUG
         Serial.println("");
-        Serial.println("[wifi_connect] Done");
+        Serial.println("[wifiConnect_connect_sta_normal v2] Done");
     #endif  
 
-    return status;
+    return WiFi.status();
 }
-boolean wifi_connect_result(){
 
+boolean wifi_connect_result(String debug){
+    if (wifiConnect_ptr == nullptr) return false;
     if (WiFi.status() == WL_CONNECTED) {
         #ifdef DEBUG
-            Serial.printf("\n[wifi_connect_result] WL_CONNECTED: %s - %s - %s\n\n", 
-                WiFi.localIP().toString().c_str(), 
-                WiFi.gatewayIP().toString().c_str(), 
-                WiFi.subnetMask().toString().c_str());
+            if (debug!="") {
+                Serial.printf("\n[wifi_connect_result -> %s] WL_CONNECTED: %s - %s - %s\n\n", 
+                    debug.c_str(), 
+                    WiFi.localIP().toString().c_str(), 
+                    WiFi.gatewayIP().toString().c_str(), 
+                    WiFi.subnetMask().toString().c_str());                
+            }
         #endif
         return true;
     } else {
         #ifdef DEBUG
-            Serial.printf("\n[wifi_connect_result] Fail\n\n");
+            if (debug!="") Serial.printf("\n[wifi_connect_result  -> %s] Fail\n\n", debug.c_str());
         #endif
         return false;
     }
+
+}
+void wifi_connect_statu(){
+    wifiConnect_instance()->print_cfg();
+    // wifiConnect_instance()->print_sta();
+    // wifi_credentialAp_ptr->print();
+
+Serial.printf("\n[WIFI_intance] localIP: %s - gatewayIP: %s - subnetMask: %s\n", 
+    WiFi.localIP().toString().c_str(), 
+    WiFi.gatewayIP().toString().c_str(), 
+    WiFi.subnetMask().toString().c_str());
+
+    String str_mod;
+    WiFiMode_t wifiMod = WiFi.getMode();
+    WiFiMode_t_toString(wifiMod, str_mod);
+    fsprintf("[WiFiMode_t] %s\n", str_mod.c_str());
+
+    String str_statu;
+    wl_status_t wifiStatu = WiFi.status();
+    wl_status_t_toString(wifiStatu, str_statu);
+    fsprintf("[wl_status_t] %s\n", str_statu.c_str());
+
+    String str_station;
+    station_status_t stationStatus = wifi_station_get_connect_status();
+    station_status_t_toString(stationStatus, str_station);
+    fsprintf("[station_status_t] %s\n", str_station.c_str());
+
+    fsprintf("[auto_connect] %d\n", wifi_station_get_auto_connect());
+
 
 }
 
 
 
 #define DEBUG_WIFI_MULTI(fmt, ...) Serial.printf_P( (PGM_P)PSTR(fmt), ##__VA_ARGS__ )
-#define DEBUG_ESP_WIFI
+// #define DEBUG_ESP_WIFI
 
 struct WifiAPEntry {
     char *  ssid;
@@ -1096,13 +1640,19 @@ wl_status_t ESP8266WiFiMulti_run(wifiConnect * obj,  WiFiMode_t mod, wifiConnect
 
         if(scanResult == 0) {
             // scan done, no ssids found. Start another scan.
-            DEBUG_WIFI_MULTI("[WIFI] scan done\n");
-            DEBUG_WIFI_MULTI("[WIFI] no networks found\n");
+            #ifdef DEBUG_ESP_WIFI
+                DEBUG_WIFI_MULTI("[WIFI] scan done\n");
+                DEBUG_WIFI_MULTI("[WIFI] no networks found\n");
+                DEBUG_WIFI_MULTI("\n\n");
+                DEBUG_WIFI_MULTI("[WIFI] start scan\n");
+            #endif   
+
             WiFi.scanDelete();
-            DEBUG_WIFI_MULTI("\n\n");
+
             delay(0);
+
             WiFi.disconnect();
-            DEBUG_WIFI_MULTI("[WIFI] start scan\n");
+            
             // scan wifi async mode
             WiFi.scanNetworks(true);
             return status;
@@ -1111,15 +1661,25 @@ wl_status_t ESP8266WiFiMulti_run(wifiConnect * obj,  WiFiMode_t mod, wifiConnect
         if(scanResult > 0) {
             // scan done, analyze
             WifiAPEntry bestNetwork { NULL, NULL };
-            int bestNetworkDb = INT_MIN;
+            int bestNetworkDb = 1024;
             uint8 bestBSSID[6];
             int32_t bestChannel;
 
-            DEBUG_WIFI_MULTI("[WIFI] scan done\n");
+            #ifdef DEBUG_ESP_WIFI
+                DEBUG_WIFI_MULTI("[WIFI] scan done\n");
+                DEBUG_WIFI_MULTI("[WIFI] %d networks found\n", scanResult);
+            #endif
+
             delay(0);
 
-            DEBUG_WIFI_MULTI("[WIFI] %d networks found\n", scanResult);
-            for(int8_t i = 0; i < scanResult; ++i) {
+            // bool Iknown = false;
+
+            // for(int8_t n = 0; n < scanResult; ++n) {
+            // int8_t i = 0;
+            int8_t n = 0;
+            int8_t pass = 0;
+            while(true){
+
 
                 String ssid_scan;
                 int32_t rssi_scan;
@@ -1128,54 +1688,78 @@ wl_status_t ESP8266WiFiMulti_run(wifiConnect * obj,  WiFiMode_t mod, wifiConnect
                 int32_t chan_scan;
                 bool hidden_scan;
 
-                WiFi.getNetworkInfo(i, ssid_scan, sec_scan, rssi_scan, BSSID_scan, chan_scan, hidden_scan);
+                WiFi.getNetworkInfo(n, ssid_scan, sec_scan, rssi_scan, BSSID_scan, chan_scan, hidden_scan);
 
                 bool known = false;
-                for(auto entry : wifi_credential_sta_array) {
-                    sprintf(ssid, "%s", entry->ssid_get().c_str());
-                    sprintf(psk, "%s",  entry->psk_get().c_str());                     
-                    if(ssid_scan == ssid) { // SSID match
-                        DEBUG_WIFI_MULTI("[SSID match] ssid:%s psk: %s\n", entry->ssid_get().c_str(),entry->psk_get().c_str());
-                        obj->_credential_sta = entry;
+                // for(auto entry : wifi_credential_sta_array) {
+                for (int C = 0; C < CREDENTIAL_MAX; ++C) {
+                    
+                    if (ESP8266WiFiMulti_testedSearch(ssid_scan)) continue;
 
-                        known = true;
-                        if(rssi_scan > bestNetworkDb) { // best network
-                            if(sec_scan == ENC_TYPE_NONE || psk) { // check for passphrase if not open wlan
-                                bestNetworkDb           = rssi_scan;
+                    sprintf(ssid, "%s", wifi_credential_sta_array[C]->ssid_get().c_str());
+                    sprintf(psk, "%s",  wifi_credential_sta_array[C]->psk_get().c_str());    
+                   
+
+                    if(ssid_scan == ssid) { // SSID match
+                        if(pass > 1) known = true;
+                        if(-rssi_scan < bestNetworkDb) { // best network
+                            if(sec_scan == ENC_TYPE_NONE || (psk!="")) { // check for passphrase if not open wlan
+                                bestNetworkDb           = -rssi_scan;
                                 bestChannel             = chan_scan;
                                 bestNetwork.ssid        = ssid;
                                 bestNetwork.passphrase  = psk;
                                 memcpy((void*) &bestBSSID, (void*) BSSID_scan, sizeof(bestBSSID));
+                                #ifdef DEBUG_ESP_WIFI
+                                    DEBUG_WIFI_MULTI("[SSID BEST] ssid:%-12s psk: %-12s rssi_scan: %-12d chan_scan: %-12d\n", 
+                                        ssid,
+                                        psk,
+                                        -rssi_scan,
+                                        chan_scan
+                                    );
+                                #endif  
+                                obj->_credential_sta = wifi_credential_sta_array[C];
                             }
                         }
-                        break;
+                        if (known) break;
                     }
+                    delay(1);
                 }
 
                 if(known) {
-                    DEBUG_WIFI_MULTI(" ---> ");
+                    #ifdef DEBUG_ESP_WIFI
+                        DEBUG_WIFI_MULTI(" ---> ");
+                    #endif
+                    break;
                 } else {
-                    DEBUG_WIFI_MULTI("      ");
+                    #ifdef DEBUG_ESP_WIFI
+                        DEBUG_WIFI_MULTI("      ");
+                    #endif
                 }
+                #ifdef DEBUG_ESP_WIFI
+                    DEBUG_WIFI_MULTI(" %d: [%d][%02X:%02X:%02X:%02X:%02X:%02X] %s (%d) %c\n",
+                        n, chan_scan, 
+                        BSSID_scan[0], BSSID_scan[1], BSSID_scan[2], BSSID_scan[3], BSSID_scan[4], BSSID_scan[5], 
+                        ssid_scan.c_str(), rssi_scan, (sec_scan == ENC_TYPE_NONE) ? ' ' : '*');
+                #endif
 
-                DEBUG_WIFI_MULTI(" %d: [%d][%02X:%02X:%02X:%02X:%02X:%02X] %s (%d) %c\n",
-                    i, chan_scan, 
-                    BSSID_scan[0], BSSID_scan[1], BSSID_scan[2], BSSID_scan[3], BSSID_scan[4], BSSID_scan[5], 
-                    ssid_scan.c_str(), rssi_scan, (sec_scan == ENC_TYPE_NONE) ? ' ' : '*');
-                delay(0);
-
-                if(known) break;
+                delay(1);
+                n++;
+                if (n>=scanResult){n=0;pass++;}
             }
 
             // clean up ram
             WiFi.scanDelete();
 
-            DEBUG_WIFI_MULTI("\n\n");
-            delay(0);
+            #ifdef DEBUG_ESP_WIFI
+                DEBUG_WIFI_MULTI("\n\n");
+            #endif
+
+            delay(1);
 
             if(bestNetwork.ssid) {
-                DEBUG_WIFI_MULTI("[WIFI] Connecting BSSID: %02X:%02X:%02X:%02X:%02X:%02X SSID: %s Channel: %d (%d)\n", bestBSSID[0], bestBSSID[1], bestBSSID[2], bestBSSID[3], bestBSSID[4], bestBSSID[5], bestNetwork.ssid, bestChannel, bestNetworkDb);
-
+                #ifdef DEBUG_ESP_WIFI
+                    DEBUG_WIFI_MULTI("[WIFI] Connecting BSSID: %02X:%02X:%02X:%02X:%02X:%02X SSID: %s Channel: %d (%d)\n", bestBSSID[0], bestBSSID[1], bestBSSID[2], bestBSSID[3], bestBSSID[4], bestBSSID[5], bestNetwork.ssid, bestChannel, bestNetworkDb);
+                #endif
                 // WiFi.begin(bestNetwork.ssid, bestNetwork.passphrase, bestChannel, bestBSSID);
                 // status = WiFi.status();
                 
@@ -1185,7 +1769,10 @@ wl_status_t ESP8266WiFiMulti_run(wifiConnect * obj,  WiFiMode_t mod, wifiConnect
                 //     delay(10);
                 //     status = WiFi.status();
                 // }
+                ESP8266WiFiMulti_tested[ESP8266WiFiMulti_testedCnt] = ch_toString(bestNetwork.ssid);
+                ESP8266WiFiMulti_testedCnt++;
                 status = wifiConnect_connect_sta_normal(bestNetwork.ssid, bestNetwork.passphrase, bestChannel, bestBSSID, mod, porgress, status) ;
+
 #ifdef DEBUG_ESP_WIFI
                 IPAddress ip;
                 uint8_t * mac;
@@ -1200,7 +1787,6 @@ wl_status_t ESP8266WiFiMulti_run(wifiConnect * obj,  WiFiMode_t mod, wifiConnect
                         DEBUG_WIFI_MULTI("[WIFI] Channel: %d\n", WiFi.channel());
                         wifi_credential_sta_best.last = WiFi.SSID();
                         wifi_credential_sta_best.best = WiFi.SSID();  
- 
                         break;
                     case WL_NO_SSID_AVAIL:
                         DEBUG_WIFI_MULTI("[WIFI] Connecting Failed AP not found.\n");
@@ -1213,8 +1799,11 @@ wl_status_t ESP8266WiFiMulti_run(wifiConnect * obj,  WiFiMode_t mod, wifiConnect
                         break;
                 }
 #endif
+
             } else {
-                DEBUG_WIFI_MULTI("[WIFI] no matching wifi found!\n");
+                #ifdef DEBUG_ESP_WIFI
+                    DEBUG_WIFI_MULTI("[WIFI] no matching wifi found!\n");
+                #endif
             }
 
             return status;
@@ -1222,10 +1811,13 @@ wl_status_t ESP8266WiFiMulti_run(wifiConnect * obj,  WiFiMode_t mod, wifiConnect
        
        
         // scan failed, or some other condition not handled above. Start another scan.
-        DEBUG_WIFI_MULTI("[WIFI] delete old wifi config...\n");
+        #ifdef DEBUG_ESP_WIFI
+            DEBUG_WIFI_MULTI("[WIFI] delete old wifi config...\n");
+            DEBUG_WIFI_MULTI("[WIFI] start scan\n");
+        #endif
+
         WiFi.disconnect();
 
-        DEBUG_WIFI_MULTI("[WIFI] start scan\n");
         // scan wifi async mode
         WiFi.scanNetworks(true);
     }

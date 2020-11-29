@@ -1,95 +1,152 @@
 #include <adri_wifiConnect.h>
 #include <adri_tools.h>
-#include <adri_espwebserver.h>
+#include <adri_timer.h>
 #include <adri_espwebserver_tools.h>
-#include <adri_udp.h>
 
 
-const char * hostname = "reveil";
+                 
 
-wifi_credential_ap 	wifi_credential_AP(hostname);
-adri_webserver 		clientServer(80); 
-adri_socket 		socketServer(81); 
+wifiConnect 		* myWifi;	// PTR pour unr instance statique "wifiConnect"
+wifi_credential_ap	* myWifiAp;	// PTR pour unr instance statique "wifi_credential_ap"
 
-void _test_p(int p){fsprintf("\n wificonnect: %d\n", p);}
+const char 			* myWifiHostname = "MY_WIFI"; 	// AP AND DNS HOSTNAME 
+													
+										// 	AWC_LOOP; 		WIFI CONNECT STARTUP WITH STATIC 
+										// 	AWC_SETUP; 		WIFI CONNECT STARTUP WITH STATIC 
+WIFICONNECT_MOD		myWifiConnectMod 	= 	AWC_LOOP;	
 
-void setup()
-{
-    Serial.begin(115200);
-    delay(3000);
-    Serial.println("");
+										// 	AWCS_MULTI;		STA CONNECT WITH MULTIPLE SSID
+										// 	AWCS_NORMAL;	STA CONNECT WITH THE SELECTED SSID
+WIFICONNECTSSID_MOD myWifiSSIDMod 		= 	AWCS_NORMAL;	
 
-	bool fsOK = SPIFFS.begin();
+boolean 			myWifiOTA 			= false; 	// ENABLED OTA
 
-	// SPIFFS.remove("/"+CREDENTIAL_FILENAME+".txt");
-	// SPIFFS.remove("/"+CREDENTIALAP_FILENAME+".txt");
-	
-	wifi_credential_sta_fromSPIFF();
-	// wifi_credential_set(0, "freebox_123_EXTBAS", "phcaadax", "192.168.0.93", "255.255.255.0", "192.168.0.254");
-	// wifi_credential_set(1, "sd", "phcaadax", "192.168.0.93", "255.255.255.0", "192.168.0.254");
-	// wifi_credential_set(2, "freebox_123_EXT", "phcaadax", "192.168.0.93", "255.255.255.0", "192.168.0.254");
+int 				myWifiConnectDone	= 0;		// WIFI CONNECT LOOP POSTION 
+adri_timer 			* myWifiTimer; 					// WIFI CONNECT LOOP SETUP TIMER 
+
+adri_timer 			* myWifiTimer_print;
+
+void setup() {
+	Serial.begin(115200);
+	delay(1000);
+	fsprintf("\n");
+
+	SPIFFS.begin();
+
+	// Créations des instnce
+	myWifi 		= new wifiConnect();
+	myWifiAp 	= new wifi_credential_ap("");
+	myWifiTimer 		= new adri_timer(3000,	"", false);
+	myWifiTimer_print 	= new adri_timer(1000,	"", false);
+
+	// Iinitialisation AP
+	myWifiAp->hostname_set(ch_toString(myWifiHostname));
+	wifi_credential_ap_register(myWifiAp);
+
+	// Créations des identifiants
+	if (!wifi_credential_sta_fromSPIFF()) { 	// initialisation de linstance wifi_credential_sta
+		wifi_credential_set(
+			1, 						// postion du ssid selectionner (0 to 2)
+			"freebox_123_EXTBAS",	// ssid
+			"phcaadax", 			// pswd
+			"",						// ip 		(vide pour ne pas cofigurer d'ip)
+			"",						// subnet 	(vide pour ne pas cofigurer d'subnet)
+			""						// gateway 	(vide pour ne pas cofigurer d'gateway)
+		);
+		wifi_credential_set(
+			0, 						
+			"freebox_123_EXT", 		
+			"phcaadax", 			
+			"",						
+			"",						
+			""						
+		);	
+		wifi_credential_sta_toSpiff();		
+	}
+		wifi_credential_set(
+			0, 						
+			"freebox_123_EXT", 		
+			"x", 			
+			"",						
+			"",						
+			""						
+		);	
+		wifi_credential_sta_toSpiff();		
 	wifi_credential_sta_print();
 
 
-	wifi_credential_AP.load_fromSpiif();
-	// wifi_credential_AP.psk_set("adrilight1234");
-	wifi_credential_AP.print();
+	// configuration "wifiConnect"
 
-	wifiConnect wifiConnect;
-	wifiConnect.load_fromSpiif();
+	// confiuration identifiants sta 
+	myWifi->load_fromSpiif 				();
+	myWifi->credential_sta_pos_set 		(0);
 
-	fsprintf("\n[wifiConnect Start]\n");
-		wifiConnect.credential_sta_pos_set(2);
-		wifiConnect.connect_set(AWC_SETUP);
-		wifiConnect.connectSSID_set(AWCS_NORMAL);
-		wifiConnect.station_set(WIFI_AP_STA);
-		wifiConnect.hostName_set(hostname);
-		// wifiConnect.progress_set(_test_p);
-		wifiConnect.print_cfg();
-		wifiConnect.setup();
-	fsprintf("\n[wifiConnect Start] Done\n");
-
-	wifiConnect.savToSpiff();
-	wifi_credential_AP.sav_toSpiff();
-	wifi_credential_sta_toSpiff();   
+	// configuration du lancement de la coonection
+	myWifi->connect_set 				(myWifiConnectMod);
+	if (myWifiConnectMod == AWC_LOOP) myWifiSSIDMod = AWCS_NORMAL; 	// wifi connect loop ne supporte pas encor de multiple ssid
+	myWifi->connectSSID_set 			(myWifiSSIDMod);
 
 
- 	#ifdef ADRI_WEBSERVER_REPONSE_H
-	int pos = requestReponse_initialize("/hello");
-	requestReponse_protocol 	(pos, requestProtocol_http);
-	requestReponse_mod_set 		(pos, requestType_name);
-	requestReponse_reponseMod 	(pos, requestReponseType_none);
-	requestReponse_parseMod 	(pos, requestParseCmd_fromFunc);
-	requestReponse_func 		(pos, cmd_test2);
-	#endif
-	
-	clientServer.filesystem_ok(fsOK);
-	if (fsOK) clientServer.filesystem_set(&SPIFFS);
+	myWifi->station_set 				(WIFI_STA);
+	myWifi->hostName_set 				(myWifiHostname); 			// initialisation dns si ota desactiver
+	myWifi->setup_id					();							// initialize les id STA
 
-	arduinoOTA_setup(hostname);
+	//
+	myWifiAp->psk_set 					("mywifiappsk");						// pswd AP
+	myWifiAp->ip_set 					(myWifi->_credential_sta->ip_get());	// ip 	AP
+	myWifiAp->print 					();	
 
-	clientServer.initialize(80);
-	socketServer.setup();
 
-// Serial.printf("Default hostname: %s\n", WiFi.hostname().c_str());
-// Serial.printf("\n[wifi_connect_sta] Done: pi: %s - gw: %s - sub: %s - dns0:%s - dns1:%s - dns2:%s\n", 
-//     WiFi.localIP().toString().c_str(), 
-//     WiFi.gatewayIP().toString().c_str(), 
-//     WiFi.subnetMask().toString().c_str(),
-//     WiFi.dnsIP(0).toString().c_str(),
-//     WiFi.dnsIP(1).toString().c_str(),
-//     WiFi.dnsIP(2).toString().c_str()
-//     );
+
+	if (myWifiConnectMod == AWC_SETUP) {
+		myWifi->setup 						();
+		if(!myWifiOTA) 	myWifi->MDSN_begin	();
+		else 			arduinoOTA_setup	(myWifiHostname);
+		wifi_connect_statu 					();
+		fsprintf("\n[myWifiConnectDone] : %s\n", on_time().c_str());
+		myWifiConnectDone = 1;		
+	}
+
+
+	if (myWifiConnectMod == AWC_LOOP) {
+		myWifiConnectDone  					= 2;
+		myWifiTimer->activate 				();
+		myWifiTimer_print->activate 		();
+	}
+
 
 }
 void loop()
 {
-	clientServer.handleLoop();
-	socketServer.loop();
-	arduinoOTA_loop();	
+	if (myWifiConnectDone == 1) {
+		if(!myWifiOTA) 	myWifi->MDSN_loop();
+		else 			arduinoOTA_loop();			
+	}
+
+	if (myWifiConnectMod == AWC_LOOP) {
+
+		if(myWifiTimer->loop_stop()) {
+			myWifi->setupLoop(); 
+			fsprintf("\n[connection wifi initialisée]\n");
+		}
+
+		if(myWifiTimer_print->loop()) fsprintf("\n[myWifiTimer_print] : %s\n", on_time().c_str());
+
+		myWifi->wifi_loop();	
+		if ( (myWifi->wifi_loop_statu()==wifi_statu_sta_isconnected) && (myWifiConnectDone == 2)) {
+
+			myWifiTimer_print->activate(false);
+
+			if(!myWifiOTA) 	myWifi->MDSN_begin	();
+			else 			arduinoOTA_setup	(myWifiHostname);
+
+			wifi_connect_statu();
+
+			myWifiConnectDone = 1;
+
+			fsprintf("\n[myWifiConnectDone] : %s\n", on_time().c_str());
+		}		
+	}
 }
-void cmd_test2(){
-	Serial.println("cmd_test2");
-	clientServer.replyOKWithMsg("HELL WORLD");
-}
+
 

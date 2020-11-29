@@ -1,0 +1,425 @@
+\hypertarget{adri__wifi_connect_8h}{}\doxysection{src/adri\+\_\+wifi\+Connect.h File Reference}
+\label{adri__wifi_connect_8h}\index{src/adri\_wifiConnect.h@{src/adri\_wifiConnect.h}}
+{\ttfamily \#include $<$Arduino.\+h$>$}\newline
+\doxysubsection*{Classes}
+\begin{DoxyCompactItemize}
+\item 
+class \mbox{\hyperlink{classwifi__credential__ap}{wifi\+\_\+credential\+\_\+ap}}
+\begin{DoxyCompactList}\small\item\em mange wifi ifentifiant. \end{DoxyCompactList}\item 
+class \mbox{\hyperlink{classwifi__credential__sta}{wifi\+\_\+credential\+\_\+sta}}
+\item 
+struct \mbox{\hyperlink{structwifi__credential__sta__get_value}{wifi\+\_\+credential\+\_\+sta\+\_\+get\+Value}}
+\item 
+class \mbox{\hyperlink{classwifi__credential__sta__best}{wifi\+\_\+credential\+\_\+sta\+\_\+best}}
+\item 
+class \mbox{\hyperlink{classwifi_connect}{wifi\+Connect}}
+\item 
+struct \mbox{\hyperlink{structwifi_connect__get_value}{wifi\+Connect\+\_\+get\+Value}}
+\end{DoxyCompactItemize}
+\doxysubsection*{Macros}
+\begin{DoxyCompactItemize}
+\item 
+\#define \mbox{\hyperlink{adri__wifi_connect_8h_ad9ef1ce3b047f7c8427b2e146d21f9cd}{C\+R\+E\+D\+E\+N\+T\+I\+A\+L\+\_\+\+M\+AX}}~3
+\item 
+\#define \mbox{\hyperlink{adri__wifi_connect_8h_ade19429144f9f0feafd5970694826901}{C\+R\+E\+D\+E\+N\+T\+I\+A\+L\+Ap\+\_\+\+M\+AX}}~1
+\item 
+\#define \mbox{\hyperlink{adri__wifi_connect_8h_a33bea25386056480931654441d172e5d}{C\+R\+E\+D\+E\+N\+T\+I\+A\+L\+\_\+\+F\+I\+L\+E\+N\+A\+ME}}~String(\char`\"{}wifi\+\_\+credential\char`\"{})
+\item 
+\#define \mbox{\hyperlink{adri__wifi_connect_8h_aa03d8563ef93d3d523bad13208c5c089}{C\+R\+E\+D\+E\+N\+T\+I\+A\+L\+A\+P\+\_\+\+F\+I\+L\+E\+N\+A\+ME}}~String(\char`\"{}wifi\+\_\+credential\+Ap\char`\"{})
+\item 
+\#define \mbox{\hyperlink{adri__wifi_connect_8h_aacf1a7905a5fed30bd8e848cb0538717}{W\+I\+F\+I\+C\+O\+N\+N\+E\+C\+T\+\_\+\+F\+I\+L\+E\+N\+A\+ME}}~String(\char`\"{}wifi\+\_\+connect\char`\"{})
+\end{DoxyCompactItemize}
+\doxysubsection*{Typedefs}
+\begin{DoxyCompactItemize}
+\item 
+typedef void($\ast$ \mbox{\hyperlink{adri__wifi_connect_8h_a35cfdd4ffe96d333e5ed31188014e548}{wifi\+Connect\+\_\+progress}}) (int x)
+\end{DoxyCompactItemize}
+\doxysubsection*{Enumerations}
+\begin{DoxyCompactItemize}
+\item 
+enum \mbox{\hyperlink{adri__wifi_connect_8h_a2731a80e0a34be772cdcc6a48639677f}{W\+I\+F\+I\+C\+O\+N\+N\+E\+C\+T\+\_\+\+M\+OD}} \{ \mbox{\hyperlink{adri__wifi_connect_8h_a2731a80e0a34be772cdcc6a48639677fa31b6c6a409b9a42705a7982b7748956a}{A\+W\+C\+\_\+\+L\+O\+OP}}, 
+\mbox{\hyperlink{adri__wifi_connect_8h_a2731a80e0a34be772cdcc6a48639677fa6cdfa3a7d4f98d3f75ae71ddaa7a2413}{A\+W\+C\+\_\+\+S\+E\+T\+UP}}
+ \}
+\item 
+enum \mbox{\hyperlink{adri__wifi_connect_8h_aad73d10f4999d6e1a0378c5b3978bf33}{W\+I\+F\+I\+C\+O\+N\+N\+E\+C\+T\+S\+S\+I\+D\+\_\+\+M\+OD}} \{ \mbox{\hyperlink{adri__wifi_connect_8h_aad73d10f4999d6e1a0378c5b3978bf33aff49dc5844221513d1274dcded2307ff}{A\+W\+C\+S\+\_\+\+M\+U\+L\+TI}}, 
+\mbox{\hyperlink{adri__wifi_connect_8h_aad73d10f4999d6e1a0378c5b3978bf33a2ad6bb3ebe1aa034bec10f9c47c94d7a}{A\+W\+C\+S\+\_\+\+AP}}, 
+\mbox{\hyperlink{adri__wifi_connect_8h_aad73d10f4999d6e1a0378c5b3978bf33acd4ab57845abaadd2f12c0d2339fa877}{A\+W\+C\+S\+\_\+\+N\+O\+R\+M\+AL}}, 
+\mbox{\hyperlink{adri__wifi_connect_8h_aad73d10f4999d6e1a0378c5b3978bf33a6d3e1ceab34e81468333ff985366a2ab}{A\+W\+C\+S\+\_\+\+F\+A\+IL}}
+ \}
+\item 
+enum \mbox{\hyperlink{adri__wifi_connect_8h_a25893425af8c4c64f2fe6dadafdae78d}{W\+I\+F\+I\+C\+O\+N\+F\+I\+G\+I\+P\+\_\+\+M\+OD}} \{ \mbox{\hyperlink{adri__wifi_connect_8h_a25893425af8c4c64f2fe6dadafdae78dadca0b5d14ef1674e6f0d0d9945683433}{A\+W\+I\+P\+\_\+\+IP}}, 
+\mbox{\hyperlink{adri__wifi_connect_8h_a25893425af8c4c64f2fe6dadafdae78da8e42e3332fdd9677cda61e50462d9c9b}{A\+W\+I\+P\+\_\+\+N\+O\+IP}}
+ \}
+\item 
+enum \mbox{\hyperlink{adri__wifi_connect_8h_adc2b6013454c5dc95efb0a368d99ed8c}{W\+I\+F\+I\+\_\+\+S\+T\+A\+TU}} \{ \newline
+\mbox{\hyperlink{adri__wifi_connect_8h_adc2b6013454c5dc95efb0a368d99ed8ca8af560715044eaa6d2e7221bc7af0129}{wifi\+\_\+statu\+\_\+none}}, 
+\mbox{\hyperlink{adri__wifi_connect_8h_adc2b6013454c5dc95efb0a368d99ed8ca0fd1e59a6bd07f1b64c6ef7c5b0e82bb}{wifi\+\_\+statu\+\_\+connect\+\_\+ap\+\_\+begin}}, 
+\mbox{\hyperlink{adri__wifi_connect_8h_adc2b6013454c5dc95efb0a368d99ed8ca882d20a3bf789f47250c6d78716f34d1}{wifi\+\_\+statu\+\_\+connect\+\_\+ap\+\_\+succes}}, 
+\mbox{\hyperlink{adri__wifi_connect_8h_adc2b6013454c5dc95efb0a368d99ed8caf7d3fe2fc397e7d71939b86aa254ae9f}{wifi\+\_\+statu\+\_\+connect\+\_\+ap\+\_\+id\+Fail}}, 
+\newline
+\mbox{\hyperlink{adri__wifi_connect_8h_adc2b6013454c5dc95efb0a368d99ed8ca71c683a5fb46d87fd6d2b8cabd09787c}{wifi\+\_\+statu\+\_\+connect\+\_\+ap\+\_\+co\+Fail}}, 
+\mbox{\hyperlink{adri__wifi_connect_8h_adc2b6013454c5dc95efb0a368d99ed8ca4df86e25da0932d30917a51e35695f06}{wifi\+\_\+statu\+\_\+connect\+\_\+sta\+\_\+begin}}, 
+\mbox{\hyperlink{adri__wifi_connect_8h_adc2b6013454c5dc95efb0a368d99ed8cab2bda3c65cef316d5b837a5a235812a3}{wifi\+\_\+statu\+\_\+connect\+\_\+sta\+\_\+succes}}, 
+\mbox{\hyperlink{adri__wifi_connect_8h_adc2b6013454c5dc95efb0a368d99ed8ca94e4a8a70b3d7ac43538fd00d6344af9}{wifi\+\_\+statu\+\_\+connect\+\_\+sta\+\_\+co\+Fail}}, 
+\newline
+\mbox{\hyperlink{adri__wifi_connect_8h_adc2b6013454c5dc95efb0a368d99ed8ca6cea585b6ee0811c4337035b5c544a51}{wifi\+\_\+statu\+\_\+connect\+\_\+sta\+\_\+id\+Fail}}, 
+\mbox{\hyperlink{adri__wifi_connect_8h_adc2b6013454c5dc95efb0a368d99ed8cabda490566b406a0816f337694b26eb6a}{wifi\+\_\+statu\+\_\+sta\+\_\+begin}}, 
+\mbox{\hyperlink{adri__wifi_connect_8h_adc2b6013454c5dc95efb0a368d99ed8cadad6d57cddee8ab439ed62d9e583a18f}{wifi\+\_\+statu\+\_\+sta\+\_\+search}}, 
+\mbox{\hyperlink{adri__wifi_connect_8h_adc2b6013454c5dc95efb0a368d99ed8ca71f1ff7b91409c93e399c77569bed9d1}{wifi\+\_\+statu\+\_\+sta\+\_\+isconnected}}, 
+\newline
+\mbox{\hyperlink{adri__wifi_connect_8h_adc2b6013454c5dc95efb0a368d99ed8ca6973fb5392b41ea805d4edc62d792f16}{wifi\+\_\+statu\+\_\+sta\+\_\+fail}}
+ \}
+\end{DoxyCompactItemize}
+\doxysubsection*{Functions}
+\begin{DoxyCompactItemize}
+\item 
+void \mbox{\hyperlink{adri__wifi_connect_8h_a028ee4178f8c08d1cf289676386b0521}{wifi\+\_\+credential\+\_\+set}} (int pos, String ssid, String psk, String ip, String subnet, String gateway)
+\item 
+void \mbox{\hyperlink{adri__wifi_connect_8h_a827f149557e2a907d450240c00403dfb}{wifi\+\_\+credential\+\_\+sta\+\_\+from\+S\+P\+I\+FF}} ()
+\item 
+boolean \mbox{\hyperlink{adri__wifi_connect_8h_a1f87c7fa26dd4abb02adf68f90e1a504}{wifi\+\_\+credential\+\_\+sta\+\_\+to\+Spiff}} ()
+\item 
+void \mbox{\hyperlink{adri__wifi_connect_8h_afd69cba30050c375de4afbda1a698d9a}{wifi\+\_\+credential\+\_\+sta\+\_\+print}} ()
+\item 
+\mbox{\hyperlink{classwifi__credential__sta}{wifi\+\_\+credential\+\_\+sta}} $\ast$ \mbox{\hyperlink{adri__wifi_connect_8h_afdfb26da2162da828f559b7610362716}{wifi\+\_\+credential\+\_\+get}} (int pos)
+\item 
+boolean \mbox{\hyperlink{adri__wifi_connect_8h_a3e936baacc1a04b5fff47359ec708be8}{wifi\+\_\+connect\+\_\+result}} ()
+\item 
+boolean \mbox{\hyperlink{adri__wifi_connect_8h_ab8466ed8a86d80f17047a1ac936f0f67}{is\+Valid\+Ip}} (String ip)
+\item 
+boolean \mbox{\hyperlink{adri__wifi_connect_8h_a33516f4e3ab72ccf15ee1880851153d0}{is\+Valid\+Ip}} (const char $\ast$string)
+\item 
+boolean \mbox{\hyperlink{adri__wifi_connect_8h_ab7f16c1ecbf10685bc3757c9163d6ed3}{is\+Valid\+Ip}} (String s\+Ip, String s\+Subnet, String s\+Gateway)
+\item 
+wl\+\_\+status\+\_\+t \mbox{\hyperlink{adri__wifi_connect_8h_a90ca212743bbde6bda5fedd02271a6b4}{E\+S\+P8266\+Wi\+Fi\+Multi\+\_\+run}} (\mbox{\hyperlink{classwifi_connect}{wifi\+Connect}} $\ast$obj, Wi\+Fi\+Mode\+\_\+t mod, \mbox{\hyperlink{adri__wifi_connect_8h_a35cfdd4ffe96d333e5ed31188014e548}{wifi\+Connect\+\_\+progress}} $\ast$\+\_\+porgress)
+\item 
+void \mbox{\hyperlink{adri__wifi_connect_8h_af9db9035c37c50aadba66b266d78a80b}{wifi\+Connect\+\_\+connect\+\_\+sta\+\_\+normal}} (char $\ast$ssid, char $\ast$password, Wi\+Fi\+Mode\+\_\+t mod, \mbox{\hyperlink{adri__wifi_connect_8h_a35cfdd4ffe96d333e5ed31188014e548}{wifi\+Connect\+\_\+progress}} $\ast$\+\_\+porgress)
+\end{DoxyCompactItemize}
+\doxysubsection*{Variables}
+\begin{DoxyCompactItemize}
+\item 
+\mbox{\hyperlink{classwifi__credential__ap}{wifi\+\_\+credential\+\_\+ap}} \mbox{\hyperlink{adri__wifi_connect_8h_a62cde798a5cc26f7d5b539ba520bf0b4}{wifi\+\_\+credential\+\_\+\+AP}}
+\end{DoxyCompactItemize}
+
+
+\doxysubsection{Macro Definition Documentation}
+\mbox{\Hypertarget{adri__wifi_connect_8h_a33bea25386056480931654441d172e5d}\label{adri__wifi_connect_8h_a33bea25386056480931654441d172e5d}} 
+\index{adri\_wifiConnect.h@{adri\_wifiConnect.h}!CREDENTIAL\_FILENAME@{CREDENTIAL\_FILENAME}}
+\index{CREDENTIAL\_FILENAME@{CREDENTIAL\_FILENAME}!adri\_wifiConnect.h@{adri\_wifiConnect.h}}
+\doxysubsubsection{\texorpdfstring{CREDENTIAL\_FILENAME}{CREDENTIAL\_FILENAME}}
+{\footnotesize\ttfamily \#define C\+R\+E\+D\+E\+N\+T\+I\+A\+L\+\_\+\+F\+I\+L\+E\+N\+A\+ME~String(\char`\"{}wifi\+\_\+credential\char`\"{})}
+
+
+
+Definition at line 19 of file adri\+\_\+wifi\+Connect.\+h.
+
+\mbox{\Hypertarget{adri__wifi_connect_8h_ad9ef1ce3b047f7c8427b2e146d21f9cd}\label{adri__wifi_connect_8h_ad9ef1ce3b047f7c8427b2e146d21f9cd}} 
+\index{adri\_wifiConnect.h@{adri\_wifiConnect.h}!CREDENTIAL\_MAX@{CREDENTIAL\_MAX}}
+\index{CREDENTIAL\_MAX@{CREDENTIAL\_MAX}!adri\_wifiConnect.h@{adri\_wifiConnect.h}}
+\doxysubsubsection{\texorpdfstring{CREDENTIAL\_MAX}{CREDENTIAL\_MAX}}
+{\footnotesize\ttfamily \#define C\+R\+E\+D\+E\+N\+T\+I\+A\+L\+\_\+\+M\+AX~3}
+
+
+
+Definition at line 17 of file adri\+\_\+wifi\+Connect.\+h.
+
+\mbox{\Hypertarget{adri__wifi_connect_8h_aa03d8563ef93d3d523bad13208c5c089}\label{adri__wifi_connect_8h_aa03d8563ef93d3d523bad13208c5c089}} 
+\index{adri\_wifiConnect.h@{adri\_wifiConnect.h}!CREDENTIALAP\_FILENAME@{CREDENTIALAP\_FILENAME}}
+\index{CREDENTIALAP\_FILENAME@{CREDENTIALAP\_FILENAME}!adri\_wifiConnect.h@{adri\_wifiConnect.h}}
+\doxysubsubsection{\texorpdfstring{CREDENTIALAP\_FILENAME}{CREDENTIALAP\_FILENAME}}
+{\footnotesize\ttfamily \#define C\+R\+E\+D\+E\+N\+T\+I\+A\+L\+A\+P\+\_\+\+F\+I\+L\+E\+N\+A\+ME~String(\char`\"{}wifi\+\_\+credential\+Ap\char`\"{})}
+
+
+
+Definition at line 20 of file adri\+\_\+wifi\+Connect.\+h.
+
+\mbox{\Hypertarget{adri__wifi_connect_8h_ade19429144f9f0feafd5970694826901}\label{adri__wifi_connect_8h_ade19429144f9f0feafd5970694826901}} 
+\index{adri\_wifiConnect.h@{adri\_wifiConnect.h}!CREDENTIALAp\_MAX@{CREDENTIALAp\_MAX}}
+\index{CREDENTIALAp\_MAX@{CREDENTIALAp\_MAX}!adri\_wifiConnect.h@{adri\_wifiConnect.h}}
+\doxysubsubsection{\texorpdfstring{CREDENTIALAp\_MAX}{CREDENTIALAp\_MAX}}
+{\footnotesize\ttfamily \#define C\+R\+E\+D\+E\+N\+T\+I\+A\+L\+Ap\+\_\+\+M\+AX~1}
+
+
+
+Definition at line 18 of file adri\+\_\+wifi\+Connect.\+h.
+
+\mbox{\Hypertarget{adri__wifi_connect_8h_aacf1a7905a5fed30bd8e848cb0538717}\label{adri__wifi_connect_8h_aacf1a7905a5fed30bd8e848cb0538717}} 
+\index{adri\_wifiConnect.h@{adri\_wifiConnect.h}!WIFICONNECT\_FILENAME@{WIFICONNECT\_FILENAME}}
+\index{WIFICONNECT\_FILENAME@{WIFICONNECT\_FILENAME}!adri\_wifiConnect.h@{adri\_wifiConnect.h}}
+\doxysubsubsection{\texorpdfstring{WIFICONNECT\_FILENAME}{WIFICONNECT\_FILENAME}}
+{\footnotesize\ttfamily \#define W\+I\+F\+I\+C\+O\+N\+N\+E\+C\+T\+\_\+\+F\+I\+L\+E\+N\+A\+ME~String(\char`\"{}wifi\+\_\+connect\char`\"{})}
+
+
+
+Definition at line 21 of file adri\+\_\+wifi\+Connect.\+h.
+
+
+
+\doxysubsection{Typedef Documentation}
+\mbox{\Hypertarget{adri__wifi_connect_8h_a35cfdd4ffe96d333e5ed31188014e548}\label{adri__wifi_connect_8h_a35cfdd4ffe96d333e5ed31188014e548}} 
+\index{adri\_wifiConnect.h@{adri\_wifiConnect.h}!wifiConnect\_progress@{wifiConnect\_progress}}
+\index{wifiConnect\_progress@{wifiConnect\_progress}!adri\_wifiConnect.h@{adri\_wifiConnect.h}}
+\doxysubsubsection{\texorpdfstring{wifiConnect\_progress}{wifiConnect\_progress}}
+{\footnotesize\ttfamily typedef void($\ast$ wifi\+Connect\+\_\+progress) (int x)}
+
+
+
+Definition at line 152 of file adri\+\_\+wifi\+Connect.\+h.
+
+
+
+\doxysubsection{Enumeration Type Documentation}
+\mbox{\Hypertarget{adri__wifi_connect_8h_adc2b6013454c5dc95efb0a368d99ed8c}\label{adri__wifi_connect_8h_adc2b6013454c5dc95efb0a368d99ed8c}} 
+\index{adri\_wifiConnect.h@{adri\_wifiConnect.h}!WIFI\_STATU@{WIFI\_STATU}}
+\index{WIFI\_STATU@{WIFI\_STATU}!adri\_wifiConnect.h@{adri\_wifiConnect.h}}
+\doxysubsubsection{\texorpdfstring{WIFI\_STATU}{WIFI\_STATU}}
+{\footnotesize\ttfamily enum \mbox{\hyperlink{adri__wifi_connect_8h_adc2b6013454c5dc95efb0a368d99ed8c}{W\+I\+F\+I\+\_\+\+S\+T\+A\+TU}}}
+
+\begin{DoxyEnumFields}{Enumerator}
+\raisebox{\heightof{T}}[0pt][0pt]{\index{wifi\_statu\_none@{wifi\_statu\_none}!adri\_wifiConnect.h@{adri\_wifiConnect.h}}\index{adri\_wifiConnect.h@{adri\_wifiConnect.h}!wifi\_statu\_none@{wifi\_statu\_none}}}\mbox{\Hypertarget{adri__wifi_connect_8h_adc2b6013454c5dc95efb0a368d99ed8ca8af560715044eaa6d2e7221bc7af0129}\label{adri__wifi_connect_8h_adc2b6013454c5dc95efb0a368d99ed8ca8af560715044eaa6d2e7221bc7af0129}} 
+wifi\+\_\+statu\+\_\+none&\\
+\hline
+
+\raisebox{\heightof{T}}[0pt][0pt]{\index{wifi\_statu\_connect\_ap\_begin@{wifi\_statu\_connect\_ap\_begin}!adri\_wifiConnect.h@{adri\_wifiConnect.h}}\index{adri\_wifiConnect.h@{adri\_wifiConnect.h}!wifi\_statu\_connect\_ap\_begin@{wifi\_statu\_connect\_ap\_begin}}}\mbox{\Hypertarget{adri__wifi_connect_8h_adc2b6013454c5dc95efb0a368d99ed8ca0fd1e59a6bd07f1b64c6ef7c5b0e82bb}\label{adri__wifi_connect_8h_adc2b6013454c5dc95efb0a368d99ed8ca0fd1e59a6bd07f1b64c6ef7c5b0e82bb}} 
+wifi\+\_\+statu\+\_\+connect\+\_\+ap\+\_\+begin&\\
+\hline
+
+\raisebox{\heightof{T}}[0pt][0pt]{\index{wifi\_statu\_connect\_ap\_succes@{wifi\_statu\_connect\_ap\_succes}!adri\_wifiConnect.h@{adri\_wifiConnect.h}}\index{adri\_wifiConnect.h@{adri\_wifiConnect.h}!wifi\_statu\_connect\_ap\_succes@{wifi\_statu\_connect\_ap\_succes}}}\mbox{\Hypertarget{adri__wifi_connect_8h_adc2b6013454c5dc95efb0a368d99ed8ca882d20a3bf789f47250c6d78716f34d1}\label{adri__wifi_connect_8h_adc2b6013454c5dc95efb0a368d99ed8ca882d20a3bf789f47250c6d78716f34d1}} 
+wifi\+\_\+statu\+\_\+connect\+\_\+ap\+\_\+succes&\\
+\hline
+
+\raisebox{\heightof{T}}[0pt][0pt]{\index{wifi\_statu\_connect\_ap\_idFail@{wifi\_statu\_connect\_ap\_idFail}!adri\_wifiConnect.h@{adri\_wifiConnect.h}}\index{adri\_wifiConnect.h@{adri\_wifiConnect.h}!wifi\_statu\_connect\_ap\_idFail@{wifi\_statu\_connect\_ap\_idFail}}}\mbox{\Hypertarget{adri__wifi_connect_8h_adc2b6013454c5dc95efb0a368d99ed8caf7d3fe2fc397e7d71939b86aa254ae9f}\label{adri__wifi_connect_8h_adc2b6013454c5dc95efb0a368d99ed8caf7d3fe2fc397e7d71939b86aa254ae9f}} 
+wifi\+\_\+statu\+\_\+connect\+\_\+ap\+\_\+id\+Fail&\\
+\hline
+
+\raisebox{\heightof{T}}[0pt][0pt]{\index{wifi\_statu\_connect\_ap\_coFail@{wifi\_statu\_connect\_ap\_coFail}!adri\_wifiConnect.h@{adri\_wifiConnect.h}}\index{adri\_wifiConnect.h@{adri\_wifiConnect.h}!wifi\_statu\_connect\_ap\_coFail@{wifi\_statu\_connect\_ap\_coFail}}}\mbox{\Hypertarget{adri__wifi_connect_8h_adc2b6013454c5dc95efb0a368d99ed8ca71c683a5fb46d87fd6d2b8cabd09787c}\label{adri__wifi_connect_8h_adc2b6013454c5dc95efb0a368d99ed8ca71c683a5fb46d87fd6d2b8cabd09787c}} 
+wifi\+\_\+statu\+\_\+connect\+\_\+ap\+\_\+co\+Fail&\\
+\hline
+
+\raisebox{\heightof{T}}[0pt][0pt]{\index{wifi\_statu\_connect\_sta\_begin@{wifi\_statu\_connect\_sta\_begin}!adri\_wifiConnect.h@{adri\_wifiConnect.h}}\index{adri\_wifiConnect.h@{adri\_wifiConnect.h}!wifi\_statu\_connect\_sta\_begin@{wifi\_statu\_connect\_sta\_begin}}}\mbox{\Hypertarget{adri__wifi_connect_8h_adc2b6013454c5dc95efb0a368d99ed8ca4df86e25da0932d30917a51e35695f06}\label{adri__wifi_connect_8h_adc2b6013454c5dc95efb0a368d99ed8ca4df86e25da0932d30917a51e35695f06}} 
+wifi\+\_\+statu\+\_\+connect\+\_\+sta\+\_\+begin&\\
+\hline
+
+\raisebox{\heightof{T}}[0pt][0pt]{\index{wifi\_statu\_connect\_sta\_succes@{wifi\_statu\_connect\_sta\_succes}!adri\_wifiConnect.h@{adri\_wifiConnect.h}}\index{adri\_wifiConnect.h@{adri\_wifiConnect.h}!wifi\_statu\_connect\_sta\_succes@{wifi\_statu\_connect\_sta\_succes}}}\mbox{\Hypertarget{adri__wifi_connect_8h_adc2b6013454c5dc95efb0a368d99ed8cab2bda3c65cef316d5b837a5a235812a3}\label{adri__wifi_connect_8h_adc2b6013454c5dc95efb0a368d99ed8cab2bda3c65cef316d5b837a5a235812a3}} 
+wifi\+\_\+statu\+\_\+connect\+\_\+sta\+\_\+succes&\\
+\hline
+
+\raisebox{\heightof{T}}[0pt][0pt]{\index{wifi\_statu\_connect\_sta\_coFail@{wifi\_statu\_connect\_sta\_coFail}!adri\_wifiConnect.h@{adri\_wifiConnect.h}}\index{adri\_wifiConnect.h@{adri\_wifiConnect.h}!wifi\_statu\_connect\_sta\_coFail@{wifi\_statu\_connect\_sta\_coFail}}}\mbox{\Hypertarget{adri__wifi_connect_8h_adc2b6013454c5dc95efb0a368d99ed8ca94e4a8a70b3d7ac43538fd00d6344af9}\label{adri__wifi_connect_8h_adc2b6013454c5dc95efb0a368d99ed8ca94e4a8a70b3d7ac43538fd00d6344af9}} 
+wifi\+\_\+statu\+\_\+connect\+\_\+sta\+\_\+co\+Fail&\\
+\hline
+
+\raisebox{\heightof{T}}[0pt][0pt]{\index{wifi\_statu\_connect\_sta\_idFail@{wifi\_statu\_connect\_sta\_idFail}!adri\_wifiConnect.h@{adri\_wifiConnect.h}}\index{adri\_wifiConnect.h@{adri\_wifiConnect.h}!wifi\_statu\_connect\_sta\_idFail@{wifi\_statu\_connect\_sta\_idFail}}}\mbox{\Hypertarget{adri__wifi_connect_8h_adc2b6013454c5dc95efb0a368d99ed8ca6cea585b6ee0811c4337035b5c544a51}\label{adri__wifi_connect_8h_adc2b6013454c5dc95efb0a368d99ed8ca6cea585b6ee0811c4337035b5c544a51}} 
+wifi\+\_\+statu\+\_\+connect\+\_\+sta\+\_\+id\+Fail&\\
+\hline
+
+\raisebox{\heightof{T}}[0pt][0pt]{\index{wifi\_statu\_sta\_begin@{wifi\_statu\_sta\_begin}!adri\_wifiConnect.h@{adri\_wifiConnect.h}}\index{adri\_wifiConnect.h@{adri\_wifiConnect.h}!wifi\_statu\_sta\_begin@{wifi\_statu\_sta\_begin}}}\mbox{\Hypertarget{adri__wifi_connect_8h_adc2b6013454c5dc95efb0a368d99ed8cabda490566b406a0816f337694b26eb6a}\label{adri__wifi_connect_8h_adc2b6013454c5dc95efb0a368d99ed8cabda490566b406a0816f337694b26eb6a}} 
+wifi\+\_\+statu\+\_\+sta\+\_\+begin&\\
+\hline
+
+\raisebox{\heightof{T}}[0pt][0pt]{\index{wifi\_statu\_sta\_search@{wifi\_statu\_sta\_search}!adri\_wifiConnect.h@{adri\_wifiConnect.h}}\index{adri\_wifiConnect.h@{adri\_wifiConnect.h}!wifi\_statu\_sta\_search@{wifi\_statu\_sta\_search}}}\mbox{\Hypertarget{adri__wifi_connect_8h_adc2b6013454c5dc95efb0a368d99ed8cadad6d57cddee8ab439ed62d9e583a18f}\label{adri__wifi_connect_8h_adc2b6013454c5dc95efb0a368d99ed8cadad6d57cddee8ab439ed62d9e583a18f}} 
+wifi\+\_\+statu\+\_\+sta\+\_\+search&\\
+\hline
+
+\raisebox{\heightof{T}}[0pt][0pt]{\index{wifi\_statu\_sta\_isconnected@{wifi\_statu\_sta\_isconnected}!adri\_wifiConnect.h@{adri\_wifiConnect.h}}\index{adri\_wifiConnect.h@{adri\_wifiConnect.h}!wifi\_statu\_sta\_isconnected@{wifi\_statu\_sta\_isconnected}}}\mbox{\Hypertarget{adri__wifi_connect_8h_adc2b6013454c5dc95efb0a368d99ed8ca71f1ff7b91409c93e399c77569bed9d1}\label{adri__wifi_connect_8h_adc2b6013454c5dc95efb0a368d99ed8ca71f1ff7b91409c93e399c77569bed9d1}} 
+wifi\+\_\+statu\+\_\+sta\+\_\+isconnected&\\
+\hline
+
+\raisebox{\heightof{T}}[0pt][0pt]{\index{wifi\_statu\_sta\_fail@{wifi\_statu\_sta\_fail}!adri\_wifiConnect.h@{adri\_wifiConnect.h}}\index{adri\_wifiConnect.h@{adri\_wifiConnect.h}!wifi\_statu\_sta\_fail@{wifi\_statu\_sta\_fail}}}\mbox{\Hypertarget{adri__wifi_connect_8h_adc2b6013454c5dc95efb0a368d99ed8ca6973fb5392b41ea805d4edc62d792f16}\label{adri__wifi_connect_8h_adc2b6013454c5dc95efb0a368d99ed8ca6973fb5392b41ea805d4edc62d792f16}} 
+wifi\+\_\+statu\+\_\+sta\+\_\+fail&\\
+\hline
+
+\end{DoxyEnumFields}
+
+
+Definition at line 133 of file adri\+\_\+wifi\+Connect.\+h.
+
+\mbox{\Hypertarget{adri__wifi_connect_8h_a25893425af8c4c64f2fe6dadafdae78d}\label{adri__wifi_connect_8h_a25893425af8c4c64f2fe6dadafdae78d}} 
+\index{adri\_wifiConnect.h@{adri\_wifiConnect.h}!WIFICONFIGIP\_MOD@{WIFICONFIGIP\_MOD}}
+\index{WIFICONFIGIP\_MOD@{WIFICONFIGIP\_MOD}!adri\_wifiConnect.h@{adri\_wifiConnect.h}}
+\doxysubsubsection{\texorpdfstring{WIFICONFIGIP\_MOD}{WIFICONFIGIP\_MOD}}
+{\footnotesize\ttfamily enum \mbox{\hyperlink{adri__wifi_connect_8h_a25893425af8c4c64f2fe6dadafdae78d}{W\+I\+F\+I\+C\+O\+N\+F\+I\+G\+I\+P\+\_\+\+M\+OD}}}
+
+\begin{DoxyEnumFields}{Enumerator}
+\raisebox{\heightof{T}}[0pt][0pt]{\index{AWIP\_IP@{AWIP\_IP}!adri\_wifiConnect.h@{adri\_wifiConnect.h}}\index{adri\_wifiConnect.h@{adri\_wifiConnect.h}!AWIP\_IP@{AWIP\_IP}}}\mbox{\Hypertarget{adri__wifi_connect_8h_a25893425af8c4c64f2fe6dadafdae78dadca0b5d14ef1674e6f0d0d9945683433}\label{adri__wifi_connect_8h_a25893425af8c4c64f2fe6dadafdae78dadca0b5d14ef1674e6f0d0d9945683433}} 
+A\+W\+I\+P\+\_\+\+IP&\\
+\hline
+
+\raisebox{\heightof{T}}[0pt][0pt]{\index{AWIP\_NOIP@{AWIP\_NOIP}!adri\_wifiConnect.h@{adri\_wifiConnect.h}}\index{adri\_wifiConnect.h@{adri\_wifiConnect.h}!AWIP\_NOIP@{AWIP\_NOIP}}}\mbox{\Hypertarget{adri__wifi_connect_8h_a25893425af8c4c64f2fe6dadafdae78da8e42e3332fdd9677cda61e50462d9c9b}\label{adri__wifi_connect_8h_a25893425af8c4c64f2fe6dadafdae78da8e42e3332fdd9677cda61e50462d9c9b}} 
+A\+W\+I\+P\+\_\+\+N\+O\+IP&\\
+\hline
+
+\end{DoxyEnumFields}
+
+
+Definition at line 129 of file adri\+\_\+wifi\+Connect.\+h.
+
+\mbox{\Hypertarget{adri__wifi_connect_8h_a2731a80e0a34be772cdcc6a48639677f}\label{adri__wifi_connect_8h_a2731a80e0a34be772cdcc6a48639677f}} 
+\index{adri\_wifiConnect.h@{adri\_wifiConnect.h}!WIFICONNECT\_MOD@{WIFICONNECT\_MOD}}
+\index{WIFICONNECT\_MOD@{WIFICONNECT\_MOD}!adri\_wifiConnect.h@{adri\_wifiConnect.h}}
+\doxysubsubsection{\texorpdfstring{WIFICONNECT\_MOD}{WIFICONNECT\_MOD}}
+{\footnotesize\ttfamily enum \mbox{\hyperlink{adri__wifi_connect_8h_a2731a80e0a34be772cdcc6a48639677f}{W\+I\+F\+I\+C\+O\+N\+N\+E\+C\+T\+\_\+\+M\+OD}}}
+
+\begin{DoxyEnumFields}{Enumerator}
+\raisebox{\heightof{T}}[0pt][0pt]{\index{AWC\_LOOP@{AWC\_LOOP}!adri\_wifiConnect.h@{adri\_wifiConnect.h}}\index{adri\_wifiConnect.h@{adri\_wifiConnect.h}!AWC\_LOOP@{AWC\_LOOP}}}\mbox{\Hypertarget{adri__wifi_connect_8h_a2731a80e0a34be772cdcc6a48639677fa31b6c6a409b9a42705a7982b7748956a}\label{adri__wifi_connect_8h_a2731a80e0a34be772cdcc6a48639677fa31b6c6a409b9a42705a7982b7748956a}} 
+A\+W\+C\+\_\+\+L\+O\+OP&\\
+\hline
+
+\raisebox{\heightof{T}}[0pt][0pt]{\index{AWC\_SETUP@{AWC\_SETUP}!adri\_wifiConnect.h@{adri\_wifiConnect.h}}\index{adri\_wifiConnect.h@{adri\_wifiConnect.h}!AWC\_SETUP@{AWC\_SETUP}}}\mbox{\Hypertarget{adri__wifi_connect_8h_a2731a80e0a34be772cdcc6a48639677fa6cdfa3a7d4f98d3f75ae71ddaa7a2413}\label{adri__wifi_connect_8h_a2731a80e0a34be772cdcc6a48639677fa6cdfa3a7d4f98d3f75ae71ddaa7a2413}} 
+A\+W\+C\+\_\+\+S\+E\+T\+UP&\\
+\hline
+
+\end{DoxyEnumFields}
+
+
+Definition at line 119 of file adri\+\_\+wifi\+Connect.\+h.
+
+\mbox{\Hypertarget{adri__wifi_connect_8h_aad73d10f4999d6e1a0378c5b3978bf33}\label{adri__wifi_connect_8h_aad73d10f4999d6e1a0378c5b3978bf33}} 
+\index{adri\_wifiConnect.h@{adri\_wifiConnect.h}!WIFICONNECTSSID\_MOD@{WIFICONNECTSSID\_MOD}}
+\index{WIFICONNECTSSID\_MOD@{WIFICONNECTSSID\_MOD}!adri\_wifiConnect.h@{adri\_wifiConnect.h}}
+\doxysubsubsection{\texorpdfstring{WIFICONNECTSSID\_MOD}{WIFICONNECTSSID\_MOD}}
+{\footnotesize\ttfamily enum \mbox{\hyperlink{adri__wifi_connect_8h_aad73d10f4999d6e1a0378c5b3978bf33}{W\+I\+F\+I\+C\+O\+N\+N\+E\+C\+T\+S\+S\+I\+D\+\_\+\+M\+OD}}}
+
+\begin{DoxyEnumFields}{Enumerator}
+\raisebox{\heightof{T}}[0pt][0pt]{\index{AWCS\_MULTI@{AWCS\_MULTI}!adri\_wifiConnect.h@{adri\_wifiConnect.h}}\index{adri\_wifiConnect.h@{adri\_wifiConnect.h}!AWCS\_MULTI@{AWCS\_MULTI}}}\mbox{\Hypertarget{adri__wifi_connect_8h_aad73d10f4999d6e1a0378c5b3978bf33aff49dc5844221513d1274dcded2307ff}\label{adri__wifi_connect_8h_aad73d10f4999d6e1a0378c5b3978bf33aff49dc5844221513d1274dcded2307ff}} 
+A\+W\+C\+S\+\_\+\+M\+U\+L\+TI&\\
+\hline
+
+\raisebox{\heightof{T}}[0pt][0pt]{\index{AWCS\_AP@{AWCS\_AP}!adri\_wifiConnect.h@{adri\_wifiConnect.h}}\index{adri\_wifiConnect.h@{adri\_wifiConnect.h}!AWCS\_AP@{AWCS\_AP}}}\mbox{\Hypertarget{adri__wifi_connect_8h_aad73d10f4999d6e1a0378c5b3978bf33a2ad6bb3ebe1aa034bec10f9c47c94d7a}\label{adri__wifi_connect_8h_aad73d10f4999d6e1a0378c5b3978bf33a2ad6bb3ebe1aa034bec10f9c47c94d7a}} 
+A\+W\+C\+S\+\_\+\+AP&\\
+\hline
+
+\raisebox{\heightof{T}}[0pt][0pt]{\index{AWCS\_NORMAL@{AWCS\_NORMAL}!adri\_wifiConnect.h@{adri\_wifiConnect.h}}\index{adri\_wifiConnect.h@{adri\_wifiConnect.h}!AWCS\_NORMAL@{AWCS\_NORMAL}}}\mbox{\Hypertarget{adri__wifi_connect_8h_aad73d10f4999d6e1a0378c5b3978bf33acd4ab57845abaadd2f12c0d2339fa877}\label{adri__wifi_connect_8h_aad73d10f4999d6e1a0378c5b3978bf33acd4ab57845abaadd2f12c0d2339fa877}} 
+A\+W\+C\+S\+\_\+\+N\+O\+R\+M\+AL&\\
+\hline
+
+\raisebox{\heightof{T}}[0pt][0pt]{\index{AWCS\_FAIL@{AWCS\_FAIL}!adri\_wifiConnect.h@{adri\_wifiConnect.h}}\index{adri\_wifiConnect.h@{adri\_wifiConnect.h}!AWCS\_FAIL@{AWCS\_FAIL}}}\mbox{\Hypertarget{adri__wifi_connect_8h_aad73d10f4999d6e1a0378c5b3978bf33a6d3e1ceab34e81468333ff985366a2ab}\label{adri__wifi_connect_8h_aad73d10f4999d6e1a0378c5b3978bf33a6d3e1ceab34e81468333ff985366a2ab}} 
+A\+W\+C\+S\+\_\+\+F\+A\+IL&\\
+\hline
+
+\end{DoxyEnumFields}
+
+
+Definition at line 123 of file adri\+\_\+wifi\+Connect.\+h.
+
+
+
+\doxysubsection{Function Documentation}
+\mbox{\Hypertarget{adri__wifi_connect_8h_a90ca212743bbde6bda5fedd02271a6b4}\label{adri__wifi_connect_8h_a90ca212743bbde6bda5fedd02271a6b4}} 
+\index{adri\_wifiConnect.h@{adri\_wifiConnect.h}!ESP8266WiFiMulti\_run@{ESP8266WiFiMulti\_run}}
+\index{ESP8266WiFiMulti\_run@{ESP8266WiFiMulti\_run}!adri\_wifiConnect.h@{adri\_wifiConnect.h}}
+\doxysubsubsection{\texorpdfstring{ESP8266WiFiMulti\_run()}{ESP8266WiFiMulti\_run()}}
+{\footnotesize\ttfamily wl\+\_\+status\+\_\+t E\+S\+P8266\+Wi\+Fi\+Multi\+\_\+run (\begin{DoxyParamCaption}\item[{\mbox{\hyperlink{classwifi_connect}{wifi\+Connect}} $\ast$}]{obj,  }\item[{Wi\+Fi\+Mode\+\_\+t}]{mod,  }\item[{\mbox{\hyperlink{adri__wifi_connect_8h_a35cfdd4ffe96d333e5ed31188014e548}{wifi\+Connect\+\_\+progress}} $\ast$}]{\+\_\+porgress }\end{DoxyParamCaption})}
+
+
+
+Definition at line 1223 of file adri\+\_\+wifi\+Connect.\+cpp.
+
+\mbox{\Hypertarget{adri__wifi_connect_8h_a33516f4e3ab72ccf15ee1880851153d0}\label{adri__wifi_connect_8h_a33516f4e3ab72ccf15ee1880851153d0}} 
+\index{adri\_wifiConnect.h@{adri\_wifiConnect.h}!isValidIp@{isValidIp}}
+\index{isValidIp@{isValidIp}!adri\_wifiConnect.h@{adri\_wifiConnect.h}}
+\doxysubsubsection{\texorpdfstring{isValidIp()}{isValidIp()}\hspace{0.1cm}{\footnotesize\ttfamily [1/3]}}
+{\footnotesize\ttfamily boolean is\+Valid\+Ip (\begin{DoxyParamCaption}\item[{const char $\ast$}]{string }\end{DoxyParamCaption})}
+
+
+
+Definition at line 1023 of file adri\+\_\+wifi\+Connect.\+cpp.
+
+\mbox{\Hypertarget{adri__wifi_connect_8h_ab8466ed8a86d80f17047a1ac936f0f67}\label{adri__wifi_connect_8h_ab8466ed8a86d80f17047a1ac936f0f67}} 
+\index{adri\_wifiConnect.h@{adri\_wifiConnect.h}!isValidIp@{isValidIp}}
+\index{isValidIp@{isValidIp}!adri\_wifiConnect.h@{adri\_wifiConnect.h}}
+\doxysubsubsection{\texorpdfstring{isValidIp()}{isValidIp()}\hspace{0.1cm}{\footnotesize\ttfamily [2/3]}}
+{\footnotesize\ttfamily boolean is\+Valid\+Ip (\begin{DoxyParamCaption}\item[{String}]{ip }\end{DoxyParamCaption})}
+
+
+
+Definition at line 1017 of file adri\+\_\+wifi\+Connect.\+cpp.
+
+\mbox{\Hypertarget{adri__wifi_connect_8h_ab7f16c1ecbf10685bc3757c9163d6ed3}\label{adri__wifi_connect_8h_ab7f16c1ecbf10685bc3757c9163d6ed3}} 
+\index{adri\_wifiConnect.h@{adri\_wifiConnect.h}!isValidIp@{isValidIp}}
+\index{isValidIp@{isValidIp}!adri\_wifiConnect.h@{adri\_wifiConnect.h}}
+\doxysubsubsection{\texorpdfstring{isValidIp()}{isValidIp()}\hspace{0.1cm}{\footnotesize\ttfamily [3/3]}}
+{\footnotesize\ttfamily boolean is\+Valid\+Ip (\begin{DoxyParamCaption}\item[{String}]{s\+Ip,  }\item[{String}]{s\+Subnet,  }\item[{String}]{s\+Gateway }\end{DoxyParamCaption})}
+
+
+
+Definition at line 1038 of file adri\+\_\+wifi\+Connect.\+cpp.
+
+\mbox{\Hypertarget{adri__wifi_connect_8h_a3e936baacc1a04b5fff47359ec708be8}\label{adri__wifi_connect_8h_a3e936baacc1a04b5fff47359ec708be8}} 
+\index{adri\_wifiConnect.h@{adri\_wifiConnect.h}!wifi\_connect\_result@{wifi\_connect\_result}}
+\index{wifi\_connect\_result@{wifi\_connect\_result}!adri\_wifiConnect.h@{adri\_wifiConnect.h}}
+\doxysubsubsection{\texorpdfstring{wifi\_connect\_result()}{wifi\_connect\_result()}}
+{\footnotesize\ttfamily boolean wifi\+\_\+connect\+\_\+result (\begin{DoxyParamCaption}{ }\end{DoxyParamCaption})}
+
+
+
+Definition at line 1192 of file adri\+\_\+wifi\+Connect.\+cpp.
+
+\mbox{\Hypertarget{adri__wifi_connect_8h_afdfb26da2162da828f559b7610362716}\label{adri__wifi_connect_8h_afdfb26da2162da828f559b7610362716}} 
+\index{adri\_wifiConnect.h@{adri\_wifiConnect.h}!wifi\_credential\_get@{wifi\_credential\_get}}
+\index{wifi\_credential\_get@{wifi\_credential\_get}!adri\_wifiConnect.h@{adri\_wifiConnect.h}}
+\doxysubsubsection{\texorpdfstring{wifi\_credential\_get()}{wifi\_credential\_get()}}
+{\footnotesize\ttfamily \mbox{\hyperlink{classwifi__credential__sta}{wifi\+\_\+credential\+\_\+sta}}$\ast$ wifi\+\_\+credential\+\_\+get (\begin{DoxyParamCaption}\item[{int}]{pos }\end{DoxyParamCaption})}
+
+
+
+Definition at line 889 of file adri\+\_\+wifi\+Connect.\+cpp.
+
+\mbox{\Hypertarget{adri__wifi_connect_8h_a028ee4178f8c08d1cf289676386b0521}\label{adri__wifi_connect_8h_a028ee4178f8c08d1cf289676386b0521}} 
+\index{adri\_wifiConnect.h@{adri\_wifiConnect.h}!wifi\_credential\_set@{wifi\_credential\_set}}
+\index{wifi\_credential\_set@{wifi\_credential\_set}!adri\_wifiConnect.h@{adri\_wifiConnect.h}}
+\doxysubsubsection{\texorpdfstring{wifi\_credential\_set()}{wifi\_credential\_set()}}
+{\footnotesize\ttfamily void wifi\+\_\+credential\+\_\+set (\begin{DoxyParamCaption}\item[{int}]{pos,  }\item[{String}]{ssid,  }\item[{String}]{psk,  }\item[{String}]{ip,  }\item[{String}]{subnet,  }\item[{String}]{gateway }\end{DoxyParamCaption})}
+
+
+
+Definition at line 877 of file adri\+\_\+wifi\+Connect.\+cpp.
+
+\mbox{\Hypertarget{adri__wifi_connect_8h_a827f149557e2a907d450240c00403dfb}\label{adri__wifi_connect_8h_a827f149557e2a907d450240c00403dfb}} 
+\index{adri\_wifiConnect.h@{adri\_wifiConnect.h}!wifi\_credential\_sta\_fromSPIFF@{wifi\_credential\_sta\_fromSPIFF}}
+\index{wifi\_credential\_sta\_fromSPIFF@{wifi\_credential\_sta\_fromSPIFF}!adri\_wifiConnect.h@{adri\_wifiConnect.h}}
+\doxysubsubsection{\texorpdfstring{wifi\_credential\_sta\_fromSPIFF()}{wifi\_credential\_sta\_fromSPIFF()}}
+{\footnotesize\ttfamily void wifi\+\_\+credential\+\_\+sta\+\_\+from\+S\+P\+I\+FF (\begin{DoxyParamCaption}{ }\end{DoxyParamCaption})}
+
+
+
+Definition at line 893 of file adri\+\_\+wifi\+Connect.\+cpp.
+
+\mbox{\Hypertarget{adri__wifi_connect_8h_afd69cba30050c375de4afbda1a698d9a}\label{adri__wifi_connect_8h_afd69cba30050c375de4afbda1a698d9a}} 
+\index{adri\_wifiConnect.h@{adri\_wifiConnect.h}!wifi\_credential\_sta\_print@{wifi\_credential\_sta\_print}}
+\index{wifi\_credential\_sta\_print@{wifi\_credential\_sta\_print}!adri\_wifiConnect.h@{adri\_wifiConnect.h}}
+\doxysubsubsection{\texorpdfstring{wifi\_credential\_sta\_print()}{wifi\_credential\_sta\_print()}}
+{\footnotesize\ttfamily void wifi\+\_\+credential\+\_\+sta\+\_\+print (\begin{DoxyParamCaption}{ }\end{DoxyParamCaption})}
+
+
+
+Definition at line 926 of file adri\+\_\+wifi\+Connect.\+cpp.
+
+\mbox{\Hypertarget{adri__wifi_connect_8h_a1f87c7fa26dd4abb02adf68f90e1a504}\label{adri__wifi_connect_8h_a1f87c7fa26dd4abb02adf68f90e1a504}} 
+\index{adri\_wifiConnect.h@{adri\_wifiConnect.h}!wifi\_credential\_sta\_toSpiff@{wifi\_credential\_sta\_toSpiff}}
+\index{wifi\_credential\_sta\_toSpiff@{wifi\_credential\_sta\_toSpiff}!adri\_wifiConnect.h@{adri\_wifiConnect.h}}
+\doxysubsubsection{\texorpdfstring{wifi\_credential\_sta\_toSpiff()}{wifi\_credential\_sta\_toSpiff()}}
+{\footnotesize\ttfamily boolean wifi\+\_\+credential\+\_\+sta\+\_\+to\+Spiff (\begin{DoxyParamCaption}{ }\end{DoxyParamCaption})}
+
+
+
+Definition at line 946 of file adri\+\_\+wifi\+Connect.\+cpp.
+
+\mbox{\Hypertarget{adri__wifi_connect_8h_af9db9035c37c50aadba66b266d78a80b}\label{adri__wifi_connect_8h_af9db9035c37c50aadba66b266d78a80b}} 
+\index{adri\_wifiConnect.h@{adri\_wifiConnect.h}!wifiConnect\_connect\_sta\_normal@{wifiConnect\_connect\_sta\_normal}}
+\index{wifiConnect\_connect\_sta\_normal@{wifiConnect\_connect\_sta\_normal}!adri\_wifiConnect.h@{adri\_wifiConnect.h}}
+\doxysubsubsection{\texorpdfstring{wifiConnect\_connect\_sta\_normal()}{wifiConnect\_connect\_sta\_normal()}}
+{\footnotesize\ttfamily void wifi\+Connect\+\_\+connect\+\_\+sta\+\_\+normal (\begin{DoxyParamCaption}\item[{char $\ast$}]{ssid,  }\item[{char $\ast$}]{password,  }\item[{Wi\+Fi\+Mode\+\_\+t}]{mod,  }\item[{\mbox{\hyperlink{adri__wifi_connect_8h_a35cfdd4ffe96d333e5ed31188014e548}{wifi\+Connect\+\_\+progress}} $\ast$}]{\+\_\+porgress }\end{DoxyParamCaption})}
+
+
+
+Definition at line 1070 of file adri\+\_\+wifi\+Connect.\+cpp.
+
+
+
+\doxysubsection{Variable Documentation}
+\mbox{\Hypertarget{adri__wifi_connect_8h_a62cde798a5cc26f7d5b539ba520bf0b4}\label{adri__wifi_connect_8h_a62cde798a5cc26f7d5b539ba520bf0b4}} 
+\index{adri\_wifiConnect.h@{adri\_wifiConnect.h}!wifi\_credential\_AP@{wifi\_credential\_AP}}
+\index{wifi\_credential\_AP@{wifi\_credential\_AP}!adri\_wifiConnect.h@{adri\_wifiConnect.h}}
+\doxysubsubsection{\texorpdfstring{wifi\_credential\_AP}{wifi\_credential\_AP}}
+{\footnotesize\ttfamily \mbox{\hyperlink{classwifi__credential__ap}{wifi\+\_\+credential\+\_\+ap}} wifi\+\_\+credential\+\_\+\+AP}
+

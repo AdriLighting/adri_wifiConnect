@@ -1,0 +1,754 @@
+\hypertarget{adri__wifi_connect_8cpp}{}\doxysection{src/adri\+\_\+wifi\+Connect.cpp File Reference}
+\label{adri__wifi_connect_8cpp}\index{src/adri\_wifiConnect.cpp@{src/adri\_wifiConnect.cpp}}
+
+
+Implements the adri Wi\+Fi connect class.  
+
+
+{\ttfamily \#include \char`\"{}adri\+\_\+wifi\+Connect.\+h\char`\"{}}\newline
+{\ttfamily \#include $<$arduino.\+h$>$}\newline
+{\ttfamily \#include $<$adri\+\_\+tools.\+h$>$}\newline
+\doxysubsection*{Classes}
+\begin{DoxyCompactItemize}
+\item 
+struct \mbox{\hyperlink{struct_wifi_a_p_entry}{Wifi\+A\+P\+Entry}}
+\end{DoxyCompactItemize}
+\doxysubsection*{Macros}
+\begin{DoxyCompactItemize}
+\item 
+\#define \mbox{\hyperlink{adri__wifi_connect_8cpp_a4163b4a4e9d8f2949741962dca6c5944}{A\+R\+R\+A\+Y\+\_\+\+S\+I\+ZE}}(A)~(sizeof(A) / sizeof((A)\mbox{[}0\mbox{]}))
+\item 
+\#define \mbox{\hyperlink{adri__wifi_connect_8cpp_ad72dbcf6d0153db1b8d8a58001feed83}{D\+E\+B\+UG}}
+\item 
+\#define \mbox{\hyperlink{adri__wifi_connect_8cpp_a759cb63fc601fbbe8af6c32901cda6e5}{D\+E\+B\+U\+G\+\_\+\+W\+I\+F\+I\+\_\+\+M\+U\+L\+TI}}(fmt, ...)~Serial.\+printf\+\_\+P( (P\+G\+M\+\_\+P)P\+S\+TR(fmt), \#\#\+\_\+\+\_\+\+V\+A\+\_\+\+A\+R\+G\+S\+\_\+\+\_\+ )
+\item 
+\#define \mbox{\hyperlink{adri__wifi_connect_8cpp_a22907924142a29a0105354709ecc9f49}{D\+E\+B\+U\+G\+\_\+\+E\+S\+P\+\_\+\+W\+I\+FI}}
+\end{DoxyCompactItemize}
+\doxysubsection*{Functions}
+\begin{DoxyCompactItemize}
+\item 
+\mbox{\hyperlink{adri__wifi_connect_8cpp_a6c60cedbe68aee736f88b427df6527cf}{fs}} (awc\+\_\+str\+\_\+connect, \char`\"{}connect startup\char`\"{})
+\item 
+\mbox{\hyperlink{adri__wifi_connect_8cpp_ad3dd836b41b2585788b7e30f5825176c}{fs}} (awc\+\_\+str\+\_\+connect\+S\+S\+ID, \char`\"{}connect ssid\char`\"{})
+\item 
+\mbox{\hyperlink{adri__wifi_connect_8cpp_af0d4908a69e30887324c4ec2ac663034}{fs}} (awc\+\_\+str\+\_\+station, \char`\"{}station mod\char`\"{})
+\item 
+\mbox{\hyperlink{adri__wifi_connect_8cpp_a9fead8e8cf15c4d88e9da648fb78e9df}{fs}} (awc\+\_\+str\+\_\+porgress, \char`\"{}\+\_\+porgress\char`\"{})
+\item 
+\mbox{\hyperlink{adri__wifi_connect_8cpp_ae032538de21ee5e98dd968349a1b33bc}{fs}} (awc\+\_\+str\+\_\+credential, \char`\"{}cred\char`\"{})
+\item 
+\mbox{\hyperlink{adri__wifi_connect_8cpp_a6a783cb98383278c89c5435921def60a}{fs}} (awc\+\_\+str\+\_\+ipmod, \char`\"{}ip mod\char`\"{})
+\item 
+\mbox{\hyperlink{adri__wifi_connect_8cpp_ab9e71d54092b25246ed24b5b66b12eca}{fs}} (awc\+\_\+str\+\_\+statu, \char`\"{}wifi statu\char`\"{})
+\item 
+\mbox{\hyperlink{adri__wifi_connect_8cpp_aa268c37dcc9da330c4ca727159ed02be}{fs}} (awc\+\_\+str\+\_\+ip, \char`\"{}ip\char`\"{})
+\item 
+\mbox{\hyperlink{adri__wifi_connect_8cpp_ae40cb5d3240431ffeb9af78cf495aa42}{fs}} (awc\+\_\+str\+\_\+ssid, \char`\"{}ssid\char`\"{})
+\item 
+\mbox{\hyperlink{adri__wifi_connect_8cpp_a86c031c72d0f59d76b78e8b21e1bb93d}{fs}} (awc\+\_\+str\+\_\+psk, \char`\"{}psk\char`\"{})
+\item 
+\mbox{\hyperlink{adri__wifi_connect_8cpp_aab5878db653382587fc27089182d4e92}{fs}} (awc\+\_\+str\+\_\+subnet, \char`\"{}subnet\char`\"{})
+\item 
+\mbox{\hyperlink{adri__wifi_connect_8cpp_ae1726016b0c576178c4e210dae8a9e72}{fs}} (awc\+\_\+str\+\_\+gateway, \char`\"{}gateway\char`\"{})
+\item 
+void \mbox{\hyperlink{adri__wifi_connect_8cpp_aeaf6c7ae97059b9be95804487ea0d1e0}{build\+\_\+host\+\_\+name}} (char $\ast$hostname\+Prefix)
+\item 
+boolean \mbox{\hyperlink{adri__wifi_connect_8cpp_a0885804315e8235c4c7c4eb9d1926953}{wifi\+\_\+credential\+\_\+ap\+\_\+from\+S\+P\+I\+FF}} (String \&result)
+\begin{DoxyCompactList}\small\item\em load saved ap identifiants from the S\+P\+I\+FF M\+E\+M\+O\+RY \end{DoxyCompactList}\item 
+void \mbox{\hyperlink{adri__wifi_connect_8cpp_ac1fdfcdd76587fbd68812f717c2a5776}{\+\_\+porgress\+\_\+def}} (int v)
+\item 
+void \mbox{\hyperlink{adri__wifi_connect_8cpp_ac4c12a6f912acaaa9e4f579138b808f6}{W\+I\+F\+I\+\_\+\+S\+T\+A\+T\+U\+\_\+to\+String}} (\mbox{\hyperlink{adri__wifi_connect_8h_adc2b6013454c5dc95efb0a368d99ed8c}{W\+I\+F\+I\+\_\+\+S\+T\+A\+TU}} mod, String \&result)
+\item 
+void \mbox{\hyperlink{adri__wifi_connect_8cpp_a321e21c59fa1b62662bae97ab6580e39}{W\+I\+F\+I\+C\+O\+N\+N\+E\+C\+T\+\_\+\+M\+O\+D\+\_\+to\+String}} (\mbox{\hyperlink{adri__wifi_connect_8h_a2731a80e0a34be772cdcc6a48639677f}{W\+I\+F\+I\+C\+O\+N\+N\+E\+C\+T\+\_\+\+M\+OD}} mod, String \&result)
+\item 
+void \mbox{\hyperlink{adri__wifi_connect_8cpp_ac6bf18540211264a104bc9ae5becf28c}{W\+I\+F\+I\+C\+O\+N\+N\+E\+C\+T\+S\+S\+I\+D\+\_\+\+M\+O\+D\+\_\+to\+String}} (\mbox{\hyperlink{adri__wifi_connect_8h_aad73d10f4999d6e1a0378c5b3978bf33}{W\+I\+F\+I\+C\+O\+N\+N\+E\+C\+T\+S\+S\+I\+D\+\_\+\+M\+OD}} mod, String \&result)
+\item 
+void \mbox{\hyperlink{adri__wifi_connect_8cpp_aaf220b4312a8ad17d52cf0324f4ba087}{W\+I\+F\+I\+C\+O\+N\+N\+E\+C\+T\+\_\+\+M\+O\+D\+\_\+string\+To\+Mod}} (String mod, \mbox{\hyperlink{adri__wifi_connect_8h_a2731a80e0a34be772cdcc6a48639677f}{W\+I\+F\+I\+C\+O\+N\+N\+E\+C\+T\+\_\+\+M\+OD}} \&result)
+\item 
+void \mbox{\hyperlink{adri__wifi_connect_8cpp_ae50046882121f75684360706feb3b97e}{W\+I\+F\+I\+C\+O\+N\+N\+E\+C\+T\+S\+S\+I\+D\+\_\+\+M\+O\+D\+\_\+string\+To\+Mod}} (String mod, \mbox{\hyperlink{adri__wifi_connect_8h_aad73d10f4999d6e1a0378c5b3978bf33}{W\+I\+F\+I\+C\+O\+N\+N\+E\+C\+T\+S\+S\+I\+D\+\_\+\+M\+OD}} \&result)
+\item 
+void \mbox{\hyperlink{adri__wifi_connect_8cpp_a0769a8a8bb5fdf51a69270692547490a}{W\+I\+W\+I\+F\+I\+C\+O\+N\+F\+I\+G\+I\+P\+\_\+\+M\+O\+D\+\_\+to\+String}} (\mbox{\hyperlink{adri__wifi_connect_8h_a25893425af8c4c64f2fe6dadafdae78d}{W\+I\+F\+I\+C\+O\+N\+F\+I\+G\+I\+P\+\_\+\+M\+OD}} mod, String \&result)
+\item 
+void \mbox{\hyperlink{adri__wifi_connect_8cpp_ae15e5a3434ab195588e1c4649c274a87}{Wi\+Fi\+Mode\+\_\+t\+\_\+to\+String}} (Wi\+Fi\+Mode\+\_\+t mod, String \&result)
+\item 
+void \mbox{\hyperlink{adri__wifi_connect_8cpp_a79e957dc9e8d18ebbef97dfb13ccf00b}{Wi\+Fi\+Mode\+\_\+t\+\_\+string\+To\+Mod}} (String mod, Wi\+Fi\+Mode\+\_\+t \&result)
+\item 
+String \mbox{\hyperlink{adri__wifi_connect_8cpp_a34956d929bd7956a018ba9aa00716e0a}{wifi\+Connect\+\_\+get\+\_\+ip}} (\mbox{\hyperlink{classwifi_connect}{wifi\+Connect}} $\ast$obj)
+\item 
+String \mbox{\hyperlink{adri__wifi_connect_8cpp_a3e41082afcee3c70eb839e6f839be6a4}{wifi\+Connect\+\_\+get\+\_\+connect}} (\mbox{\hyperlink{classwifi_connect}{wifi\+Connect}} $\ast$obj)
+\item 
+String \mbox{\hyperlink{adri__wifi_connect_8cpp_a7d2772e62812b5b4a24a073293ab52db}{wifi\+Connect\+\_\+get\+\_\+connect\+S\+S\+ID}} (\mbox{\hyperlink{classwifi_connect}{wifi\+Connect}} $\ast$obj)
+\item 
+String \mbox{\hyperlink{adri__wifi_connect_8cpp_abdef0365e43b2090c830f23de0266e87}{wifi\+Connect\+\_\+get\+\_\+station}} (\mbox{\hyperlink{classwifi_connect}{wifi\+Connect}} $\ast$obj)
+\item 
+String \mbox{\hyperlink{adri__wifi_connect_8cpp_a1364f995a34e78cd1d7784473aa4d1b9}{wifi\+Connect\+\_\+get\+\_\+credential\+\_\+sta}} (\mbox{\hyperlink{classwifi_connect}{wifi\+Connect}} $\ast$obj)
+\item 
+boolean \mbox{\hyperlink{adri__wifi_connect_8cpp_adc1a79df112def56b6c2733934a625b2}{wifi\+Connect\+\_\+load\+\_\+from\+S\+P\+I\+FF}} (String \&result)
+\item 
+String \mbox{\hyperlink{adri__wifi_connect_8cpp_af5e38f2612cf69d1e12e5ae27a0bdbe7}{wifi\+\_\+credential\+\_\+sta\+\_\+get\+\_\+ssid}} (\mbox{\hyperlink{classwifi__credential__sta}{wifi\+\_\+credential\+\_\+sta}} $\ast$obj)
+\item 
+String \mbox{\hyperlink{adri__wifi_connect_8cpp_a73f1092d3b4376cd1ca18d3d77052069}{wifi\+\_\+credential\+\_\+sta\+\_\+get\+\_\+psk}} (\mbox{\hyperlink{classwifi__credential__sta}{wifi\+\_\+credential\+\_\+sta}} $\ast$obj)
+\item 
+String \mbox{\hyperlink{adri__wifi_connect_8cpp_ab25d67d1cdeb4aff2a782d64a810a6d9}{wifi\+\_\+credential\+\_\+sta\+\_\+get\+\_\+ip}} (\mbox{\hyperlink{classwifi__credential__sta}{wifi\+\_\+credential\+\_\+sta}} $\ast$obj)
+\item 
+String \mbox{\hyperlink{adri__wifi_connect_8cpp_a8a94632f37e8f7bfa2b5e17abddc15b2}{wifi\+\_\+credential\+\_\+sta\+\_\+get\+\_\+subnet}} (\mbox{\hyperlink{classwifi__credential__sta}{wifi\+\_\+credential\+\_\+sta}} $\ast$obj)
+\item 
+String \mbox{\hyperlink{adri__wifi_connect_8cpp_a4aa7fa97a8a4acc8e319c82e938405ce}{wifi\+\_\+credential\+\_\+sta\+\_\+get\+\_\+gateway}} (\mbox{\hyperlink{classwifi__credential__sta}{wifi\+\_\+credential\+\_\+sta}} $\ast$obj)
+\item 
+boolean \mbox{\hyperlink{adri__wifi_connect_8cpp_a8a97d34a2f335327e49be13ea201fffe}{wifi\+\_\+credential\+\_\+sta\+\_\+from\+S\+P\+I\+FF}} (String $\ast$array)
+\item 
+void \mbox{\hyperlink{adri__wifi_connect_8cpp_a028ee4178f8c08d1cf289676386b0521}{wifi\+\_\+credential\+\_\+set}} (int pos, String ssid, String psk, String ip, String subnet, String gateway)
+\item 
+\mbox{\hyperlink{classwifi__credential__sta}{wifi\+\_\+credential\+\_\+sta}} $\ast$ \mbox{\hyperlink{adri__wifi_connect_8cpp_afdfb26da2162da828f559b7610362716}{wifi\+\_\+credential\+\_\+get}} (int pos)
+\item 
+void \mbox{\hyperlink{adri__wifi_connect_8cpp_a827f149557e2a907d450240c00403dfb}{wifi\+\_\+credential\+\_\+sta\+\_\+from\+S\+P\+I\+FF}} ()
+\item 
+void \mbox{\hyperlink{adri__wifi_connect_8cpp_afd69cba30050c375de4afbda1a698d9a}{wifi\+\_\+credential\+\_\+sta\+\_\+print}} ()
+\item 
+boolean \mbox{\hyperlink{adri__wifi_connect_8cpp_a1f87c7fa26dd4abb02adf68f90e1a504}{wifi\+\_\+credential\+\_\+sta\+\_\+to\+Spiff}} ()
+\item 
+boolean \mbox{\hyperlink{adri__wifi_connect_8cpp_a7eda3efb95f289bfce333e4975dc17f6}{wifi\+\_\+credential\+\_\+sta\+\_\+to\+Spiff}} (String line)
+\item 
+boolean \mbox{\hyperlink{adri__wifi_connect_8cpp_a9441e9b1a57ace9869dd94d809b31a20}{is\+Valid\+Ip}} (String s\+Ip)
+\item 
+boolean \mbox{\hyperlink{adri__wifi_connect_8cpp_a33516f4e3ab72ccf15ee1880851153d0}{is\+Valid\+Ip}} (const char $\ast$string)
+\item 
+boolean \mbox{\hyperlink{adri__wifi_connect_8cpp_aaa3d9ba54a4d12b6f548217d4fb2bd39}{is\+Valid\+Ip}} (I\+P\+Address ip)
+\item 
+boolean \mbox{\hyperlink{adri__wifi_connect_8cpp_ab7f16c1ecbf10685bc3757c9163d6ed3}{is\+Valid\+Ip}} (String s\+Ip, String s\+Subnet, String s\+Gateway)
+\item 
+void \mbox{\hyperlink{adri__wifi_connect_8cpp_af9db9035c37c50aadba66b266d78a80b}{wifi\+Connect\+\_\+connect\+\_\+sta\+\_\+normal}} (char $\ast$ssid, char $\ast$password, Wi\+Fi\+Mode\+\_\+t mod, \mbox{\hyperlink{adri__wifi_connect_8h_a35cfdd4ffe96d333e5ed31188014e548}{wifi\+Connect\+\_\+progress}} $\ast$\+\_\+porgress)
+\item 
+wl\+\_\+status\+\_\+t \mbox{\hyperlink{adri__wifi_connect_8cpp_aff2489c6b35d836470962b9298fb86ad}{wifi\+Connect\+\_\+connect\+\_\+sta\+\_\+normal}} (char $\ast$ssid, char $\ast$password, int32\+\_\+t best\+Channel, uint8 best\+B\+S\+S\+ID\mbox{[}$\,$\mbox{]}, Wi\+Fi\+Mode\+\_\+t mod, \mbox{\hyperlink{adri__wifi_connect_8h_a35cfdd4ffe96d333e5ed31188014e548}{wifi\+Connect\+\_\+progress}} $\ast$\+\_\+porgress, wl\+\_\+status\+\_\+t status)
+\item 
+boolean \mbox{\hyperlink{adri__wifi_connect_8cpp_a3e936baacc1a04b5fff47359ec708be8}{wifi\+\_\+connect\+\_\+result}} ()
+\item 
+wl\+\_\+status\+\_\+t \mbox{\hyperlink{adri__wifi_connect_8cpp_a04226cf948d78ccc4e54d337dcfdb2c1}{E\+S\+P8266\+Wi\+Fi\+Multi\+\_\+run}} (\mbox{\hyperlink{classwifi_connect}{wifi\+Connect}} $\ast$obj, Wi\+Fi\+Mode\+\_\+t mod, \mbox{\hyperlink{adri__wifi_connect_8h_a35cfdd4ffe96d333e5ed31188014e548}{wifi\+Connect\+\_\+progress}} $\ast$porgress)
+\end{DoxyCompactItemize}
+\doxysubsection*{Variables}
+\begin{DoxyCompactItemize}
+\item 
+char \mbox{\hyperlink{adri__wifi_connect_8cpp_aaff45cba64d70188aab246d25ed565b5}{b\+\_\+host\+\_\+name}} \mbox{[}80\mbox{]}
+\item 
+\mbox{\hyperlink{classwifi__credential__sta}{wifi\+\_\+credential\+\_\+sta}} $\ast$ \mbox{\hyperlink{adri__wifi_connect_8cpp_a7e3fa90cb2cd77624980205ce6b86139}{wifi\+\_\+credential\+\_\+sta\+\_\+array}} \mbox{[}\mbox{\hyperlink{adri__wifi_connect_8h_ad9ef1ce3b047f7c8427b2e146d21f9cd}{C\+R\+E\+D\+E\+N\+T\+I\+A\+L\+\_\+\+M\+AX}}\mbox{]}
+\begin{DoxyCompactList}\small\item\em The Wi\+Fi credential sta array\mbox{[} credential max\mbox{]}. \end{DoxyCompactList}\item 
+\mbox{\hyperlink{classwifi__credential__sta__best}{wifi\+\_\+credential\+\_\+sta\+\_\+best}} \mbox{\hyperlink{adri__wifi_connect_8cpp_a21651e8269ce04f31339c25cda1a1aad}{wifi\+\_\+credential\+\_\+sta\+\_\+best}}
+\item 
+P\+R\+O\+G\+M\+EM \mbox{\hyperlink{structwifi_connect__get_value}{wifi\+Connect\+\_\+get\+Value}} \mbox{\hyperlink{adri__wifi_connect_8cpp_abac52dccbc6dae615fe5b09e5b9ab939}{wifi\+Connect\+\_\+get\+Values}} \mbox{[}$\,$\mbox{]}
+\item 
+int \mbox{\hyperlink{adri__wifi_connect_8cpp_a7927c91655784a08b6a57bfbac197bdc}{wifi\+Connect\+\_\+get\+Values\+\_\+count}} = \mbox{\hyperlink{adri__wifi_connect_8cpp_a4163b4a4e9d8f2949741962dca6c5944}{A\+R\+R\+A\+Y\+\_\+\+S\+I\+ZE}}(\mbox{\hyperlink{adri__wifi_connect_8cpp_abac52dccbc6dae615fe5b09e5b9ab939}{wifi\+Connect\+\_\+get\+Values}})
+\item 
+P\+R\+O\+G\+M\+EM \mbox{\hyperlink{structwifi__credential__sta__get_value}{wifi\+\_\+credential\+\_\+sta\+\_\+get\+Value}} \mbox{\hyperlink{adri__wifi_connect_8cpp_a02efdd8adee4b23b8dd55ee6871d9d20}{wifi\+\_\+credential\+\_\+sta\+\_\+get\+Values}} \mbox{[}$\,$\mbox{]}
+\item 
+int \mbox{\hyperlink{adri__wifi_connect_8cpp_a07a3445c3358b9c56e2eb3478105e7d6}{wifi\+\_\+credential\+\_\+sta\+\_\+get\+Values\+\_\+count}} = \mbox{\hyperlink{adri__wifi_connect_8cpp_a4163b4a4e9d8f2949741962dca6c5944}{A\+R\+R\+A\+Y\+\_\+\+S\+I\+ZE}}(\mbox{\hyperlink{adri__wifi_connect_8cpp_a02efdd8adee4b23b8dd55ee6871d9d20}{wifi\+\_\+credential\+\_\+sta\+\_\+get\+Values}})
+\end{DoxyCompactItemize}
+
+
+\doxysubsection{Detailed Description}
+Implements the adri Wi\+Fi connect class. 
+
+
+
+\doxysubsection{Macro Definition Documentation}
+\mbox{\Hypertarget{adri__wifi_connect_8cpp_a4163b4a4e9d8f2949741962dca6c5944}\label{adri__wifi_connect_8cpp_a4163b4a4e9d8f2949741962dca6c5944}} 
+\index{adri\_wifiConnect.cpp@{adri\_wifiConnect.cpp}!ARRAY\_SIZE@{ARRAY\_SIZE}}
+\index{ARRAY\_SIZE@{ARRAY\_SIZE}!adri\_wifiConnect.cpp@{adri\_wifiConnect.cpp}}
+\doxysubsubsection{\texorpdfstring{ARRAY\_SIZE}{ARRAY\_SIZE}}
+{\footnotesize\ttfamily \#define A\+R\+R\+A\+Y\+\_\+\+S\+I\+ZE(\begin{DoxyParamCaption}\item[{}]{A }\end{DoxyParamCaption})~(sizeof(A) / sizeof((A)\mbox{[}0\mbox{]}))}
+
+
+
+Definition at line 14 of file adri\+\_\+wifi\+Connect.\+cpp.
+
+\mbox{\Hypertarget{adri__wifi_connect_8cpp_ad72dbcf6d0153db1b8d8a58001feed83}\label{adri__wifi_connect_8cpp_ad72dbcf6d0153db1b8d8a58001feed83}} 
+\index{adri\_wifiConnect.cpp@{adri\_wifiConnect.cpp}!DEBUG@{DEBUG}}
+\index{DEBUG@{DEBUG}!adri\_wifiConnect.cpp@{adri\_wifiConnect.cpp}}
+\doxysubsubsection{\texorpdfstring{DEBUG}{DEBUG}}
+{\footnotesize\ttfamily \#define D\+E\+B\+UG}
+
+
+
+Definition at line 16 of file adri\+\_\+wifi\+Connect.\+cpp.
+
+\mbox{\Hypertarget{adri__wifi_connect_8cpp_a22907924142a29a0105354709ecc9f49}\label{adri__wifi_connect_8cpp_a22907924142a29a0105354709ecc9f49}} 
+\index{adri\_wifiConnect.cpp@{adri\_wifiConnect.cpp}!DEBUG\_ESP\_WIFI@{DEBUG\_ESP\_WIFI}}
+\index{DEBUG\_ESP\_WIFI@{DEBUG\_ESP\_WIFI}!adri\_wifiConnect.cpp@{adri\_wifiConnect.cpp}}
+\doxysubsubsection{\texorpdfstring{DEBUG\_ESP\_WIFI}{DEBUG\_ESP\_WIFI}}
+{\footnotesize\ttfamily \#define D\+E\+B\+U\+G\+\_\+\+E\+S\+P\+\_\+\+W\+I\+FI}
+
+
+
+Definition at line 1215 of file adri\+\_\+wifi\+Connect.\+cpp.
+
+\mbox{\Hypertarget{adri__wifi_connect_8cpp_a759cb63fc601fbbe8af6c32901cda6e5}\label{adri__wifi_connect_8cpp_a759cb63fc601fbbe8af6c32901cda6e5}} 
+\index{adri\_wifiConnect.cpp@{adri\_wifiConnect.cpp}!DEBUG\_WIFI\_MULTI@{DEBUG\_WIFI\_MULTI}}
+\index{DEBUG\_WIFI\_MULTI@{DEBUG\_WIFI\_MULTI}!adri\_wifiConnect.cpp@{adri\_wifiConnect.cpp}}
+\doxysubsubsection{\texorpdfstring{DEBUG\_WIFI\_MULTI}{DEBUG\_WIFI\_MULTI}}
+{\footnotesize\ttfamily \#define D\+E\+B\+U\+G\+\_\+\+W\+I\+F\+I\+\_\+\+M\+U\+L\+TI(\begin{DoxyParamCaption}\item[{}]{fmt,  }\item[{}]{... }\end{DoxyParamCaption})~Serial.\+printf\+\_\+P( (P\+G\+M\+\_\+P)P\+S\+TR(fmt), \#\#\+\_\+\+\_\+\+V\+A\+\_\+\+A\+R\+G\+S\+\_\+\+\_\+ )}
+
+
+
+Definition at line 1214 of file adri\+\_\+wifi\+Connect.\+cpp.
+
+
+
+\doxysubsection{Function Documentation}
+\mbox{\Hypertarget{adri__wifi_connect_8cpp_ac1fdfcdd76587fbd68812f717c2a5776}\label{adri__wifi_connect_8cpp_ac1fdfcdd76587fbd68812f717c2a5776}} 
+\index{adri\_wifiConnect.cpp@{adri\_wifiConnect.cpp}!\_porgress\_def@{\_porgress\_def}}
+\index{\_porgress\_def@{\_porgress\_def}!adri\_wifiConnect.cpp@{adri\_wifiConnect.cpp}}
+\doxysubsubsection{\texorpdfstring{\_porgress\_def()}{\_porgress\_def()}}
+{\footnotesize\ttfamily void \+\_\+porgress\+\_\+def (\begin{DoxyParamCaption}\item[{int}]{v }\end{DoxyParamCaption})}
+
+
+
+Definition at line 286 of file adri\+\_\+wifi\+Connect.\+cpp.
+
+\mbox{\Hypertarget{adri__wifi_connect_8cpp_aeaf6c7ae97059b9be95804487ea0d1e0}\label{adri__wifi_connect_8cpp_aeaf6c7ae97059b9be95804487ea0d1e0}} 
+\index{adri\_wifiConnect.cpp@{adri\_wifiConnect.cpp}!build\_host\_name@{build\_host\_name}}
+\index{build\_host\_name@{build\_host\_name}!adri\_wifiConnect.cpp@{adri\_wifiConnect.cpp}}
+\doxysubsubsection{\texorpdfstring{build\_host\_name()}{build\_host\_name()}}
+{\footnotesize\ttfamily void build\+\_\+host\+\_\+name (\begin{DoxyParamCaption}\item[{char $\ast$}]{hostname\+Prefix }\end{DoxyParamCaption})}
+
+
+
+Definition at line 36 of file adri\+\_\+wifi\+Connect.\+cpp.
+
+\mbox{\Hypertarget{adri__wifi_connect_8cpp_a04226cf948d78ccc4e54d337dcfdb2c1}\label{adri__wifi_connect_8cpp_a04226cf948d78ccc4e54d337dcfdb2c1}} 
+\index{adri\_wifiConnect.cpp@{adri\_wifiConnect.cpp}!ESP8266WiFiMulti\_run@{ESP8266WiFiMulti\_run}}
+\index{ESP8266WiFiMulti\_run@{ESP8266WiFiMulti\_run}!adri\_wifiConnect.cpp@{adri\_wifiConnect.cpp}}
+\doxysubsubsection{\texorpdfstring{ESP8266WiFiMulti\_run()}{ESP8266WiFiMulti\_run()}}
+{\footnotesize\ttfamily wl\+\_\+status\+\_\+t E\+S\+P8266\+Wi\+Fi\+Multi\+\_\+run (\begin{DoxyParamCaption}\item[{\mbox{\hyperlink{classwifi_connect}{wifi\+Connect}} $\ast$}]{obj,  }\item[{Wi\+Fi\+Mode\+\_\+t}]{mod,  }\item[{\mbox{\hyperlink{adri__wifi_connect_8h_a35cfdd4ffe96d333e5ed31188014e548}{wifi\+Connect\+\_\+progress}} $\ast$}]{porgress }\end{DoxyParamCaption})}
+
+
+
+Definition at line 1223 of file adri\+\_\+wifi\+Connect.\+cpp.
+
+\mbox{\Hypertarget{adri__wifi_connect_8cpp_a6c60cedbe68aee736f88b427df6527cf}\label{adri__wifi_connect_8cpp_a6c60cedbe68aee736f88b427df6527cf}} 
+\index{adri\_wifiConnect.cpp@{adri\_wifiConnect.cpp}!fs@{fs}}
+\index{fs@{fs}!adri\_wifiConnect.cpp@{adri\_wifiConnect.cpp}}
+\doxysubsubsection{\texorpdfstring{fs()}{fs()}\hspace{0.1cm}{\footnotesize\ttfamily [1/12]}}
+{\footnotesize\ttfamily fs (\begin{DoxyParamCaption}\item[{awc\+\_\+str\+\_\+connect}]{,  }\item[{\char`\"{}connect startup\char`\"{}}]{ }\end{DoxyParamCaption})}
+
+\mbox{\Hypertarget{adri__wifi_connect_8cpp_ad3dd836b41b2585788b7e30f5825176c}\label{adri__wifi_connect_8cpp_ad3dd836b41b2585788b7e30f5825176c}} 
+\index{adri\_wifiConnect.cpp@{adri\_wifiConnect.cpp}!fs@{fs}}
+\index{fs@{fs}!adri\_wifiConnect.cpp@{adri\_wifiConnect.cpp}}
+\doxysubsubsection{\texorpdfstring{fs()}{fs()}\hspace{0.1cm}{\footnotesize\ttfamily [2/12]}}
+{\footnotesize\ttfamily fs (\begin{DoxyParamCaption}\item[{awc\+\_\+str\+\_\+connect\+S\+S\+ID}]{,  }\item[{\char`\"{}connect ssid\char`\"{}}]{ }\end{DoxyParamCaption})}
+
+\mbox{\Hypertarget{adri__wifi_connect_8cpp_ae032538de21ee5e98dd968349a1b33bc}\label{adri__wifi_connect_8cpp_ae032538de21ee5e98dd968349a1b33bc}} 
+\index{adri\_wifiConnect.cpp@{adri\_wifiConnect.cpp}!fs@{fs}}
+\index{fs@{fs}!adri\_wifiConnect.cpp@{adri\_wifiConnect.cpp}}
+\doxysubsubsection{\texorpdfstring{fs()}{fs()}\hspace{0.1cm}{\footnotesize\ttfamily [3/12]}}
+{\footnotesize\ttfamily fs (\begin{DoxyParamCaption}\item[{awc\+\_\+str\+\_\+credential}]{,  }\item[{\char`\"{}cred\char`\"{}}]{ }\end{DoxyParamCaption})}
+
+\mbox{\Hypertarget{adri__wifi_connect_8cpp_ae1726016b0c576178c4e210dae8a9e72}\label{adri__wifi_connect_8cpp_ae1726016b0c576178c4e210dae8a9e72}} 
+\index{adri\_wifiConnect.cpp@{adri\_wifiConnect.cpp}!fs@{fs}}
+\index{fs@{fs}!adri\_wifiConnect.cpp@{adri\_wifiConnect.cpp}}
+\doxysubsubsection{\texorpdfstring{fs()}{fs()}\hspace{0.1cm}{\footnotesize\ttfamily [4/12]}}
+{\footnotesize\ttfamily fs (\begin{DoxyParamCaption}\item[{awc\+\_\+str\+\_\+gateway}]{,  }\item[{\char`\"{}gateway\char`\"{}}]{ }\end{DoxyParamCaption})}
+
+\mbox{\Hypertarget{adri__wifi_connect_8cpp_aa268c37dcc9da330c4ca727159ed02be}\label{adri__wifi_connect_8cpp_aa268c37dcc9da330c4ca727159ed02be}} 
+\index{adri\_wifiConnect.cpp@{adri\_wifiConnect.cpp}!fs@{fs}}
+\index{fs@{fs}!adri\_wifiConnect.cpp@{adri\_wifiConnect.cpp}}
+\doxysubsubsection{\texorpdfstring{fs()}{fs()}\hspace{0.1cm}{\footnotesize\ttfamily [5/12]}}
+{\footnotesize\ttfamily fs (\begin{DoxyParamCaption}\item[{awc\+\_\+str\+\_\+ip}]{,  }\item[{\char`\"{}ip\char`\"{}}]{ }\end{DoxyParamCaption})}
+
+\mbox{\Hypertarget{adri__wifi_connect_8cpp_a6a783cb98383278c89c5435921def60a}\label{adri__wifi_connect_8cpp_a6a783cb98383278c89c5435921def60a}} 
+\index{adri\_wifiConnect.cpp@{adri\_wifiConnect.cpp}!fs@{fs}}
+\index{fs@{fs}!adri\_wifiConnect.cpp@{adri\_wifiConnect.cpp}}
+\doxysubsubsection{\texorpdfstring{fs()}{fs()}\hspace{0.1cm}{\footnotesize\ttfamily [6/12]}}
+{\footnotesize\ttfamily fs (\begin{DoxyParamCaption}\item[{awc\+\_\+str\+\_\+ipmod}]{,  }\item[{\char`\"{}ip mod\char`\"{}}]{ }\end{DoxyParamCaption})}
+
+\mbox{\Hypertarget{adri__wifi_connect_8cpp_a9fead8e8cf15c4d88e9da648fb78e9df}\label{adri__wifi_connect_8cpp_a9fead8e8cf15c4d88e9da648fb78e9df}} 
+\index{adri\_wifiConnect.cpp@{adri\_wifiConnect.cpp}!fs@{fs}}
+\index{fs@{fs}!adri\_wifiConnect.cpp@{adri\_wifiConnect.cpp}}
+\doxysubsubsection{\texorpdfstring{fs()}{fs()}\hspace{0.1cm}{\footnotesize\ttfamily [7/12]}}
+{\footnotesize\ttfamily fs (\begin{DoxyParamCaption}\item[{awc\+\_\+str\+\_\+porgress}]{,  }\item[{\char`\"{}\+\_\+porgress\char`\"{}}]{ }\end{DoxyParamCaption})}
+
+\mbox{\Hypertarget{adri__wifi_connect_8cpp_a86c031c72d0f59d76b78e8b21e1bb93d}\label{adri__wifi_connect_8cpp_a86c031c72d0f59d76b78e8b21e1bb93d}} 
+\index{adri\_wifiConnect.cpp@{adri\_wifiConnect.cpp}!fs@{fs}}
+\index{fs@{fs}!adri\_wifiConnect.cpp@{adri\_wifiConnect.cpp}}
+\doxysubsubsection{\texorpdfstring{fs()}{fs()}\hspace{0.1cm}{\footnotesize\ttfamily [8/12]}}
+{\footnotesize\ttfamily fs (\begin{DoxyParamCaption}\item[{awc\+\_\+str\+\_\+psk}]{,  }\item[{\char`\"{}psk\char`\"{}}]{ }\end{DoxyParamCaption})}
+
+\mbox{\Hypertarget{adri__wifi_connect_8cpp_ae40cb5d3240431ffeb9af78cf495aa42}\label{adri__wifi_connect_8cpp_ae40cb5d3240431ffeb9af78cf495aa42}} 
+\index{adri\_wifiConnect.cpp@{adri\_wifiConnect.cpp}!fs@{fs}}
+\index{fs@{fs}!adri\_wifiConnect.cpp@{adri\_wifiConnect.cpp}}
+\doxysubsubsection{\texorpdfstring{fs()}{fs()}\hspace{0.1cm}{\footnotesize\ttfamily [9/12]}}
+{\footnotesize\ttfamily fs (\begin{DoxyParamCaption}\item[{awc\+\_\+str\+\_\+ssid}]{,  }\item[{\char`\"{}ssid\char`\"{}}]{ }\end{DoxyParamCaption})}
+
+\mbox{\Hypertarget{adri__wifi_connect_8cpp_af0d4908a69e30887324c4ec2ac663034}\label{adri__wifi_connect_8cpp_af0d4908a69e30887324c4ec2ac663034}} 
+\index{adri\_wifiConnect.cpp@{adri\_wifiConnect.cpp}!fs@{fs}}
+\index{fs@{fs}!adri\_wifiConnect.cpp@{adri\_wifiConnect.cpp}}
+\doxysubsubsection{\texorpdfstring{fs()}{fs()}\hspace{0.1cm}{\footnotesize\ttfamily [10/12]}}
+{\footnotesize\ttfamily fs (\begin{DoxyParamCaption}\item[{awc\+\_\+str\+\_\+station}]{,  }\item[{\char`\"{}station mod\char`\"{}}]{ }\end{DoxyParamCaption})}
+
+\mbox{\Hypertarget{adri__wifi_connect_8cpp_ab9e71d54092b25246ed24b5b66b12eca}\label{adri__wifi_connect_8cpp_ab9e71d54092b25246ed24b5b66b12eca}} 
+\index{adri\_wifiConnect.cpp@{adri\_wifiConnect.cpp}!fs@{fs}}
+\index{fs@{fs}!adri\_wifiConnect.cpp@{adri\_wifiConnect.cpp}}
+\doxysubsubsection{\texorpdfstring{fs()}{fs()}\hspace{0.1cm}{\footnotesize\ttfamily [11/12]}}
+{\footnotesize\ttfamily fs (\begin{DoxyParamCaption}\item[{awc\+\_\+str\+\_\+statu}]{,  }\item[{\char`\"{}wifi statu\char`\"{}}]{ }\end{DoxyParamCaption})}
+
+\mbox{\Hypertarget{adri__wifi_connect_8cpp_aab5878db653382587fc27089182d4e92}\label{adri__wifi_connect_8cpp_aab5878db653382587fc27089182d4e92}} 
+\index{adri\_wifiConnect.cpp@{adri\_wifiConnect.cpp}!fs@{fs}}
+\index{fs@{fs}!adri\_wifiConnect.cpp@{adri\_wifiConnect.cpp}}
+\doxysubsubsection{\texorpdfstring{fs()}{fs()}\hspace{0.1cm}{\footnotesize\ttfamily [12/12]}}
+{\footnotesize\ttfamily fs (\begin{DoxyParamCaption}\item[{awc\+\_\+str\+\_\+subnet}]{,  }\item[{\char`\"{}subnet\char`\"{}}]{ }\end{DoxyParamCaption})}
+
+\mbox{\Hypertarget{adri__wifi_connect_8cpp_a33516f4e3ab72ccf15ee1880851153d0}\label{adri__wifi_connect_8cpp_a33516f4e3ab72ccf15ee1880851153d0}} 
+\index{adri\_wifiConnect.cpp@{adri\_wifiConnect.cpp}!isValidIp@{isValidIp}}
+\index{isValidIp@{isValidIp}!adri\_wifiConnect.cpp@{adri\_wifiConnect.cpp}}
+\doxysubsubsection{\texorpdfstring{isValidIp()}{isValidIp()}\hspace{0.1cm}{\footnotesize\ttfamily [1/4]}}
+{\footnotesize\ttfamily boolean is\+Valid\+Ip (\begin{DoxyParamCaption}\item[{const char $\ast$}]{string }\end{DoxyParamCaption})}
+
+
+
+Definition at line 1023 of file adri\+\_\+wifi\+Connect.\+cpp.
+
+\mbox{\Hypertarget{adri__wifi_connect_8cpp_aaa3d9ba54a4d12b6f548217d4fb2bd39}\label{adri__wifi_connect_8cpp_aaa3d9ba54a4d12b6f548217d4fb2bd39}} 
+\index{adri\_wifiConnect.cpp@{adri\_wifiConnect.cpp}!isValidIp@{isValidIp}}
+\index{isValidIp@{isValidIp}!adri\_wifiConnect.cpp@{adri\_wifiConnect.cpp}}
+\doxysubsubsection{\texorpdfstring{isValidIp()}{isValidIp()}\hspace{0.1cm}{\footnotesize\ttfamily [2/4]}}
+{\footnotesize\ttfamily boolean is\+Valid\+Ip (\begin{DoxyParamCaption}\item[{I\+P\+Address}]{ip }\end{DoxyParamCaption})}
+
+
+
+Definition at line 1027 of file adri\+\_\+wifi\+Connect.\+cpp.
+
+\mbox{\Hypertarget{adri__wifi_connect_8cpp_a9441e9b1a57ace9869dd94d809b31a20}\label{adri__wifi_connect_8cpp_a9441e9b1a57ace9869dd94d809b31a20}} 
+\index{adri\_wifiConnect.cpp@{adri\_wifiConnect.cpp}!isValidIp@{isValidIp}}
+\index{isValidIp@{isValidIp}!adri\_wifiConnect.cpp@{adri\_wifiConnect.cpp}}
+\doxysubsubsection{\texorpdfstring{isValidIp()}{isValidIp()}\hspace{0.1cm}{\footnotesize\ttfamily [3/4]}}
+{\footnotesize\ttfamily boolean is\+Valid\+Ip (\begin{DoxyParamCaption}\item[{String}]{s\+Ip }\end{DoxyParamCaption})}
+
+
+
+Definition at line 1017 of file adri\+\_\+wifi\+Connect.\+cpp.
+
+\mbox{\Hypertarget{adri__wifi_connect_8cpp_ab7f16c1ecbf10685bc3757c9163d6ed3}\label{adri__wifi_connect_8cpp_ab7f16c1ecbf10685bc3757c9163d6ed3}} 
+\index{adri\_wifiConnect.cpp@{adri\_wifiConnect.cpp}!isValidIp@{isValidIp}}
+\index{isValidIp@{isValidIp}!adri\_wifiConnect.cpp@{adri\_wifiConnect.cpp}}
+\doxysubsubsection{\texorpdfstring{isValidIp()}{isValidIp()}\hspace{0.1cm}{\footnotesize\ttfamily [4/4]}}
+{\footnotesize\ttfamily boolean is\+Valid\+Ip (\begin{DoxyParamCaption}\item[{String}]{s\+Ip,  }\item[{String}]{s\+Subnet,  }\item[{String}]{s\+Gateway }\end{DoxyParamCaption})}
+
+
+
+Definition at line 1038 of file adri\+\_\+wifi\+Connect.\+cpp.
+
+\mbox{\Hypertarget{adri__wifi_connect_8cpp_a3e936baacc1a04b5fff47359ec708be8}\label{adri__wifi_connect_8cpp_a3e936baacc1a04b5fff47359ec708be8}} 
+\index{adri\_wifiConnect.cpp@{adri\_wifiConnect.cpp}!wifi\_connect\_result@{wifi\_connect\_result}}
+\index{wifi\_connect\_result@{wifi\_connect\_result}!adri\_wifiConnect.cpp@{adri\_wifiConnect.cpp}}
+\doxysubsubsection{\texorpdfstring{wifi\_connect\_result()}{wifi\_connect\_result()}}
+{\footnotesize\ttfamily boolean wifi\+\_\+connect\+\_\+result (\begin{DoxyParamCaption}{ }\end{DoxyParamCaption})}
+
+
+
+Definition at line 1192 of file adri\+\_\+wifi\+Connect.\+cpp.
+
+\mbox{\Hypertarget{adri__wifi_connect_8cpp_a0885804315e8235c4c7c4eb9d1926953}\label{adri__wifi_connect_8cpp_a0885804315e8235c4c7c4eb9d1926953}} 
+\index{adri\_wifiConnect.cpp@{adri\_wifiConnect.cpp}!wifi\_credential\_ap\_fromSPIFF@{wifi\_credential\_ap\_fromSPIFF}}
+\index{wifi\_credential\_ap\_fromSPIFF@{wifi\_credential\_ap\_fromSPIFF}!adri\_wifiConnect.cpp@{adri\_wifiConnect.cpp}}
+\doxysubsubsection{\texorpdfstring{wifi\_credential\_ap\_fromSPIFF()}{wifi\_credential\_ap\_fromSPIFF()}}
+{\footnotesize\ttfamily boolean wifi\+\_\+credential\+\_\+ap\+\_\+from\+S\+P\+I\+FF (\begin{DoxyParamCaption}\item[{String \&}]{result }\end{DoxyParamCaption})}
+
+
+
+load saved ap identifiants from the S\+P\+I\+FF M\+E\+M\+O\+RY 
+
+\begin{DoxyAuthor}{Author}
+Adri 
+\end{DoxyAuthor}
+\begin{DoxyDate}{Date}
+18/08/2020
+\end{DoxyDate}
+
+\begin{DoxyParams}[1]{Parameters}
+\mbox{\texttt{ in,out}}  & {\em result} & ptr ver la string with the identifiants as xml format .\\
+\hline
+\end{DoxyParams}
+\begin{DoxyReturn}{Returns}
+True if the file can be open, false if the file is not created. 
+\end{DoxyReturn}
+
+
+Definition at line 195 of file adri\+\_\+wifi\+Connect.\+cpp.
+
+\mbox{\Hypertarget{adri__wifi_connect_8cpp_afdfb26da2162da828f559b7610362716}\label{adri__wifi_connect_8cpp_afdfb26da2162da828f559b7610362716}} 
+\index{adri\_wifiConnect.cpp@{adri\_wifiConnect.cpp}!wifi\_credential\_get@{wifi\_credential\_get}}
+\index{wifi\_credential\_get@{wifi\_credential\_get}!adri\_wifiConnect.cpp@{adri\_wifiConnect.cpp}}
+\doxysubsubsection{\texorpdfstring{wifi\_credential\_get()}{wifi\_credential\_get()}}
+{\footnotesize\ttfamily \mbox{\hyperlink{classwifi__credential__sta}{wifi\+\_\+credential\+\_\+sta}}$\ast$ wifi\+\_\+credential\+\_\+get (\begin{DoxyParamCaption}\item[{int}]{pos }\end{DoxyParamCaption})}
+
+
+
+Definition at line 889 of file adri\+\_\+wifi\+Connect.\+cpp.
+
+\mbox{\Hypertarget{adri__wifi_connect_8cpp_a028ee4178f8c08d1cf289676386b0521}\label{adri__wifi_connect_8cpp_a028ee4178f8c08d1cf289676386b0521}} 
+\index{adri\_wifiConnect.cpp@{adri\_wifiConnect.cpp}!wifi\_credential\_set@{wifi\_credential\_set}}
+\index{wifi\_credential\_set@{wifi\_credential\_set}!adri\_wifiConnect.cpp@{adri\_wifiConnect.cpp}}
+\doxysubsubsection{\texorpdfstring{wifi\_credential\_set()}{wifi\_credential\_set()}}
+{\footnotesize\ttfamily void wifi\+\_\+credential\+\_\+set (\begin{DoxyParamCaption}\item[{int}]{pos,  }\item[{String}]{ssid,  }\item[{String}]{psk,  }\item[{String}]{ip,  }\item[{String}]{subnet,  }\item[{String}]{gateway }\end{DoxyParamCaption})}
+
+
+
+Definition at line 877 of file adri\+\_\+wifi\+Connect.\+cpp.
+
+\mbox{\Hypertarget{adri__wifi_connect_8cpp_a827f149557e2a907d450240c00403dfb}\label{adri__wifi_connect_8cpp_a827f149557e2a907d450240c00403dfb}} 
+\index{adri\_wifiConnect.cpp@{adri\_wifiConnect.cpp}!wifi\_credential\_sta\_fromSPIFF@{wifi\_credential\_sta\_fromSPIFF}}
+\index{wifi\_credential\_sta\_fromSPIFF@{wifi\_credential\_sta\_fromSPIFF}!adri\_wifiConnect.cpp@{adri\_wifiConnect.cpp}}
+\doxysubsubsection{\texorpdfstring{wifi\_credential\_sta\_fromSPIFF()}{wifi\_credential\_sta\_fromSPIFF()}\hspace{0.1cm}{\footnotesize\ttfamily [1/2]}}
+{\footnotesize\ttfamily void wifi\+\_\+credential\+\_\+sta\+\_\+from\+S\+P\+I\+FF (\begin{DoxyParamCaption}{ }\end{DoxyParamCaption})}
+
+
+
+Definition at line 893 of file adri\+\_\+wifi\+Connect.\+cpp.
+
+\mbox{\Hypertarget{adri__wifi_connect_8cpp_a8a97d34a2f335327e49be13ea201fffe}\label{adri__wifi_connect_8cpp_a8a97d34a2f335327e49be13ea201fffe}} 
+\index{adri\_wifiConnect.cpp@{adri\_wifiConnect.cpp}!wifi\_credential\_sta\_fromSPIFF@{wifi\_credential\_sta\_fromSPIFF}}
+\index{wifi\_credential\_sta\_fromSPIFF@{wifi\_credential\_sta\_fromSPIFF}!adri\_wifiConnect.cpp@{adri\_wifiConnect.cpp}}
+\doxysubsubsection{\texorpdfstring{wifi\_credential\_sta\_fromSPIFF()}{wifi\_credential\_sta\_fromSPIFF()}\hspace{0.1cm}{\footnotesize\ttfamily [2/2]}}
+{\footnotesize\ttfamily boolean wifi\+\_\+credential\+\_\+sta\+\_\+from\+S\+P\+I\+FF (\begin{DoxyParamCaption}\item[{String $\ast$}]{array }\end{DoxyParamCaption})}
+
+
+
+Definition at line 848 of file adri\+\_\+wifi\+Connect.\+cpp.
+
+\mbox{\Hypertarget{adri__wifi_connect_8cpp_a4aa7fa97a8a4acc8e319c82e938405ce}\label{adri__wifi_connect_8cpp_a4aa7fa97a8a4acc8e319c82e938405ce}} 
+\index{adri\_wifiConnect.cpp@{adri\_wifiConnect.cpp}!wifi\_credential\_sta\_get\_gateway@{wifi\_credential\_sta\_get\_gateway}}
+\index{wifi\_credential\_sta\_get\_gateway@{wifi\_credential\_sta\_get\_gateway}!adri\_wifiConnect.cpp@{adri\_wifiConnect.cpp}}
+\doxysubsubsection{\texorpdfstring{wifi\_credential\_sta\_get\_gateway()}{wifi\_credential\_sta\_get\_gateway()}}
+{\footnotesize\ttfamily String wifi\+\_\+credential\+\_\+sta\+\_\+get\+\_\+gateway (\begin{DoxyParamCaption}\item[{\mbox{\hyperlink{classwifi__credential__sta}{wifi\+\_\+credential\+\_\+sta}} $\ast$}]{obj }\end{DoxyParamCaption})}
+
+
+
+Definition at line 803 of file adri\+\_\+wifi\+Connect.\+cpp.
+
+\mbox{\Hypertarget{adri__wifi_connect_8cpp_ab25d67d1cdeb4aff2a782d64a810a6d9}\label{adri__wifi_connect_8cpp_ab25d67d1cdeb4aff2a782d64a810a6d9}} 
+\index{adri\_wifiConnect.cpp@{adri\_wifiConnect.cpp}!wifi\_credential\_sta\_get\_ip@{wifi\_credential\_sta\_get\_ip}}
+\index{wifi\_credential\_sta\_get\_ip@{wifi\_credential\_sta\_get\_ip}!adri\_wifiConnect.cpp@{adri\_wifiConnect.cpp}}
+\doxysubsubsection{\texorpdfstring{wifi\_credential\_sta\_get\_ip()}{wifi\_credential\_sta\_get\_ip()}}
+{\footnotesize\ttfamily String wifi\+\_\+credential\+\_\+sta\+\_\+get\+\_\+ip (\begin{DoxyParamCaption}\item[{\mbox{\hyperlink{classwifi__credential__sta}{wifi\+\_\+credential\+\_\+sta}} $\ast$}]{obj }\end{DoxyParamCaption})}
+
+
+
+Definition at line 801 of file adri\+\_\+wifi\+Connect.\+cpp.
+
+\mbox{\Hypertarget{adri__wifi_connect_8cpp_a73f1092d3b4376cd1ca18d3d77052069}\label{adri__wifi_connect_8cpp_a73f1092d3b4376cd1ca18d3d77052069}} 
+\index{adri\_wifiConnect.cpp@{adri\_wifiConnect.cpp}!wifi\_credential\_sta\_get\_psk@{wifi\_credential\_sta\_get\_psk}}
+\index{wifi\_credential\_sta\_get\_psk@{wifi\_credential\_sta\_get\_psk}!adri\_wifiConnect.cpp@{adri\_wifiConnect.cpp}}
+\doxysubsubsection{\texorpdfstring{wifi\_credential\_sta\_get\_psk()}{wifi\_credential\_sta\_get\_psk()}}
+{\footnotesize\ttfamily String wifi\+\_\+credential\+\_\+sta\+\_\+get\+\_\+psk (\begin{DoxyParamCaption}\item[{\mbox{\hyperlink{classwifi__credential__sta}{wifi\+\_\+credential\+\_\+sta}} $\ast$}]{obj }\end{DoxyParamCaption})}
+
+
+
+Definition at line 800 of file adri\+\_\+wifi\+Connect.\+cpp.
+
+\mbox{\Hypertarget{adri__wifi_connect_8cpp_af5e38f2612cf69d1e12e5ae27a0bdbe7}\label{adri__wifi_connect_8cpp_af5e38f2612cf69d1e12e5ae27a0bdbe7}} 
+\index{adri\_wifiConnect.cpp@{adri\_wifiConnect.cpp}!wifi\_credential\_sta\_get\_ssid@{wifi\_credential\_sta\_get\_ssid}}
+\index{wifi\_credential\_sta\_get\_ssid@{wifi\_credential\_sta\_get\_ssid}!adri\_wifiConnect.cpp@{adri\_wifiConnect.cpp}}
+\doxysubsubsection{\texorpdfstring{wifi\_credential\_sta\_get\_ssid()}{wifi\_credential\_sta\_get\_ssid()}}
+{\footnotesize\ttfamily String wifi\+\_\+credential\+\_\+sta\+\_\+get\+\_\+ssid (\begin{DoxyParamCaption}\item[{\mbox{\hyperlink{classwifi__credential__sta}{wifi\+\_\+credential\+\_\+sta}} $\ast$}]{obj }\end{DoxyParamCaption})}
+
+
+
+Definition at line 799 of file adri\+\_\+wifi\+Connect.\+cpp.
+
+\mbox{\Hypertarget{adri__wifi_connect_8cpp_a8a94632f37e8f7bfa2b5e17abddc15b2}\label{adri__wifi_connect_8cpp_a8a94632f37e8f7bfa2b5e17abddc15b2}} 
+\index{adri\_wifiConnect.cpp@{adri\_wifiConnect.cpp}!wifi\_credential\_sta\_get\_subnet@{wifi\_credential\_sta\_get\_subnet}}
+\index{wifi\_credential\_sta\_get\_subnet@{wifi\_credential\_sta\_get\_subnet}!adri\_wifiConnect.cpp@{adri\_wifiConnect.cpp}}
+\doxysubsubsection{\texorpdfstring{wifi\_credential\_sta\_get\_subnet()}{wifi\_credential\_sta\_get\_subnet()}}
+{\footnotesize\ttfamily String wifi\+\_\+credential\+\_\+sta\+\_\+get\+\_\+subnet (\begin{DoxyParamCaption}\item[{\mbox{\hyperlink{classwifi__credential__sta}{wifi\+\_\+credential\+\_\+sta}} $\ast$}]{obj }\end{DoxyParamCaption})}
+
+
+
+Definition at line 802 of file adri\+\_\+wifi\+Connect.\+cpp.
+
+\mbox{\Hypertarget{adri__wifi_connect_8cpp_afd69cba30050c375de4afbda1a698d9a}\label{adri__wifi_connect_8cpp_afd69cba30050c375de4afbda1a698d9a}} 
+\index{adri\_wifiConnect.cpp@{adri\_wifiConnect.cpp}!wifi\_credential\_sta\_print@{wifi\_credential\_sta\_print}}
+\index{wifi\_credential\_sta\_print@{wifi\_credential\_sta\_print}!adri\_wifiConnect.cpp@{adri\_wifiConnect.cpp}}
+\doxysubsubsection{\texorpdfstring{wifi\_credential\_sta\_print()}{wifi\_credential\_sta\_print()}}
+{\footnotesize\ttfamily void wifi\+\_\+credential\+\_\+sta\+\_\+print (\begin{DoxyParamCaption}{ }\end{DoxyParamCaption})}
+
+
+
+Definition at line 926 of file adri\+\_\+wifi\+Connect.\+cpp.
+
+\mbox{\Hypertarget{adri__wifi_connect_8cpp_a1f87c7fa26dd4abb02adf68f90e1a504}\label{adri__wifi_connect_8cpp_a1f87c7fa26dd4abb02adf68f90e1a504}} 
+\index{adri\_wifiConnect.cpp@{adri\_wifiConnect.cpp}!wifi\_credential\_sta\_toSpiff@{wifi\_credential\_sta\_toSpiff}}
+\index{wifi\_credential\_sta\_toSpiff@{wifi\_credential\_sta\_toSpiff}!adri\_wifiConnect.cpp@{adri\_wifiConnect.cpp}}
+\doxysubsubsection{\texorpdfstring{wifi\_credential\_sta\_toSpiff()}{wifi\_credential\_sta\_toSpiff()}\hspace{0.1cm}{\footnotesize\ttfamily [1/2]}}
+{\footnotesize\ttfamily boolean wifi\+\_\+credential\+\_\+sta\+\_\+to\+Spiff (\begin{DoxyParamCaption}{ }\end{DoxyParamCaption})}
+
+
+
+Definition at line 946 of file adri\+\_\+wifi\+Connect.\+cpp.
+
+\mbox{\Hypertarget{adri__wifi_connect_8cpp_a7eda3efb95f289bfce333e4975dc17f6}\label{adri__wifi_connect_8cpp_a7eda3efb95f289bfce333e4975dc17f6}} 
+\index{adri\_wifiConnect.cpp@{adri\_wifiConnect.cpp}!wifi\_credential\_sta\_toSpiff@{wifi\_credential\_sta\_toSpiff}}
+\index{wifi\_credential\_sta\_toSpiff@{wifi\_credential\_sta\_toSpiff}!adri\_wifiConnect.cpp@{adri\_wifiConnect.cpp}}
+\doxysubsubsection{\texorpdfstring{wifi\_credential\_sta\_toSpiff()}{wifi\_credential\_sta\_toSpiff()}\hspace{0.1cm}{\footnotesize\ttfamily [2/2]}}
+{\footnotesize\ttfamily boolean wifi\+\_\+credential\+\_\+sta\+\_\+to\+Spiff (\begin{DoxyParamCaption}\item[{String}]{line }\end{DoxyParamCaption})}
+
+
+
+Definition at line 986 of file adri\+\_\+wifi\+Connect.\+cpp.
+
+\mbox{\Hypertarget{adri__wifi_connect_8cpp_ac4c12a6f912acaaa9e4f579138b808f6}\label{adri__wifi_connect_8cpp_ac4c12a6f912acaaa9e4f579138b808f6}} 
+\index{adri\_wifiConnect.cpp@{adri\_wifiConnect.cpp}!WIFI\_STATU\_toString@{WIFI\_STATU\_toString}}
+\index{WIFI\_STATU\_toString@{WIFI\_STATU\_toString}!adri\_wifiConnect.cpp@{adri\_wifiConnect.cpp}}
+\doxysubsubsection{\texorpdfstring{WIFI\_STATU\_toString()}{WIFI\_STATU\_toString()}}
+{\footnotesize\ttfamily void W\+I\+F\+I\+\_\+\+S\+T\+A\+T\+U\+\_\+to\+String (\begin{DoxyParamCaption}\item[{\mbox{\hyperlink{adri__wifi_connect_8h_adc2b6013454c5dc95efb0a368d99ed8c}{W\+I\+F\+I\+\_\+\+S\+T\+A\+TU}}}]{mod,  }\item[{String \&}]{result }\end{DoxyParamCaption})}
+
+
+
+Definition at line 300 of file adri\+\_\+wifi\+Connect.\+cpp.
+
+\mbox{\Hypertarget{adri__wifi_connect_8cpp_aff2489c6b35d836470962b9298fb86ad}\label{adri__wifi_connect_8cpp_aff2489c6b35d836470962b9298fb86ad}} 
+\index{adri\_wifiConnect.cpp@{adri\_wifiConnect.cpp}!wifiConnect\_connect\_sta\_normal@{wifiConnect\_connect\_sta\_normal}}
+\index{wifiConnect\_connect\_sta\_normal@{wifiConnect\_connect\_sta\_normal}!adri\_wifiConnect.cpp@{adri\_wifiConnect.cpp}}
+\doxysubsubsection{\texorpdfstring{wifiConnect\_connect\_sta\_normal()}{wifiConnect\_connect\_sta\_normal()}\hspace{0.1cm}{\footnotesize\ttfamily [1/2]}}
+{\footnotesize\ttfamily wl\+\_\+status\+\_\+t wifi\+Connect\+\_\+connect\+\_\+sta\+\_\+normal (\begin{DoxyParamCaption}\item[{char $\ast$}]{ssid,  }\item[{char $\ast$}]{password,  }\item[{int32\+\_\+t}]{best\+Channel,  }\item[{uint8}]{best\+B\+S\+S\+ID\mbox{[}$\,$\mbox{]},  }\item[{Wi\+Fi\+Mode\+\_\+t}]{mod,  }\item[{\mbox{\hyperlink{adri__wifi_connect_8h_a35cfdd4ffe96d333e5ed31188014e548}{wifi\+Connect\+\_\+progress}} $\ast$}]{\+\_\+porgress,  }\item[{wl\+\_\+status\+\_\+t}]{status }\end{DoxyParamCaption})}
+
+
+
+Definition at line 1129 of file adri\+\_\+wifi\+Connect.\+cpp.
+
+\mbox{\Hypertarget{adri__wifi_connect_8cpp_af9db9035c37c50aadba66b266d78a80b}\label{adri__wifi_connect_8cpp_af9db9035c37c50aadba66b266d78a80b}} 
+\index{adri\_wifiConnect.cpp@{adri\_wifiConnect.cpp}!wifiConnect\_connect\_sta\_normal@{wifiConnect\_connect\_sta\_normal}}
+\index{wifiConnect\_connect\_sta\_normal@{wifiConnect\_connect\_sta\_normal}!adri\_wifiConnect.cpp@{adri\_wifiConnect.cpp}}
+\doxysubsubsection{\texorpdfstring{wifiConnect\_connect\_sta\_normal()}{wifiConnect\_connect\_sta\_normal()}\hspace{0.1cm}{\footnotesize\ttfamily [2/2]}}
+{\footnotesize\ttfamily void wifi\+Connect\+\_\+connect\+\_\+sta\+\_\+normal (\begin{DoxyParamCaption}\item[{char $\ast$}]{ssid,  }\item[{char $\ast$}]{password,  }\item[{Wi\+Fi\+Mode\+\_\+t}]{mod,  }\item[{\mbox{\hyperlink{adri__wifi_connect_8h_a35cfdd4ffe96d333e5ed31188014e548}{wifi\+Connect\+\_\+progress}} $\ast$}]{\+\_\+porgress }\end{DoxyParamCaption})}
+
+
+
+Definition at line 1070 of file adri\+\_\+wifi\+Connect.\+cpp.
+
+\mbox{\Hypertarget{adri__wifi_connect_8cpp_a3e41082afcee3c70eb839e6f839be6a4}\label{adri__wifi_connect_8cpp_a3e41082afcee3c70eb839e6f839be6a4}} 
+\index{adri\_wifiConnect.cpp@{adri\_wifiConnect.cpp}!wifiConnect\_get\_connect@{wifiConnect\_get\_connect}}
+\index{wifiConnect\_get\_connect@{wifiConnect\_get\_connect}!adri\_wifiConnect.cpp@{adri\_wifiConnect.cpp}}
+\doxysubsubsection{\texorpdfstring{wifiConnect\_get\_connect()}{wifiConnect\_get\_connect()}}
+{\footnotesize\ttfamily String wifi\+Connect\+\_\+get\+\_\+connect (\begin{DoxyParamCaption}\item[{\mbox{\hyperlink{classwifi_connect}{wifi\+Connect}} $\ast$}]{obj }\end{DoxyParamCaption})}
+
+
+
+Definition at line 378 of file adri\+\_\+wifi\+Connect.\+cpp.
+
+\mbox{\Hypertarget{adri__wifi_connect_8cpp_a7d2772e62812b5b4a24a073293ab52db}\label{adri__wifi_connect_8cpp_a7d2772e62812b5b4a24a073293ab52db}} 
+\index{adri\_wifiConnect.cpp@{adri\_wifiConnect.cpp}!wifiConnect\_get\_connectSSID@{wifiConnect\_get\_connectSSID}}
+\index{wifiConnect\_get\_connectSSID@{wifiConnect\_get\_connectSSID}!adri\_wifiConnect.cpp@{adri\_wifiConnect.cpp}}
+\doxysubsubsection{\texorpdfstring{wifiConnect\_get\_connectSSID()}{wifiConnect\_get\_connectSSID()}}
+{\footnotesize\ttfamily String wifi\+Connect\+\_\+get\+\_\+connect\+S\+S\+ID (\begin{DoxyParamCaption}\item[{\mbox{\hyperlink{classwifi_connect}{wifi\+Connect}} $\ast$}]{obj }\end{DoxyParamCaption})}
+
+
+
+Definition at line 379 of file adri\+\_\+wifi\+Connect.\+cpp.
+
+\mbox{\Hypertarget{adri__wifi_connect_8cpp_a1364f995a34e78cd1d7784473aa4d1b9}\label{adri__wifi_connect_8cpp_a1364f995a34e78cd1d7784473aa4d1b9}} 
+\index{adri\_wifiConnect.cpp@{adri\_wifiConnect.cpp}!wifiConnect\_get\_credential\_sta@{wifiConnect\_get\_credential\_sta}}
+\index{wifiConnect\_get\_credential\_sta@{wifiConnect\_get\_credential\_sta}!adri\_wifiConnect.cpp@{adri\_wifiConnect.cpp}}
+\doxysubsubsection{\texorpdfstring{wifiConnect\_get\_credential\_sta()}{wifiConnect\_get\_credential\_sta()}}
+{\footnotesize\ttfamily String wifi\+Connect\+\_\+get\+\_\+credential\+\_\+sta (\begin{DoxyParamCaption}\item[{\mbox{\hyperlink{classwifi_connect}{wifi\+Connect}} $\ast$}]{obj }\end{DoxyParamCaption})}
+
+
+
+Definition at line 381 of file adri\+\_\+wifi\+Connect.\+cpp.
+
+\mbox{\Hypertarget{adri__wifi_connect_8cpp_a34956d929bd7956a018ba9aa00716e0a}\label{adri__wifi_connect_8cpp_a34956d929bd7956a018ba9aa00716e0a}} 
+\index{adri\_wifiConnect.cpp@{adri\_wifiConnect.cpp}!wifiConnect\_get\_ip@{wifiConnect\_get\_ip}}
+\index{wifiConnect\_get\_ip@{wifiConnect\_get\_ip}!adri\_wifiConnect.cpp@{adri\_wifiConnect.cpp}}
+\doxysubsubsection{\texorpdfstring{wifiConnect\_get\_ip()}{wifiConnect\_get\_ip()}}
+{\footnotesize\ttfamily String wifi\+Connect\+\_\+get\+\_\+ip (\begin{DoxyParamCaption}\item[{\mbox{\hyperlink{classwifi_connect}{wifi\+Connect}} $\ast$}]{obj }\end{DoxyParamCaption})}
+
+
+
+Definition at line 377 of file adri\+\_\+wifi\+Connect.\+cpp.
+
+\mbox{\Hypertarget{adri__wifi_connect_8cpp_abdef0365e43b2090c830f23de0266e87}\label{adri__wifi_connect_8cpp_abdef0365e43b2090c830f23de0266e87}} 
+\index{adri\_wifiConnect.cpp@{adri\_wifiConnect.cpp}!wifiConnect\_get\_station@{wifiConnect\_get\_station}}
+\index{wifiConnect\_get\_station@{wifiConnect\_get\_station}!adri\_wifiConnect.cpp@{adri\_wifiConnect.cpp}}
+\doxysubsubsection{\texorpdfstring{wifiConnect\_get\_station()}{wifiConnect\_get\_station()}}
+{\footnotesize\ttfamily String wifi\+Connect\+\_\+get\+\_\+station (\begin{DoxyParamCaption}\item[{\mbox{\hyperlink{classwifi_connect}{wifi\+Connect}} $\ast$}]{obj }\end{DoxyParamCaption})}
+
+
+
+Definition at line 380 of file adri\+\_\+wifi\+Connect.\+cpp.
+
+\mbox{\Hypertarget{adri__wifi_connect_8cpp_adc1a79df112def56b6c2733934a625b2}\label{adri__wifi_connect_8cpp_adc1a79df112def56b6c2733934a625b2}} 
+\index{adri\_wifiConnect.cpp@{adri\_wifiConnect.cpp}!wifiConnect\_load\_fromSPIFF@{wifiConnect\_load\_fromSPIFF}}
+\index{wifiConnect\_load\_fromSPIFF@{wifiConnect\_load\_fromSPIFF}!adri\_wifiConnect.cpp@{adri\_wifiConnect.cpp}}
+\doxysubsubsection{\texorpdfstring{wifiConnect\_load\_fromSPIFF()}{wifiConnect\_load\_fromSPIFF()}}
+{\footnotesize\ttfamily boolean wifi\+Connect\+\_\+load\+\_\+from\+S\+P\+I\+FF (\begin{DoxyParamCaption}\item[{String \&}]{result }\end{DoxyParamCaption})}
+
+
+
+Definition at line 419 of file adri\+\_\+wifi\+Connect.\+cpp.
+
+\mbox{\Hypertarget{adri__wifi_connect_8cpp_aaf220b4312a8ad17d52cf0324f4ba087}\label{adri__wifi_connect_8cpp_aaf220b4312a8ad17d52cf0324f4ba087}} 
+\index{adri\_wifiConnect.cpp@{adri\_wifiConnect.cpp}!WIFICONNECT\_MOD\_stringToMod@{WIFICONNECT\_MOD\_stringToMod}}
+\index{WIFICONNECT\_MOD\_stringToMod@{WIFICONNECT\_MOD\_stringToMod}!adri\_wifiConnect.cpp@{adri\_wifiConnect.cpp}}
+\doxysubsubsection{\texorpdfstring{WIFICONNECT\_MOD\_stringToMod()}{WIFICONNECT\_MOD\_stringToMod()}}
+{\footnotesize\ttfamily void W\+I\+F\+I\+C\+O\+N\+N\+E\+C\+T\+\_\+\+M\+O\+D\+\_\+string\+To\+Mod (\begin{DoxyParamCaption}\item[{String}]{mod,  }\item[{\mbox{\hyperlink{adri__wifi_connect_8h_a2731a80e0a34be772cdcc6a48639677f}{W\+I\+F\+I\+C\+O\+N\+N\+E\+C\+T\+\_\+\+M\+OD}} \&}]{result }\end{DoxyParamCaption})}
+
+
+
+Definition at line 333 of file adri\+\_\+wifi\+Connect.\+cpp.
+
+\mbox{\Hypertarget{adri__wifi_connect_8cpp_a321e21c59fa1b62662bae97ab6580e39}\label{adri__wifi_connect_8cpp_a321e21c59fa1b62662bae97ab6580e39}} 
+\index{adri\_wifiConnect.cpp@{adri\_wifiConnect.cpp}!WIFICONNECT\_MOD\_toString@{WIFICONNECT\_MOD\_toString}}
+\index{WIFICONNECT\_MOD\_toString@{WIFICONNECT\_MOD\_toString}!adri\_wifiConnect.cpp@{adri\_wifiConnect.cpp}}
+\doxysubsubsection{\texorpdfstring{WIFICONNECT\_MOD\_toString()}{WIFICONNECT\_MOD\_toString()}}
+{\footnotesize\ttfamily void W\+I\+F\+I\+C\+O\+N\+N\+E\+C\+T\+\_\+\+M\+O\+D\+\_\+to\+String (\begin{DoxyParamCaption}\item[{\mbox{\hyperlink{adri__wifi_connect_8h_a2731a80e0a34be772cdcc6a48639677f}{W\+I\+F\+I\+C\+O\+N\+N\+E\+C\+T\+\_\+\+M\+OD}}}]{mod,  }\item[{String \&}]{result }\end{DoxyParamCaption})}
+
+
+
+Definition at line 318 of file adri\+\_\+wifi\+Connect.\+cpp.
+
+\mbox{\Hypertarget{adri__wifi_connect_8cpp_ae50046882121f75684360706feb3b97e}\label{adri__wifi_connect_8cpp_ae50046882121f75684360706feb3b97e}} 
+\index{adri\_wifiConnect.cpp@{adri\_wifiConnect.cpp}!WIFICONNECTSSID\_MOD\_stringToMod@{WIFICONNECTSSID\_MOD\_stringToMod}}
+\index{WIFICONNECTSSID\_MOD\_stringToMod@{WIFICONNECTSSID\_MOD\_stringToMod}!adri\_wifiConnect.cpp@{adri\_wifiConnect.cpp}}
+\doxysubsubsection{\texorpdfstring{WIFICONNECTSSID\_MOD\_stringToMod()}{WIFICONNECTSSID\_MOD\_stringToMod()}}
+{\footnotesize\ttfamily void W\+I\+F\+I\+C\+O\+N\+N\+E\+C\+T\+S\+S\+I\+D\+\_\+\+M\+O\+D\+\_\+string\+To\+Mod (\begin{DoxyParamCaption}\item[{String}]{mod,  }\item[{\mbox{\hyperlink{adri__wifi_connect_8h_aad73d10f4999d6e1a0378c5b3978bf33}{W\+I\+F\+I\+C\+O\+N\+N\+E\+C\+T\+S\+S\+I\+D\+\_\+\+M\+OD}} \&}]{result }\end{DoxyParamCaption})}
+
+
+
+Definition at line 338 of file adri\+\_\+wifi\+Connect.\+cpp.
+
+\mbox{\Hypertarget{adri__wifi_connect_8cpp_ac6bf18540211264a104bc9ae5becf28c}\label{adri__wifi_connect_8cpp_ac6bf18540211264a104bc9ae5becf28c}} 
+\index{adri\_wifiConnect.cpp@{adri\_wifiConnect.cpp}!WIFICONNECTSSID\_MOD\_toString@{WIFICONNECTSSID\_MOD\_toString}}
+\index{WIFICONNECTSSID\_MOD\_toString@{WIFICONNECTSSID\_MOD\_toString}!adri\_wifiConnect.cpp@{adri\_wifiConnect.cpp}}
+\doxysubsubsection{\texorpdfstring{WIFICONNECTSSID\_MOD\_toString()}{WIFICONNECTSSID\_MOD\_toString()}}
+{\footnotesize\ttfamily void W\+I\+F\+I\+C\+O\+N\+N\+E\+C\+T\+S\+S\+I\+D\+\_\+\+M\+O\+D\+\_\+to\+String (\begin{DoxyParamCaption}\item[{\mbox{\hyperlink{adri__wifi_connect_8h_aad73d10f4999d6e1a0378c5b3978bf33}{W\+I\+F\+I\+C\+O\+N\+N\+E\+C\+T\+S\+S\+I\+D\+\_\+\+M\+OD}}}]{mod,  }\item[{String \&}]{result }\end{DoxyParamCaption})}
+
+
+
+Definition at line 325 of file adri\+\_\+wifi\+Connect.\+cpp.
+
+\mbox{\Hypertarget{adri__wifi_connect_8cpp_a79e957dc9e8d18ebbef97dfb13ccf00b}\label{adri__wifi_connect_8cpp_a79e957dc9e8d18ebbef97dfb13ccf00b}} 
+\index{adri\_wifiConnect.cpp@{adri\_wifiConnect.cpp}!WiFiMode\_t\_stringToMod@{WiFiMode\_t\_stringToMod}}
+\index{WiFiMode\_t\_stringToMod@{WiFiMode\_t\_stringToMod}!adri\_wifiConnect.cpp@{adri\_wifiConnect.cpp}}
+\doxysubsubsection{\texorpdfstring{WiFiMode\_t\_stringToMod()}{WiFiMode\_t\_stringToMod()}}
+{\footnotesize\ttfamily void Wi\+Fi\+Mode\+\_\+t\+\_\+string\+To\+Mod (\begin{DoxyParamCaption}\item[{String}]{mod,  }\item[{Wi\+Fi\+Mode\+\_\+t \&}]{result }\end{DoxyParamCaption})}
+
+
+
+Definition at line 364 of file adri\+\_\+wifi\+Connect.\+cpp.
+
+\mbox{\Hypertarget{adri__wifi_connect_8cpp_ae15e5a3434ab195588e1c4649c274a87}\label{adri__wifi_connect_8cpp_ae15e5a3434ab195588e1c4649c274a87}} 
+\index{adri\_wifiConnect.cpp@{adri\_wifiConnect.cpp}!WiFiMode\_t\_toString@{WiFiMode\_t\_toString}}
+\index{WiFiMode\_t\_toString@{WiFiMode\_t\_toString}!adri\_wifiConnect.cpp@{adri\_wifiConnect.cpp}}
+\doxysubsubsection{\texorpdfstring{WiFiMode\_t\_toString()}{WiFiMode\_t\_toString()}}
+{\footnotesize\ttfamily void Wi\+Fi\+Mode\+\_\+t\+\_\+to\+String (\begin{DoxyParamCaption}\item[{Wi\+Fi\+Mode\+\_\+t}]{mod,  }\item[{String \&}]{result }\end{DoxyParamCaption})}
+
+
+
+Definition at line 353 of file adri\+\_\+wifi\+Connect.\+cpp.
+
+\mbox{\Hypertarget{adri__wifi_connect_8cpp_a0769a8a8bb5fdf51a69270692547490a}\label{adri__wifi_connect_8cpp_a0769a8a8bb5fdf51a69270692547490a}} 
+\index{adri\_wifiConnect.cpp@{adri\_wifiConnect.cpp}!WIWIFICONFIGIP\_MOD\_toString@{WIWIFICONFIGIP\_MOD\_toString}}
+\index{WIWIFICONFIGIP\_MOD\_toString@{WIWIFICONFIGIP\_MOD\_toString}!adri\_wifiConnect.cpp@{adri\_wifiConnect.cpp}}
+\doxysubsubsection{\texorpdfstring{WIWIFICONFIGIP\_MOD\_toString()}{WIWIFICONFIGIP\_MOD\_toString()}}
+{\footnotesize\ttfamily void W\+I\+W\+I\+F\+I\+C\+O\+N\+F\+I\+G\+I\+P\+\_\+\+M\+O\+D\+\_\+to\+String (\begin{DoxyParamCaption}\item[{\mbox{\hyperlink{adri__wifi_connect_8h_a25893425af8c4c64f2fe6dadafdae78d}{W\+I\+F\+I\+C\+O\+N\+F\+I\+G\+I\+P\+\_\+\+M\+OD}}}]{mod,  }\item[{String \&}]{result }\end{DoxyParamCaption})}
+
+
+
+Definition at line 345 of file adri\+\_\+wifi\+Connect.\+cpp.
+
+
+
+\doxysubsection{Variable Documentation}
+\mbox{\Hypertarget{adri__wifi_connect_8cpp_aaff45cba64d70188aab246d25ed565b5}\label{adri__wifi_connect_8cpp_aaff45cba64d70188aab246d25ed565b5}} 
+\index{adri\_wifiConnect.cpp@{adri\_wifiConnect.cpp}!b\_host\_name@{b\_host\_name}}
+\index{b\_host\_name@{b\_host\_name}!adri\_wifiConnect.cpp@{adri\_wifiConnect.cpp}}
+\doxysubsubsection{\texorpdfstring{b\_host\_name}{b\_host\_name}}
+{\footnotesize\ttfamily char b\+\_\+host\+\_\+name\mbox{[}80\mbox{]}}
+
+
+
+Definition at line 35 of file adri\+\_\+wifi\+Connect.\+cpp.
+
+\mbox{\Hypertarget{adri__wifi_connect_8cpp_a7e3fa90cb2cd77624980205ce6b86139}\label{adri__wifi_connect_8cpp_a7e3fa90cb2cd77624980205ce6b86139}} 
+\index{adri\_wifiConnect.cpp@{adri\_wifiConnect.cpp}!wifi\_credential\_sta\_array@{wifi\_credential\_sta\_array}}
+\index{wifi\_credential\_sta\_array@{wifi\_credential\_sta\_array}!adri\_wifiConnect.cpp@{adri\_wifiConnect.cpp}}
+\doxysubsubsection{\texorpdfstring{wifi\_credential\_sta\_array}{wifi\_credential\_sta\_array}}
+{\footnotesize\ttfamily \mbox{\hyperlink{classwifi__credential__sta}{wifi\+\_\+credential\+\_\+sta}}$\ast$ wifi\+\_\+credential\+\_\+sta\+\_\+array\mbox{[}\mbox{\hyperlink{adri__wifi_connect_8h_ad9ef1ce3b047f7c8427b2e146d21f9cd}{C\+R\+E\+D\+E\+N\+T\+I\+A\+L\+\_\+\+M\+AX}}\mbox{]}}
+
+
+
+The Wi\+Fi credential sta array\mbox{[} credential max\mbox{]}. 
+
+
+
+Definition at line 281 of file adri\+\_\+wifi\+Connect.\+cpp.
+
+\mbox{\Hypertarget{adri__wifi_connect_8cpp_a21651e8269ce04f31339c25cda1a1aad}\label{adri__wifi_connect_8cpp_a21651e8269ce04f31339c25cda1a1aad}} 
+\index{adri\_wifiConnect.cpp@{adri\_wifiConnect.cpp}!wifi\_credential\_sta\_best@{wifi\_credential\_sta\_best}}
+\index{wifi\_credential\_sta\_best@{wifi\_credential\_sta\_best}!adri\_wifiConnect.cpp@{adri\_wifiConnect.cpp}}
+\doxysubsubsection{\texorpdfstring{wifi\_credential\_sta\_best}{wifi\_credential\_sta\_best}}
+{\footnotesize\ttfamily \mbox{\hyperlink{classwifi__credential__sta__best}{wifi\+\_\+credential\+\_\+sta\+\_\+best}} \mbox{\hyperlink{classwifi__credential__sta__best}{wifi\+\_\+credential\+\_\+sta\+\_\+best}}}
+
+
+
+Definition at line 283 of file adri\+\_\+wifi\+Connect.\+cpp.
+
+\mbox{\Hypertarget{adri__wifi_connect_8cpp_a02efdd8adee4b23b8dd55ee6871d9d20}\label{adri__wifi_connect_8cpp_a02efdd8adee4b23b8dd55ee6871d9d20}} 
+\index{adri\_wifiConnect.cpp@{adri\_wifiConnect.cpp}!wifi\_credential\_sta\_getValues@{wifi\_credential\_sta\_getValues}}
+\index{wifi\_credential\_sta\_getValues@{wifi\_credential\_sta\_getValues}!adri\_wifiConnect.cpp@{adri\_wifiConnect.cpp}}
+\doxysubsubsection{\texorpdfstring{wifi\_credential\_sta\_getValues}{wifi\_credential\_sta\_getValues}}
+{\footnotesize\ttfamily P\+R\+O\+G\+M\+EM \mbox{\hyperlink{structwifi__credential__sta__get_value}{wifi\+\_\+credential\+\_\+sta\+\_\+get\+Value}} wifi\+\_\+credential\+\_\+sta\+\_\+get\+Values\mbox{[}$\,$\mbox{]}}
+
+{\bfseries Initial value\+:}
+\begin{DoxyCode}{0}
+\DoxyCodeLine{= \{           }
+\DoxyCodeLine{    \{\textcolor{stringliteral}{"ssid"},        \mbox{\hyperlink{adri__wifi_connect_8cpp_af5e38f2612cf69d1e12e5ae27a0bdbe7}{wifi\_credential\_sta\_get\_ssid}}\},}
+\DoxyCodeLine{    \{\textcolor{stringliteral}{"psk"},         \mbox{\hyperlink{adri__wifi_connect_8cpp_a73f1092d3b4376cd1ca18d3d77052069}{wifi\_credential\_sta\_get\_psk}}\},}
+\DoxyCodeLine{    \{\textcolor{stringliteral}{"ip"},          \mbox{\hyperlink{adri__wifi_connect_8cpp_ab25d67d1cdeb4aff2a782d64a810a6d9}{wifi\_credential\_sta\_get\_ip}}\},}
+\DoxyCodeLine{    \{\textcolor{stringliteral}{"subnet"},      \mbox{\hyperlink{adri__wifi_connect_8cpp_a8a94632f37e8f7bfa2b5e17abddc15b2}{wifi\_credential\_sta\_get\_subnet}}\},}
+\DoxyCodeLine{    \{\textcolor{stringliteral}{"gateway"},     \mbox{\hyperlink{adri__wifi_connect_8cpp_a4aa7fa97a8a4acc8e319c82e938405ce}{wifi\_credential\_sta\_get\_gateway}}\},}
+\DoxyCodeLine{\}}
+
+\end{DoxyCode}
+
+
+Definition at line 805 of file adri\+\_\+wifi\+Connect.\+cpp.
+
+\mbox{\Hypertarget{adri__wifi_connect_8cpp_a07a3445c3358b9c56e2eb3478105e7d6}\label{adri__wifi_connect_8cpp_a07a3445c3358b9c56e2eb3478105e7d6}} 
+\index{adri\_wifiConnect.cpp@{adri\_wifiConnect.cpp}!wifi\_credential\_sta\_getValues\_count@{wifi\_credential\_sta\_getValues\_count}}
+\index{wifi\_credential\_sta\_getValues\_count@{wifi\_credential\_sta\_getValues\_count}!adri\_wifiConnect.cpp@{adri\_wifiConnect.cpp}}
+\doxysubsubsection{\texorpdfstring{wifi\_credential\_sta\_getValues\_count}{wifi\_credential\_sta\_getValues\_count}}
+{\footnotesize\ttfamily int wifi\+\_\+credential\+\_\+sta\+\_\+get\+Values\+\_\+count = \mbox{\hyperlink{adri__wifi_connect_8cpp_a4163b4a4e9d8f2949741962dca6c5944}{A\+R\+R\+A\+Y\+\_\+\+S\+I\+ZE}}(\mbox{\hyperlink{adri__wifi_connect_8cpp_a02efdd8adee4b23b8dd55ee6871d9d20}{wifi\+\_\+credential\+\_\+sta\+\_\+get\+Values}})}
+
+
+
+Definition at line 812 of file adri\+\_\+wifi\+Connect.\+cpp.
+
+\mbox{\Hypertarget{adri__wifi_connect_8cpp_abac52dccbc6dae615fe5b09e5b9ab939}\label{adri__wifi_connect_8cpp_abac52dccbc6dae615fe5b09e5b9ab939}} 
+\index{adri\_wifiConnect.cpp@{adri\_wifiConnect.cpp}!wifiConnect\_getValues@{wifiConnect\_getValues}}
+\index{wifiConnect\_getValues@{wifiConnect\_getValues}!adri\_wifiConnect.cpp@{adri\_wifiConnect.cpp}}
+\doxysubsubsection{\texorpdfstring{wifiConnect\_getValues}{wifiConnect\_getValues}}
+{\footnotesize\ttfamily P\+R\+O\+G\+M\+EM \mbox{\hyperlink{structwifi_connect__get_value}{wifi\+Connect\+\_\+get\+Value}} wifi\+Connect\+\_\+get\+Values\mbox{[}$\,$\mbox{]}}
+
+{\bfseries Initial value\+:}
+\begin{DoxyCode}{0}
+\DoxyCodeLine{= \{           }
+\DoxyCodeLine{    \{\textcolor{stringliteral}{"ip"},              \mbox{\hyperlink{adri__wifi_connect_8cpp_a34956d929bd7956a018ba9aa00716e0a}{wifiConnect\_get\_ip}}\},}
+\DoxyCodeLine{    \{\textcolor{stringliteral}{"connect"},         \mbox{\hyperlink{adri__wifi_connect_8cpp_a3e41082afcee3c70eb839e6f839be6a4}{wifiConnect\_get\_connect}}\},}
+\DoxyCodeLine{    \{\textcolor{stringliteral}{"connectSSID"},     \mbox{\hyperlink{adri__wifi_connect_8cpp_a7d2772e62812b5b4a24a073293ab52db}{wifiConnect\_get\_connectSSID}}\},}
+\DoxyCodeLine{    \{\textcolor{stringliteral}{"station"},         \mbox{\hyperlink{adri__wifi_connect_8cpp_abdef0365e43b2090c830f23de0266e87}{wifiConnect\_get\_station}}\},}
+\DoxyCodeLine{    \{\textcolor{stringliteral}{"credential\_sta"},  \mbox{\hyperlink{adri__wifi_connect_8cpp_a1364f995a34e78cd1d7784473aa4d1b9}{wifiConnect\_get\_credential\_sta}}\},}
+\DoxyCodeLine{\}}
+
+\end{DoxyCode}
+
+
+Definition at line 383 of file adri\+\_\+wifi\+Connect.\+cpp.
+
+\mbox{\Hypertarget{adri__wifi_connect_8cpp_a7927c91655784a08b6a57bfbac197bdc}\label{adri__wifi_connect_8cpp_a7927c91655784a08b6a57bfbac197bdc}} 
+\index{adri\_wifiConnect.cpp@{adri\_wifiConnect.cpp}!wifiConnect\_getValues\_count@{wifiConnect\_getValues\_count}}
+\index{wifiConnect\_getValues\_count@{wifiConnect\_getValues\_count}!adri\_wifiConnect.cpp@{adri\_wifiConnect.cpp}}
+\doxysubsubsection{\texorpdfstring{wifiConnect\_getValues\_count}{wifiConnect\_getValues\_count}}
+{\footnotesize\ttfamily int wifi\+Connect\+\_\+get\+Values\+\_\+count = \mbox{\hyperlink{adri__wifi_connect_8cpp_a4163b4a4e9d8f2949741962dca6c5944}{A\+R\+R\+A\+Y\+\_\+\+S\+I\+ZE}}(\mbox{\hyperlink{adri__wifi_connect_8cpp_abac52dccbc6dae615fe5b09e5b9ab939}{wifi\+Connect\+\_\+get\+Values}})}
+
+
+
+Definition at line 390 of file adri\+\_\+wifi\+Connect.\+cpp.
+
