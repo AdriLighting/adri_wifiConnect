@@ -155,8 +155,6 @@
     class wifiConnect
     {
         WIFICONFIGIP_MOD        _cfgIp          = AWIP_IP;
-        WIFICONNECT_MOD         _connect        = AWC_SETUP; 
-        WIFICONNECTSSID_MOD     _connectSSID    = AWCS_MULTI;
         WiFiMode_t              _station        = WIFI_STA;
         int                     _credential_sta_pos = 0;
 
@@ -168,9 +166,11 @@
         const char *            _hostName   = "";
         char                    _DNSname[80];
     public:
-        wifi_credential_sta *   _credential_sta;;
+        wifi_credential_sta *   _credential_sta;
         WiFiMode_t              _statu_sta          = _station;
         wifiConnect_progress    _porgress       = NULL;
+        WIFICONNECTSSID_MOD     _connectSSID    = AWCS_MULTI;
+        WIFICONNECT_MOD         _connect        = AWC_SETUP; 
 
         wifiConnect();
         ~wifiConnect(){};
@@ -208,6 +208,9 @@
         String espStationMod_get();
         String currentSSID_get();
         String currentIp_get();
+        String currentPsk_get();
+        String staPsk_get();
+        String staSsid_get();
         IPAddress _currentIp_get();
         
         void print_cfg();
@@ -252,5 +255,8 @@
     // wl_status_t ESP8266WiFiMulti_run(uint32_t connectTimeoutMs);
     void wifiConnect_connect_sta_normal(char * ssid, char * password, WiFiMode_t mod, wifiConnect_progress * _porgress);
     void wifi_connect_statu();
+    void WIFICONNECTSSID_MOD_toString(WIFICONNECTSSID_MOD mod, String & result);
+    void WIFICONNECT_MOD_toString(WIFICONNECT_MOD mod, String & result);
+    boolean wifiConnect_load_fromSPIFF(String & result);
 #endif
 

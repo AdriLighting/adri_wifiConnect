@@ -467,6 +467,19 @@ IPAddress wifiConnect::_currentIp_get() {
     if (_statu_sta == WIFI_AP_STA)  return WiFi.localIP();
     if (_statu_sta == WIFI_AP)      return WiFi.softAPIP();
 }
+String wifiConnect::currentPsk_get() {
+    if (wifiConnect_ptr == nullptr) return "";
+    if (_statu_sta == WIFI_STA) return _credential_sta->psk_get();
+    if (_statu_sta == WIFI_AP)  return wifi_credentialAp_ptr->psk_get();
+}
+String wifiConnect::staPsk_get() {
+    if (wifiConnect_ptr == nullptr) return "";
+    return _credential_sta->psk_get();
+}
+String wifiConnect::staSsid_get() {
+    if (wifiConnect_ptr == nullptr) return "";
+    return _credential_sta->ssid_get();
+}
 
 String wifiConnect_get_ip(wifiConnect * obj)             {return obj->ip_get();}
 String wifiConnect_get_connect(wifiConnect * obj)        {return obj->connect_get();}
@@ -546,7 +559,7 @@ boolean wifiConnect_load_fromSPIFF(String & result) {
     }
 
     #ifdef DEBUG
-        fsprintf("\n[wifiConnect_load_fromSPIFF]\n")
+        fsprintf("\n[wifiConnect_load_fromSPIFF] DONE\n")
     #endif
 
     String line = "";
@@ -556,7 +569,7 @@ boolean wifiConnect_load_fromSPIFF(String & result) {
     result = line;
 
     #ifdef DEBUG
-        fsprintf(" %s\n", result.c_str());
+        // fsprintf(" %s\n", result.c_str());
     #endif
 
     f.close();  
@@ -577,17 +590,17 @@ boolean wifiConnect::load_fromSpiif(){
 
     String value = "";
 
-    value = literal_value("connect",     result);
-    WIFICONNECT_MOD_stringToMod(value, _connect);
+    // value = literal_value("connect",     result);
+    // WIFICONNECT_MOD_stringToMod(value, _connect);
 
-    value = literal_value("connectSSID", result);
-    WIFICONNECTSSID_MOD_stringToMod(value, _connectSSID);
+    // value = literal_value("connectSSID", result);
+    // WIFICONNECTSSID_MOD_stringToMod(value, _connectSSID);
 
-    value = literal_value("credential_sta", result);
-    if (value != "") credential_sta_pos_set(value.toInt());
+    // value = literal_value("credential_sta", result);
+    // if (value != "") credential_sta_pos_set(value.toInt());
 
-    value = literal_value("station", result);
-    WiFiMode_t_stringToMod(value, _station);   
+    // value = literal_value("station", result);
+    // WiFiMode_t_stringToMod(value, _station);  
 
     return true;
 
@@ -913,10 +926,10 @@ void wifiConnect::setup(){
             );       
         }
         if (_statu_sta == WIFI_AP){
-             Serial.printf("\n[WIFICLASS WIFI_AP]\n\t%s - %s - %s\n\n", 
-                WiFi.softAPIP().toString().c_str(), 
-                WiFi.apGatewayIP().toString().c_str(), 
-                WiFi.apSubnetMask().toString().c_str()
+             Serial.printf("\n[WIFICLASS WIFI_AP]\n\t%s \n\n", 
+                WiFi.softAPIP().toString().c_str()
+                // WiFi.apGatewayIP().toString().c_str(), 
+                // WiFi.apSubnetMask().toString().c_str()
             );       
         }
     #endif
