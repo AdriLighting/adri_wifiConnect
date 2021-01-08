@@ -47,16 +47,16 @@ void setup() {
 	if (!wifi_credential_sta_fromSPIFF()) { 	// initialisation de linstance wifi_credential_sta
 		wifi_credential_set(
 			1, 						// postion du ssid selectionner (0 to 2)
-			"freebox_123_EXTBAS",	// ssid
-			"phcaadax", 			// pswd
+			"ssid",	// ssid
+			"pswd", 			// pswd
 			"",						// ip 		(vide pour ne pas cofigurer d'ip)
 			"",						// subnet 	(vide pour ne pas cofigurer d'subnet)
 			""						// gateway 	(vide pour ne pas cofigurer d'gateway)
 		);
 		wifi_credential_set(
 			0, 						
-			"freebox_123_EXT", 		
-			"phcaadax", 			
+			"ssid", 		
+			"pswd", 			
 			"",						
 			"",						
 			""						
@@ -65,7 +65,7 @@ void setup() {
 	}
 		wifi_credential_set(
 			0, 						
-			"freebox_123_EXT", 		
+			"ssid", 		
 			"x", 			
 			"",						
 			"",						
