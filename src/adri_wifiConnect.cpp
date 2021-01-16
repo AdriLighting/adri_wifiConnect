@@ -58,7 +58,8 @@ void wifi_credential_ap_register(wifi_credential_ap* ptr){
 
 wifi_credential_ap::wifi_credential_ap(const char * value){
     wifi_credentialAp_ptr = this;
-    if (value!="") hostname_set(ch_toString(value));
+     const char * bl = "";
+    if (value!=bl) hostname_set(ch_toString(value));
 }
 
 /**
@@ -206,7 +207,7 @@ boolean wifi_credential_ap_fromSPIFF(String & result) {
 
     String filename = "/" + CREDENTIALAP_FILENAME + ".txt";
 
-    File f=SPIFFS.open(filename,"r");
+    File f=LittleFS.open(filename,"r");
 
     if (!f) {
         #ifdef DEBUG
@@ -455,22 +456,26 @@ String wifiConnect::currentSSID_get() {
    
     if (_statu_sta == WIFI_STA) { if (WiFi.status() != WL_CONNECTED) return "SSID"; else return WiFi.SSID();}
     if (_statu_sta == WIFI_AP)  return wifi_credentialAp_ptr->hostname_get();
+    return "SSID";
 }
 String wifiConnect::currentIp_get() {
     if (wifiConnect_ptr == nullptr) return "IP";
     if (_statu_sta == WIFI_STA) return WiFi.localIP().toString();
     if (_statu_sta == WIFI_AP)  return WiFi.softAPIP().toString();
+    return "IP";
 }
 IPAddress wifiConnect::_currentIp_get() {
     if (wifiConnect_ptr == nullptr) return WiFi.localIP();
     if (_statu_sta == WIFI_STA)     return WiFi.localIP();
     if (_statu_sta == WIFI_AP_STA)  return WiFi.localIP();
     if (_statu_sta == WIFI_AP)      return WiFi.softAPIP();
+    return WiFi.localIP();
 }
 String wifiConnect::currentPsk_get() {
     if (wifiConnect_ptr == nullptr) return "";
     if (_statu_sta == WIFI_STA) return _credential_sta->psk_get();
     if (_statu_sta == WIFI_AP)  return wifi_credentialAp_ptr->psk_get();
+    return "";
 }
 String wifiConnect::staPsk_get() {
     if (wifiConnect_ptr == nullptr) return "";
@@ -497,23 +502,23 @@ String wifiConnect_get_dnsname(wifiConnect * obj)               {return obj->dns
 String wifiConnect_get_ssid(wifiConnect * obj)                  {return obj->currentSSID_get();}
 
 PROGMEM wifiConnect_getValue wifiConnect_getValues [] = {           
-    {"ssid",                wifiConnect_get_ssid},
-    {"dnsname",             wifiConnect_get_dnsname},
-    {"hostname",            wifiConnect_get_hostname},
+    {(char *)"ssid",                wifiConnect_get_ssid},
+    {(char *)"dnsname",             wifiConnect_get_dnsname},
+    {(char *)"hostname",            wifiConnect_get_hostname},
 
-    {"ip",                  wifiConnect_get_ip},
-    {"statu_ip",            wifiConnect_get_statu_ip},
+    {(char *)"ip",                  wifiConnect_get_ip},
+    {(char *)"statu_ip",            wifiConnect_get_statu_ip},
 
-    {"connect",             wifiConnect_get_connect},
-    {"statu_connect",       wifiConnect_get_statu_connect},
+    {(char *)"connect",             wifiConnect_get_connect},
+    {(char *)"statu_connect",       wifiConnect_get_statu_connect},
 
-    {"connectSSID",         wifiConnect_get_connectSSID},
-    {"statu_connectSSID",   wifiConnect_get_statu_connectSSID},
+    {(char *)"connectSSID",         wifiConnect_get_connectSSID},
+    {(char *)"statu_connectSSID",   wifiConnect_get_statu_connectSSID},
 
-    {"station",             wifiConnect_get_station},
-    {"statu_station",       wifiConnect_get_statu_station},
+    {(char *)"station",             wifiConnect_get_station},
+    {(char *)"statu_station",       wifiConnect_get_statu_station},
 
-    {"credential_sta",      wifiConnect_get_credential_sta},
+    {(char *)"credential_sta",      wifiConnect_get_credential_sta},
 
 };
 int wifiConnect_getValues_count = ARRAY_SIZE(wifiConnect_getValues);
@@ -521,7 +526,7 @@ int wifiConnect_getValues_count = ARRAY_SIZE(wifiConnect_getValues);
 boolean wifiConnect::savToSpiff(){
     String filename = "/" + WIFICONNECT_FILENAME + ".txt";
 
-    File f=SPIFFS.open(filename,"w");
+    File f=LittleFS.open(filename,"w");
 
     if (!f) {
         #ifdef DEBUG
@@ -530,7 +535,7 @@ boolean wifiConnect::savToSpiff(){
         return false;
     }
 
-    char buffer[120];
+    // char buffer[120];
     String line = "";
 
     for (int j = 0; j < wifiConnect_getValues_count; ++j) {
@@ -549,7 +554,7 @@ boolean wifiConnect_load_fromSPIFF(String & result) {
 
     String filename = "/" + WIFICONNECT_FILENAME + ".txt";
 
-    File f=SPIFFS.open(filename,"r");
+    File f=LittleFS.open(filename,"r");
 
     if (!f) {
         #ifdef DEBUG
@@ -650,6 +655,7 @@ boolean wifiConnect::setup_ap(){
         _statu_current      = wifi_statu_connect_ap_begin;                
         connect_ap();
     }    
+    return true;
 }
 
 boolean wifiConnect::WIFImulti_setup_id(){
@@ -709,6 +715,7 @@ boolean wifiConnect::setup_sta_normal(){
         return false;
     }
     
+    const char * bl = "";
     switch(_statu_connect) {
         case AWC_SETUP:
 
@@ -722,7 +729,7 @@ boolean wifiConnect::setup_sta_normal(){
             delay(1000);
             WiFi.mode(WIFI_STA);   
 
-            if (_hostName != "") WiFi.hostname(_hostName);
+            if (_hostName != bl) WiFi.hostname(_hostName);
             wifi_set_sleep_type(NONE_SLEEP_T);            
             // ###############################################
 
@@ -735,10 +742,11 @@ boolean wifiConnect::setup_sta_normal(){
 
             _statu_current = wifi_statu_connect_sta_begin;
 
-            if (_hostName != "") WiFi.hostname(_hostName);
+            if (_hostName != bl) WiFi.hostname(_hostName);
 
             return true;
-        break;       
+        break; 
+        default: break;      
     }
 
 
@@ -769,6 +777,8 @@ boolean wifiConnect::setup_sta_multi(){
        ESP8266WiFiMulti_tested[i]="";
     }
 
+    const char * bl = "";
+    adri_timer * timer;
     switch(_statu_connect) {
         case AWC_SETUP:
 
@@ -781,12 +791,12 @@ boolean wifiConnect::setup_sta_multi(){
 
             delay(1000);
             WiFi.mode(WIFI_STA);   
-
-            if (_hostName != "") WiFi.hostname(_hostName);
+          
+            if (_hostName != bl) WiFi.hostname(_hostName);
             wifi_set_sleep_type(NONE_SLEEP_T);            
             // ###############################################
 
-            adri_timer * timer = new adri_timer(60000, "", true);
+            timer = new adri_timer(60000, "", true);
             while (true) {
                 wl_status_t statu = ESP8266WiFiMulti_run(this, _statu_sta, &_porgress);
                 if (statu == WL_CONNECTED) break;
@@ -815,6 +825,8 @@ boolean wifiConnect::setup_sta_multi(){
 
             return true;
         break;
+        default: 
+            break;
     }
 
     return false;
@@ -858,6 +870,7 @@ void wifiConnect::stationIsSTA(boolean & result) {
         case wifi_statu_connect_sta_succes:
             ret = true; 
         break;
+        default: break;
     }
     result = ret;
 }
@@ -915,6 +928,7 @@ void wifiConnect::setup(){
             if (w_mod != WIFI_AP)   _statu_current = wifi_statu_connect_ap_coFail;
             else                    _statu_current = wifi_statu_connect_ap_succes;
         break;
+        default: break;
     }
     #ifdef DEBUG
         statuPrint("\n[wifiConnect::setup] statuPrint END\n");
@@ -937,7 +951,7 @@ void wifiConnect::setup(){
 
 void wifiConnect::setupLoop(){
 
-    boolean resultConnect;
+    // boolean resultConnect;
 
     _statu_ip           = _cfgIp;
     _statu_sta          = _station;
@@ -1069,11 +1083,11 @@ void wifiConnect::wifi_loop(){
     IPAddress staticIP; 
     IPAddress gateway;
     IPAddress subnet;  
-    char sSSID[80];
-    char sPSWD[80]; 
+    // char sSSID[80];
+    // char sPSWD[80]; 
     WiFiMode_t w_mod; 
-    boolean resultConnect = false;
-
+    // boolean resultConnect = false;
+    const char * bl = "";
     switch (wifiLoop_statu) {
 
         case wifi_statu_sta_begin:
@@ -1101,7 +1115,7 @@ void wifiConnect::wifi_loop(){
             delay(1000);
             WiFi.mode(WIFI_STA);   
 
-            if (_hostName != "") WiFi.hostname(_hostName);
+            if (_hostName != bl) WiFi.hostname(_hostName);
             wifi_set_sleep_type(NONE_SLEEP_T);            
             // ###############################################
 
@@ -1154,12 +1168,14 @@ void wifiConnect::wifi_loop(){
                     if (w_mod != WIFI_AP)   _statu_current = wifi_statu_connect_ap_coFail;
                     else                    _statu_current = wifi_statu_connect_ap_succes;
                 break;
+                default: break;
             }
 
             wifiLoop_statu = wifi_statu_sta_isconnected;
             
 
         break; 
+        default: break;
     }
 
 
@@ -1186,11 +1202,11 @@ String wifi_credential_sta_get_subnet(wifi_credential_sta * obj)   {return obj->
 String wifi_credential_sta_get_gateway(wifi_credential_sta * obj)  {return obj->gateway_get();}
 
 PROGMEM wifi_credential_sta_getValue wifi_credential_sta_getValues [] = {           
-    {"ssid",        wifi_credential_sta_get_ssid},
-    {"psk",         wifi_credential_sta_get_psk},
-    {"ip",          wifi_credential_sta_get_ip},
-    {"subnet",      wifi_credential_sta_get_subnet},
-    {"gateway",     wifi_credential_sta_get_gateway},
+    {(char *)"ssid",        wifi_credential_sta_get_ssid},
+    {(char *)"psk",         wifi_credential_sta_get_psk},
+    {(char *)"ip",          wifi_credential_sta_get_ip},
+    {(char *)"subnet",      wifi_credential_sta_get_subnet},
+    {(char *)"gateway",     wifi_credential_sta_get_gateway},
 };
 int wifi_credential_sta_getValues_count = ARRAY_SIZE(wifi_credential_sta_getValues);
 
@@ -1231,7 +1247,7 @@ void wifi_credential_sta::print(){
 boolean wifi_credential_sta_fromSPIFF(String * array) {
     String filename = "/" + CREDENTIAL_FILENAME + ".txt";
 
-    File f=SPIFFS.open(filename,"r");
+    File f=LittleFS.open(filename,"r");
     if (!f) {
         #ifdef DEBUG
             fsprintf("\n[wifi_credential_sta_fromSPIFF] Error reading : %S\n", filename.c_str())
@@ -1274,7 +1290,7 @@ wifi_credential_sta * wifi_credential_get(int pos){
 }
 
 boolean wifi_credential_sta_fromSPIFF() {
-    char buffer_1[255];
+    // char buffer_1[255];
 
     String  cr_array[CREDENTIAL_MAX+1];
 
@@ -1330,7 +1346,7 @@ void wifi_credential_sta_print(){
 boolean wifi_credential_sta_toSpiff(){
     String filename = "/" + CREDENTIAL_FILENAME + ".txt";
 
-    File f=SPIFFS.open(filename,"w");
+    File f=LittleFS.open(filename,"w");
 
     if (!f) {
         #ifdef DEBUG
@@ -1339,7 +1355,7 @@ boolean wifi_credential_sta_toSpiff(){
         return false;
     }
 
-    char buffer[120];
+    // char buffer[120];
     String line = "";
     for (int i = 0; i < CREDENTIAL_MAX; ++i) {
         for (int j = 0; j < wifi_credential_sta_getValues_count; ++j) {
@@ -1371,7 +1387,7 @@ boolean wifi_credential_sta_toSpiff(String line){
 
     String filename = "/" + CREDENTIALAP_FILENAME + ".txt";
 
-    File f=SPIFFS.open(filename,"w");
+    File f=LittleFS.open(filename,"w");
 
     if (!f) {
         #ifdef DEBUG
@@ -1716,7 +1732,7 @@ wl_status_t ESP8266WiFiMulti_run(wifiConnect * obj,  WiFiMode_t mod, wifiConnect
                     if(ssid_scan == ssid) { // SSID match
                         if(pass > 1) known = true;
                         if(-rssi_scan < bestNetworkDb) { // best network
-                            if(sec_scan == ENC_TYPE_NONE || (psk!="")) { // check for passphrase if not open wlan
+                            if(sec_scan == ENC_TYPE_NONE || (psk!=(char *)"")) { // check for passphrase if not open wlan
                                 bestNetworkDb           = -rssi_scan;
                                 bestChannel             = chan_scan;
                                 bestNetwork.ssid        = ssid;
@@ -1860,7 +1876,7 @@ wl_status_t ESP8266WiFiMulti_run(wifiConnect * obj,  WiFiMode_t mod, wifiConnect
 
 // int wifi_credential_fromSPIFF(String * ret) { 
 //     String filename = "/wifi_id.txt";
-//     File f = SPIFFS.open(filename,"r");
+//     File f = LittleFS.open(filename,"r");
 
 //     #ifdef DEBUG
 //         Serial.printf("\n[wfifi_getID_fromSPIFF]\n");

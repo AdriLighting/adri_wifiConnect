@@ -31,7 +31,7 @@ void setup() {
 	delay(1000);
 	fsprintf("\n");
 
-	SPIFFS.begin();
+	LittleFS.begin();
 
 	// Créations des instnce
 	myWifi 		= new wifiConnect();
