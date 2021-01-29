@@ -1592,7 +1592,7 @@ wl_status_t wifiConnect_connect_sta_normal(char * ssid, char * password, int32_t
 boolean wifi_connect_result(String debug){
     if (wifiConnect_ptr == nullptr) return false;
     if (WiFi.status() == WL_CONNECTED) {
-        #ifdef DEBUG
+        // #ifdef DEBUG
             if (debug!="") {
                 Serial.printf("\n[wifi_connect_result -> %s] WL_CONNECTED: %s - %s - %s\n\n", 
                     debug.c_str(), 
@@ -1600,7 +1600,7 @@ boolean wifi_connect_result(String debug){
                     WiFi.gatewayIP().toString().c_str(), 
                     WiFi.subnetMask().toString().c_str());                
             }
-        #endif
+        // #endif
         return true;
     } else {
         #ifdef DEBUG
