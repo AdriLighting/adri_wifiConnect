@@ -8,7 +8,8 @@
 
 #include <arduino.h>
 
-#include <adri_tools.h>
+#include <adri_tools_v2.h>
+#include <adri_timer.h>
 
 #define ARRAY_SIZE(A) (sizeof(A) / sizeof((A)[0]))
 
@@ -58,7 +59,8 @@ void wifi_credential_ap_register(wifi_credential_ap* ptr){
 
 wifi_credential_ap::wifi_credential_ap(const char * value){
     wifi_credentialAp_ptr = this;
-    if (value!="") hostname_set(ch_toString(value));
+     const char * bl = "";
+    if (value!=bl) hostname_set(adri_toolsv2Ptr_get()->ch_toString(value));
 }
 
 /**
@@ -206,7 +208,7 @@ boolean wifi_credential_ap_fromSPIFF(String & result) {
 
     String filename = "/" + CREDENTIALAP_FILENAME + ".txt";
 
-    File f=SPIFFS.open(filename,"r");
+    File f=LittleFS.open(filename,"r");
 
     if (!f) {
         #ifdef DEBUG
@@ -252,13 +254,13 @@ boolean wifi_credential_ap::load_fromSpiif(){
 
     String value = "";
 
-    value = literal_value("psk",    result);
+    value = adri_toolsv2Ptr_get()->literal_value("psk",    result);
     _psk = value;
 
-    value = literal_value("ip",     result);
+    value = adri_toolsv2Ptr_get()->literal_value("ip",     result);
     _ip = value;
 
-    value = literal_value("subnet", result);
+    value = adri_toolsv2Ptr_get()->literal_value("subnet", result);
     _subnet = value;
 
     return true;
@@ -436,7 +438,7 @@ void WiFiMode_t_stringToMod(String mod, WiFiMode_t & result){
 }
 
 String wifiConnect::dnsName_get()               { return String(_DNSname);}
-String wifiConnect::hostName_get()              { return ch_toString(_hostName);}
+String wifiConnect::hostName_get()              { return adri_toolsv2Ptr_get()->ch_toString(_hostName);}
 String wifiConnect::ip_get()                    { String result; WIWIFICONFIGIP_MOD_toString    (_cfgIp,        result); return result;}
 String wifiConnect::connect_get()               { String result; WIFICONNECT_MOD_toString       (_connect,      result); return result;}
 String wifiConnect::connectSSID_get()           { String result; WIFICONNECTSSID_MOD_toString   (_connectSSID,  result); return result;}
@@ -455,22 +457,26 @@ String wifiConnect::currentSSID_get() {
    
     if (_statu_sta == WIFI_STA) { if (WiFi.status() != WL_CONNECTED) return "SSID"; else return WiFi.SSID();}
     if (_statu_sta == WIFI_AP)  return wifi_credentialAp_ptr->hostname_get();
+    return "SSID";
 }
 String wifiConnect::currentIp_get() {
     if (wifiConnect_ptr == nullptr) return "IP";
     if (_statu_sta == WIFI_STA) return WiFi.localIP().toString();
     if (_statu_sta == WIFI_AP)  return WiFi.softAPIP().toString();
+    return "IP";
 }
 IPAddress wifiConnect::_currentIp_get() {
     if (wifiConnect_ptr == nullptr) return WiFi.localIP();
     if (_statu_sta == WIFI_STA)     return WiFi.localIP();
     if (_statu_sta == WIFI_AP_STA)  return WiFi.localIP();
     if (_statu_sta == WIFI_AP)      return WiFi.softAPIP();
+    return WiFi.localIP();
 }
 String wifiConnect::currentPsk_get() {
     if (wifiConnect_ptr == nullptr) return "";
     if (_statu_sta == WIFI_STA) return _credential_sta->psk_get();
     if (_statu_sta == WIFI_AP)  return wifi_credentialAp_ptr->psk_get();
+    return "";
 }
 String wifiConnect::staPsk_get() {
     if (wifiConnect_ptr == nullptr) return "";
@@ -497,23 +503,23 @@ String wifiConnect_get_dnsname(wifiConnect * obj)               {return obj->dns
 String wifiConnect_get_ssid(wifiConnect * obj)                  {return obj->currentSSID_get();}
 
 PROGMEM wifiConnect_getValue wifiConnect_getValues [] = {           
-    {"ssid",                wifiConnect_get_ssid},
-    {"dnsname",             wifiConnect_get_dnsname},
-    {"hostname",            wifiConnect_get_hostname},
+    {(char *)"ssid",                wifiConnect_get_ssid},
+    {(char *)"dnsname",             wifiConnect_get_dnsname},
+    {(char *)"hostname",            wifiConnect_get_hostname},
 
-    {"ip",                  wifiConnect_get_ip},
-    {"statu_ip",            wifiConnect_get_statu_ip},
+    {(char *)"ip",                  wifiConnect_get_ip},
+    {(char *)"statu_ip",            wifiConnect_get_statu_ip},
 
-    {"connect",             wifiConnect_get_connect},
-    {"statu_connect",       wifiConnect_get_statu_connect},
+    {(char *)"connect",             wifiConnect_get_connect},
+    {(char *)"statu_connect",       wifiConnect_get_statu_connect},
 
-    {"connectSSID",         wifiConnect_get_connectSSID},
-    {"statu_connectSSID",   wifiConnect_get_statu_connectSSID},
+    {(char *)"connectSSID",         wifiConnect_get_connectSSID},
+    {(char *)"statu_connectSSID",   wifiConnect_get_statu_connectSSID},
 
-    {"station",             wifiConnect_get_station},
-    {"statu_station",       wifiConnect_get_statu_station},
+    {(char *)"station",             wifiConnect_get_station},
+    {(char *)"statu_station",       wifiConnect_get_statu_station},
 
-    {"credential_sta",      wifiConnect_get_credential_sta},
+    {(char *)"credential_sta",      wifiConnect_get_credential_sta},
 
 };
 int wifiConnect_getValues_count = ARRAY_SIZE(wifiConnect_getValues);
@@ -521,7 +527,7 @@ int wifiConnect_getValues_count = ARRAY_SIZE(wifiConnect_getValues);
 boolean wifiConnect::savToSpiff(){
     String filename = "/" + WIFICONNECT_FILENAME + ".txt";
 
-    File f=SPIFFS.open(filename,"w");
+    File f=LittleFS.open(filename,"w");
 
     if (!f) {
         #ifdef DEBUG
@@ -530,11 +536,11 @@ boolean wifiConnect::savToSpiff(){
         return false;
     }
 
-    char buffer[120];
+    // char buffer[120];
     String line = "";
 
     for (int j = 0; j < wifiConnect_getValues_count; ++j) {
-        line += literal_item(
+        line += adri_toolsv2Ptr_get()->literal_item(
                 wifiConnect_getValues[j].name, 
                 wifiConnect_getValues[j].getValue(this)); 
     }
@@ -549,7 +555,7 @@ boolean wifiConnect_load_fromSPIFF(String & result) {
 
     String filename = "/" + WIFICONNECT_FILENAME + ".txt";
 
-    File f=SPIFFS.open(filename,"r");
+    File f=LittleFS.open(filename,"r");
 
     if (!f) {
         #ifdef DEBUG
@@ -590,16 +596,16 @@ boolean wifiConnect::load_fromSpiif(){
 
     String value = "";
 
-    // value = literal_value("connect",     result);
+    // value = adri_toolsv2Ptr_get()->literal_value("connect",     result);
     // WIFICONNECT_MOD_stringToMod(value, _connect);
 
-    // value = literal_value("connectSSID", result);
+    // value = adri_toolsv2Ptr_get()->literal_value("connectSSID", result);
     // WIFICONNECTSSID_MOD_stringToMod(value, _connectSSID);
 
-    // value = literal_value("credential_sta", result);
+    // value = adri_toolsv2Ptr_get()->literal_value("credential_sta", result);
     // if (value != "") credential_sta_pos_set(value.toInt());
 
-    // value = literal_value("station", result);
+    // value = adri_toolsv2Ptr_get()->literal_value("station", result);
     // WiFiMode_t_stringToMod(value, _station);  
 
     return true;
@@ -650,6 +656,7 @@ boolean wifiConnect::setup_ap(){
         _statu_current      = wifi_statu_connect_ap_begin;                
         connect_ap();
     }    
+    return true;
 }
 
 boolean wifiConnect::WIFImulti_setup_id(){
@@ -709,6 +716,7 @@ boolean wifiConnect::setup_sta_normal(){
         return false;
     }
     
+    const char * bl = "";
     switch(_statu_connect) {
         case AWC_SETUP:
 
@@ -722,7 +730,7 @@ boolean wifiConnect::setup_sta_normal(){
             delay(1000);
             WiFi.mode(WIFI_STA);   
 
-            if (_hostName != "") WiFi.hostname(_hostName);
+            if (_hostName != bl) WiFi.hostname(_hostName);
             wifi_set_sleep_type(NONE_SLEEP_T);            
             // ###############################################
 
@@ -735,10 +743,11 @@ boolean wifiConnect::setup_sta_normal(){
 
             _statu_current = wifi_statu_connect_sta_begin;
 
-            if (_hostName != "") WiFi.hostname(_hostName);
+            if (_hostName != bl) WiFi.hostname(_hostName);
 
             return true;
-        break;       
+        break; 
+        default: break;      
     }
 
 
@@ -769,6 +778,8 @@ boolean wifiConnect::setup_sta_multi(){
        ESP8266WiFiMulti_tested[i]="";
     }
 
+    const char * bl = "";
+    adri_timer * timer;
     switch(_statu_connect) {
         case AWC_SETUP:
 
@@ -781,12 +792,12 @@ boolean wifiConnect::setup_sta_multi(){
 
             delay(1000);
             WiFi.mode(WIFI_STA);   
-
-            if (_hostName != "") WiFi.hostname(_hostName);
+          
+            if (_hostName != bl) WiFi.hostname(_hostName);
             wifi_set_sleep_type(NONE_SLEEP_T);            
             // ###############################################
 
-            adri_timer * timer = new adri_timer(60000, "", true);
+            timer = new adri_timer(60000, "", true);
             while (true) {
                 wl_status_t statu = ESP8266WiFiMulti_run(this, _statu_sta, &_porgress);
                 if (statu == WL_CONNECTED) break;
@@ -815,6 +826,8 @@ boolean wifiConnect::setup_sta_multi(){
 
             return true;
         break;
+        default: 
+            break;
     }
 
     return false;
@@ -858,6 +871,7 @@ void wifiConnect::stationIsSTA(boolean & result) {
         case wifi_statu_connect_sta_succes:
             ret = true; 
         break;
+        default: break;
     }
     result = ret;
 }
@@ -915,6 +929,7 @@ void wifiConnect::setup(){
             if (w_mod != WIFI_AP)   _statu_current = wifi_statu_connect_ap_coFail;
             else                    _statu_current = wifi_statu_connect_ap_succes;
         break;
+        default: break;
     }
     #ifdef DEBUG
         statuPrint("\n[wifiConnect::setup] statuPrint END\n");
@@ -937,7 +952,7 @@ void wifiConnect::setup(){
 
 void wifiConnect::setupLoop(){
 
-    boolean resultConnect;
+    // boolean resultConnect;
 
     _statu_ip           = _cfgIp;
     _statu_sta          = _station;
@@ -982,13 +997,13 @@ void wifiConnect::connect_ap(){
     if (_statu_ip == AWIP_IP) {
         IPAddress staticIP; 
         IPAddress subnet(255, 255, 255, 0);
-        staticIP = string2ip(wifi_credentialAp_ptr->ip_get());
+        staticIP = adri_toolsv2Ptr_get()->string2ip(wifi_credentialAp_ptr->ip_get());
         WiFi.softAPConfig(staticIP, staticIP, subnet);
     }
     WiFi.softAP(ssid, password);
 
     String ap_ssid   = String(ssid);
-    String ap_ip     = ip2string(WiFi.softAPIP());
+    String ap_ip     = adri_toolsv2Ptr_get()->ip2string(WiFi.softAPIP());
     #ifdef DEBUG
         Serial.printf("\n[wfifi_connect_ap] ssid: %s - pswd: %s - ip: %s\n", ap_ssid.c_str(), password, ap_ip.c_str());
     #endif    
@@ -1005,9 +1020,9 @@ void wifiConnect::configIp(){
     sIp         = _credential_sta->ip_get();
     sSubnet     = _credential_sta->subnet_get();
     sGateway    = _credential_sta->gateway_get();
-    IPAddress staticIP  = string2ip(sIp);
-    IPAddress gateway   = string2ip(sGateway);
-    IPAddress subnet    = string2ip(sSubnet);
+    IPAddress staticIP  = adri_toolsv2Ptr_get()->string2ip(sIp);
+    IPAddress gateway   = adri_toolsv2Ptr_get()->string2ip(sGateway);
+    IPAddress subnet    = adri_toolsv2Ptr_get()->string2ip(sSubnet);
 
     if (isValidIp(sIp, WiFi.subnetMask().toString(), WiFi.gatewayIP().toString())) {
         #ifdef DEBUG
@@ -1069,11 +1084,11 @@ void wifiConnect::wifi_loop(){
     IPAddress staticIP; 
     IPAddress gateway;
     IPAddress subnet;  
-    char sSSID[80];
-    char sPSWD[80]; 
+    // char sSSID[80];
+    // char sPSWD[80]; 
     WiFiMode_t w_mod; 
-    boolean resultConnect = false;
-
+    // boolean resultConnect = false;
+    const char * bl = "";
     switch (wifiLoop_statu) {
 
         case wifi_statu_sta_begin:
@@ -1101,7 +1116,7 @@ void wifiConnect::wifi_loop(){
             delay(1000);
             WiFi.mode(WIFI_STA);   
 
-            if (_hostName != "") WiFi.hostname(_hostName);
+            if (_hostName != bl) WiFi.hostname(_hostName);
             wifi_set_sleep_type(NONE_SLEEP_T);            
             // ###############################################
 
@@ -1154,12 +1169,14 @@ void wifiConnect::wifi_loop(){
                     if (w_mod != WIFI_AP)   _statu_current = wifi_statu_connect_ap_coFail;
                     else                    _statu_current = wifi_statu_connect_ap_succes;
                 break;
+                default: break;
             }
 
             wifiLoop_statu = wifi_statu_sta_isconnected;
             
 
         break; 
+        default: break;
     }
 
 
@@ -1186,11 +1203,11 @@ String wifi_credential_sta_get_subnet(wifi_credential_sta * obj)   {return obj->
 String wifi_credential_sta_get_gateway(wifi_credential_sta * obj)  {return obj->gateway_get();}
 
 PROGMEM wifi_credential_sta_getValue wifi_credential_sta_getValues [] = {           
-    {"ssid",        wifi_credential_sta_get_ssid},
-    {"psk",         wifi_credential_sta_get_psk},
-    {"ip",          wifi_credential_sta_get_ip},
-    {"subnet",      wifi_credential_sta_get_subnet},
-    {"gateway",     wifi_credential_sta_get_gateway},
+    {(char *)"ssid",        wifi_credential_sta_get_ssid},
+    {(char *)"psk",         wifi_credential_sta_get_psk},
+    {(char *)"ip",          wifi_credential_sta_get_ip},
+    {(char *)"subnet",      wifi_credential_sta_get_subnet},
+    {(char *)"gateway",     wifi_credential_sta_get_gateway},
 };
 int wifi_credential_sta_getValues_count = ARRAY_SIZE(wifi_credential_sta_getValues);
 
@@ -1231,7 +1248,7 @@ void wifi_credential_sta::print(){
 boolean wifi_credential_sta_fromSPIFF(String * array) {
     String filename = "/" + CREDENTIAL_FILENAME + ".txt";
 
-    File f=SPIFFS.open(filename,"r");
+    File f=LittleFS.open(filename,"r");
     if (!f) {
         #ifdef DEBUG
             fsprintf("\n[wifi_credential_sta_fromSPIFF] Error reading : %S\n", filename.c_str())
@@ -1274,7 +1291,7 @@ wifi_credential_sta * wifi_credential_get(int pos){
 }
 
 boolean wifi_credential_sta_fromSPIFF() {
-    char buffer_1[255];
+    // char buffer_1[255];
 
     String  cr_array[CREDENTIAL_MAX+1];
 
@@ -1289,19 +1306,19 @@ boolean wifi_credential_sta_fromSPIFF() {
         return false;
     }
 
-    wifi_credential_sta_best.last = literal_value("last", cr_array[CREDENTIAL_MAX]);
-    wifi_credential_sta_best.best = literal_value("best", cr_array[CREDENTIAL_MAX]);
+    wifi_credential_sta_best.last = adri_toolsv2Ptr_get()->literal_value("last", cr_array[CREDENTIAL_MAX]);
+    wifi_credential_sta_best.best = adri_toolsv2Ptr_get()->literal_value("best", cr_array[CREDENTIAL_MAX]);
 
     for (int i = 0; i < CREDENTIAL_MAX; ++i) {
         wifi_credential_sta_array[i] = new wifi_credential_sta();
 
         // fsprintf("#%d - %s\n",i, cr_array[i].c_str());
         wifi_credential_set(i, 
-            literal_value("ssid",       cr_array[i]).c_str(), 
-            literal_value("psk",        cr_array[i]).c_str(), 
-            literal_value("ip",         cr_array[i]).c_str(), 
-            literal_value("subnet",     cr_array[i]).c_str(), 
-            literal_value("gateway",    cr_array[i]).c_str());
+            adri_toolsv2Ptr_get()->literal_value("ssid",       cr_array[i]).c_str(), 
+            adri_toolsv2Ptr_get()->literal_value("psk",        cr_array[i]).c_str(), 
+            adri_toolsv2Ptr_get()->literal_value("ip",         cr_array[i]).c_str(), 
+            adri_toolsv2Ptr_get()->literal_value("subnet",     cr_array[i]).c_str(), 
+            adri_toolsv2Ptr_get()->literal_value("gateway",    cr_array[i]).c_str());
     }  
     return true;
 
@@ -1330,7 +1347,7 @@ void wifi_credential_sta_print(){
 boolean wifi_credential_sta_toSpiff(){
     String filename = "/" + CREDENTIAL_FILENAME + ".txt";
 
-    File f=SPIFFS.open(filename,"w");
+    File f=LittleFS.open(filename,"w");
 
     if (!f) {
         #ifdef DEBUG
@@ -1339,19 +1356,19 @@ boolean wifi_credential_sta_toSpiff(){
         return false;
     }
 
-    char buffer[120];
+    // char buffer[120];
     String line = "";
     for (int i = 0; i < CREDENTIAL_MAX; ++i) {
         for (int j = 0; j < wifi_credential_sta_getValues_count; ++j) {
-            line += literal_item(
+            line += adri_toolsv2Ptr_get()->literal_item(
                     wifi_credential_sta_getValues[j].name, 
                     wifi_credential_sta_getValues[j].getValue(wifi_credential_sta_array[i])); 
         }
         line += "\n";
     }
 
-    line += literal_item("last", wifi_credential_sta_best.last);
-    line += literal_item("best", wifi_credential_sta_best.best);
+    line += adri_toolsv2Ptr_get()->literal_item("last", wifi_credential_sta_best.last);
+    line += adri_toolsv2Ptr_get()->literal_item("best", wifi_credential_sta_best.best);
     line += "\n";
 
     #ifdef DEBUG
@@ -1371,7 +1388,7 @@ boolean wifi_credential_sta_toSpiff(String line){
 
     String filename = "/" + CREDENTIALAP_FILENAME + ".txt";
 
-    File f=SPIFFS.open(filename,"w");
+    File f=LittleFS.open(filename,"w");
 
     if (!f) {
         #ifdef DEBUG
@@ -1389,9 +1406,9 @@ boolean wifi_credential_sta_toSpiff(String line){
 void wifi_credential_ap::sav_toSpiff(){
     String line = "";
 
-    line += literal_item("psk",     _psk);
-    line += literal_item("ip",      _ip);
-    line += literal_item("subnet",  _subnet);
+    line += adri_toolsv2Ptr_get()->literal_item("psk",     _psk);
+    line += adri_toolsv2Ptr_get()->literal_item("ip",      _ip);
+    line += adri_toolsv2Ptr_get()->literal_item("subnet",  _subnet);
 
     wifi_credential_sta_toSpiff(line);
 }
@@ -1410,7 +1427,7 @@ boolean isValidIp(const char * string){
 }
 boolean isValidIp(IPAddress ip){
 
-    String s_ip = ip2string(ip);
+    String s_ip = adri_toolsv2Ptr_get()->ip2string(ip);
 
     char buffer[80];
     sprintf(buffer, "%s", s_ip.c_str());
@@ -1421,15 +1438,15 @@ boolean isValidIp(IPAddress ip){
 }
 boolean isValidIp(String sIp, String sSubnet, String sGateway  ){
 
-    IPAddress ip        = string2ip(sIp);
-    IPAddress gateway   = string2ip(sGateway);
-    IPAddress subnet    = string2ip(sSubnet);
+    IPAddress ip        = adri_toolsv2Ptr_get()->string2ip(sIp);
+    IPAddress gateway   = adri_toolsv2Ptr_get()->string2ip(sGateway);
+    IPAddress subnet    = adri_toolsv2Ptr_get()->string2ip(sSubnet);
 
     #ifdef DEBUG
         fsprintf("\n[isValidIp] ");
-        fsprintf("ip: %s ",         ip2string(ip).c_str());
-        fsprintf("sGateway: %s ",   ip2string(gateway).c_str());
-        fsprintf("sSubnet: %s ",    ip2string(subnet).c_str());
+        fsprintf("ip: %s ",         adri_toolsv2Ptr_get()->ip2string(ip).c_str());
+        fsprintf("sGateway: %s ",   adri_toolsv2Ptr_get()->ip2string(gateway).c_str());
+        fsprintf("sSubnet: %s ",    adri_toolsv2Ptr_get()->ip2string(subnet).c_str());
     #endif
 
     for (int i = 0; i < 4; ++i)
@@ -1576,7 +1593,7 @@ wl_status_t wifiConnect_connect_sta_normal(char * ssid, char * password, int32_t
 boolean wifi_connect_result(String debug){
     if (wifiConnect_ptr == nullptr) return false;
     if (WiFi.status() == WL_CONNECTED) {
-        #ifdef DEBUG
+        // #ifdef DEBUG
             if (debug!="") {
                 Serial.printf("\n[wifi_connect_result -> %s] WL_CONNECTED: %s - %s - %s\n\n", 
                     debug.c_str(), 
@@ -1584,7 +1601,7 @@ boolean wifi_connect_result(String debug){
                     WiFi.gatewayIP().toString().c_str(), 
                     WiFi.subnetMask().toString().c_str());                
             }
-        #endif
+        // #endif
         return true;
     } else {
         #ifdef DEBUG
@@ -1716,7 +1733,7 @@ wl_status_t ESP8266WiFiMulti_run(wifiConnect * obj,  WiFiMode_t mod, wifiConnect
                     if(ssid_scan == ssid) { // SSID match
                         if(pass > 1) known = true;
                         if(-rssi_scan < bestNetworkDb) { // best network
-                            if(sec_scan == ENC_TYPE_NONE || (psk!="")) { // check for passphrase if not open wlan
+                            if(sec_scan == ENC_TYPE_NONE || (psk!=(char *)"")) { // check for passphrase if not open wlan
                                 bestNetworkDb           = -rssi_scan;
                                 bestChannel             = chan_scan;
                                 bestNetwork.ssid        = ssid;
@@ -1782,7 +1799,7 @@ wl_status_t ESP8266WiFiMulti_run(wifiConnect * obj,  WiFiMode_t mod, wifiConnect
                 //     delay(10);
                 //     status = WiFi.status();
                 // }
-                ESP8266WiFiMulti_tested[ESP8266WiFiMulti_testedCnt] = ch_toString(bestNetwork.ssid);
+                ESP8266WiFiMulti_tested[ESP8266WiFiMulti_testedCnt] = adri_toolsv2Ptr_get()->ch_toString(bestNetwork.ssid);
                 ESP8266WiFiMulti_testedCnt++;
                 status = wifiConnect_connect_sta_normal(bestNetwork.ssid, bestNetwork.passphrase, bestChannel, bestBSSID, mod, porgress, status) ;
 
@@ -1860,7 +1877,7 @@ wl_status_t ESP8266WiFiMulti_run(wifiConnect * obj,  WiFiMode_t mod, wifiConnect
 
 // int wifi_credential_fromSPIFF(String * ret) { 
 //     String filename = "/wifi_id.txt";
-//     File f = SPIFFS.open(filename,"r");
+//     File f = LittleFS.open(filename,"r");
 
 //     #ifdef DEBUG
 //         Serial.printf("\n[wfifi_getID_fromSPIFF]\n");

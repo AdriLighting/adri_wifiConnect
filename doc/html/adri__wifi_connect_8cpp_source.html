@@ -135,7 +135,7 @@ $(document).ready(function(){initNavTree('adri__wifi_connect_8cpp_source.html','
 <div class="line"><a name="l00041"></a><span class="lineno">   41</span>&#160;}</div>
 <div class="line"><a name="l00042"></a><span class="lineno">   42</span>&#160; </div>
 <div class="line"><a name="l00054"></a><span class="lineno"><a class="line" href="classwifi__credential__ap.html#a3c9593486b53e611600634e168c676d4">   54</a></span>&#160;<a class="code" href="classwifi__credential__ap.html#a3c9593486b53e611600634e168c676d4">wifi_credential_ap::wifi_credential_ap</a>(<span class="keyword">const</span> <span class="keywordtype">char</span> * value){</div>
-<div class="line"><a name="l00055"></a><span class="lineno">   55</span>&#160;    <a class="code" href="classwifi__credential__ap.html#a62f43ccc0f50ed2b995f70c6e284cd6c">hostname_set</a>(ch_toString(value));</div>
+<div class="line"><a name="l00055"></a><span class="lineno">   55</span>&#160;    <a class="code" href="classwifi__credential__ap.html#a62f43ccc0f50ed2b995f70c6e284cd6c">hostname_set</a>(adri_toolsv2Ptr_get()->ch_toString(value));</div>
 <div class="line"><a name="l00056"></a><span class="lineno">   56</span>&#160;}</div>
 <div class="line"><a name="l00057"></a><span class="lineno">   57</span>&#160; </div>
 <div class="line"><a name="l00069"></a><span class="lineno"><a class="line" href="classwifi__credential__ap.html#a62f43ccc0f50ed2b995f70c6e284cd6c">   69</a></span>&#160;<span class="keywordtype">void</span> <a class="code" href="classwifi__credential__ap.html#a62f43ccc0f50ed2b995f70c6e284cd6c">wifi_credential_ap::hostname_set</a>(String value){</div>
@@ -212,13 +212,13 @@ $(document).ready(function(){initNavTree('adri__wifi_connect_8cpp_source.html','
 <div class="line"><a name="l00242"></a><span class="lineno">  242</span>&#160; </div>
 <div class="line"><a name="l00243"></a><span class="lineno">  243</span>&#160;    String value = <span class="stringliteral">&quot;&quot;</span>;</div>
 <div class="line"><a name="l00244"></a><span class="lineno">  244</span>&#160; </div>
-<div class="line"><a name="l00245"></a><span class="lineno">  245</span>&#160;    value = literal_value(<span class="stringliteral">&quot;psk&quot;</span>,    result);</div>
+<div class="line"><a name="l00245"></a><span class="lineno">  245</span>&#160;    value = adri_toolsv2Ptr_get()->literal_value(<span class="stringliteral">&quot;psk&quot;</span>,    result);</div>
 <div class="line"><a name="l00246"></a><span class="lineno">  246</span>&#160;    _psk = value;</div>
 <div class="line"><a name="l00247"></a><span class="lineno">  247</span>&#160; </div>
-<div class="line"><a name="l00248"></a><span class="lineno">  248</span>&#160;    value = literal_value(<span class="stringliteral">&quot;ip&quot;</span>,     result);</div>
+<div class="line"><a name="l00248"></a><span class="lineno">  248</span>&#160;    value = adri_toolsv2Ptr_get()->literal_value(<span class="stringliteral">&quot;ip&quot;</span>,     result);</div>
 <div class="line"><a name="l00249"></a><span class="lineno">  249</span>&#160;    _ip = value;</div>
 <div class="line"><a name="l00250"></a><span class="lineno">  250</span>&#160; </div>
-<div class="line"><a name="l00251"></a><span class="lineno">  251</span>&#160;    value = literal_value(<span class="stringliteral">&quot;subnet&quot;</span>, result);</div>
+<div class="line"><a name="l00251"></a><span class="lineno">  251</span>&#160;    value = adri_toolsv2Ptr_get()->literal_value(<span class="stringliteral">&quot;subnet&quot;</span>, result);</div>
 <div class="line"><a name="l00252"></a><span class="lineno">  252</span>&#160;    _subnet = value;</div>
 <div class="line"><a name="l00253"></a><span class="lineno">  253</span>&#160; </div>
 <div class="line"><a name="l00254"></a><span class="lineno">  254</span>&#160;}</div>
@@ -336,7 +336,7 @@ $(document).ready(function(){initNavTree('adri__wifi_connect_8cpp_source.html','
 <div class="line"><a name="l00367"></a><span class="lineno">  367</span>&#160;    <span class="keywordflow">else</span>                            result = WIFI_STA;</div>
 <div class="line"><a name="l00368"></a><span class="lineno">  368</span>&#160;}</div>
 <div class="line"><a name="l00369"></a><span class="lineno">  369</span>&#160; </div>
-<div class="line"><a name="l00370"></a><span class="lineno"><a class="line" href="classwifi_connect.html#af205ef4934c51bd29c27226f2f485d6d">  370</a></span>&#160;String <a class="code" href="classwifi_connect.html#af205ef4934c51bd29c27226f2f485d6d">wifiConnect::hostName_get</a>()              { <span class="keywordflow">return</span> ch_toString(_hostName);}</div>
+<div class="line"><a name="l00370"></a><span class="lineno"><a class="line" href="classwifi_connect.html#af205ef4934c51bd29c27226f2f485d6d">  370</a></span>&#160;String <a class="code" href="classwifi_connect.html#af205ef4934c51bd29c27226f2f485d6d">wifiConnect::hostName_get</a>()              { <span class="keywordflow">return</span> adri_toolsv2Ptr_get()->ch_toString(_hostName);}</div>
 <div class="line"><a name="l00371"></a><span class="lineno"><a class="line" href="classwifi_connect.html#a9faf32a228e579035917952d10706ec4">  371</a></span>&#160;String <a class="code" href="classwifi_connect.html#a9faf32a228e579035917952d10706ec4">wifiConnect::ip_get</a>()                    { String result; <a class="code" href="adri__wifi_connect_8cpp.html#a0769a8a8bb5fdf51a69270692547490a">WIWIFICONFIGIP_MOD_toString</a>    (_cfgIp,        result); <span class="keywordflow">return</span> result;}</div>
 <div class="line"><a name="l00372"></a><span class="lineno"><a class="line" href="classwifi_connect.html#a25428b7f0027a0205e6cc442d0ea0c91">  372</a></span>&#160;String <a class="code" href="classwifi_connect.html#a25428b7f0027a0205e6cc442d0ea0c91">wifiConnect::connect_get</a>()               { String result; <a class="code" href="adri__wifi_connect_8cpp.html#a321e21c59fa1b62662bae97ab6580e39">WIFICONNECT_MOD_toString</a>       (_connect,      result); <span class="keywordflow">return</span> result;}</div>
 <div class="line"><a name="l00373"></a><span class="lineno"><a class="line" href="classwifi_connect.html#a7a07305d7c7cce40f6aae69e00d88e94">  373</a></span>&#160;String <a class="code" href="classwifi_connect.html#a7a07305d7c7cce40f6aae69e00d88e94">wifiConnect::connectSSID_get</a>()           { String result; <a class="code" href="adri__wifi_connect_8cpp.html#ac6bf18540211264a104bc9ae5becf28c">WIFICONNECTSSID_MOD_toString</a>   (_connectSSID,  result); <span class="keywordflow">return</span> result;}</div>
@@ -374,7 +374,7 @@ $(document).ready(function(){initNavTree('adri__wifi_connect_8cpp_source.html','
 <div class="line"><a name="l00405"></a><span class="lineno">  405</span>&#160;    String line = <span class="stringliteral">&quot;&quot;</span>;</div>
 <div class="line"><a name="l00406"></a><span class="lineno">  406</span>&#160; </div>
 <div class="line"><a name="l00407"></a><span class="lineno">  407</span>&#160;    <span class="keywordflow">for</span> (<span class="keywordtype">int</span> j = 0; j &lt; <a class="code" href="adri__wifi_connect_8cpp.html#a7927c91655784a08b6a57bfbac197bdc">wifiConnect_getValues_count</a>; ++j) {</div>
-<div class="line"><a name="l00408"></a><span class="lineno">  408</span>&#160;        line += literal_item(</div>
+<div class="line"><a name="l00408"></a><span class="lineno">  408</span>&#160;        line += adri_toolsv2Ptr_get()->adri_toolsv2Ptr_get()->literal_item(</div>
 <div class="line"><a name="l00409"></a><span class="lineno">  409</span>&#160;                <a class="code" href="adri__wifi_connect_8cpp.html#abac52dccbc6dae615fe5b09e5b9ab939">wifiConnect_getValues</a>[j].name, </div>
 <div class="line"><a name="l00410"></a><span class="lineno">  410</span>&#160;                <a class="code" href="adri__wifi_connect_8cpp.html#abac52dccbc6dae615fe5b09e5b9ab939">wifiConnect_getValues</a>[j].getValue(<span class="keyword">this</span>)); </div>
 <div class="line"><a name="l00411"></a><span class="lineno">  411</span>&#160;    }</div>
@@ -426,16 +426,16 @@ $(document).ready(function(){initNavTree('adri__wifi_connect_8cpp_source.html','
 <div class="line"><a name="l00457"></a><span class="lineno">  457</span>&#160; </div>
 <div class="line"><a name="l00458"></a><span class="lineno">  458</span>&#160;    String value = <span class="stringliteral">&quot;&quot;</span>;</div>
 <div class="line"><a name="l00459"></a><span class="lineno">  459</span>&#160; </div>
-<div class="line"><a name="l00460"></a><span class="lineno">  460</span>&#160;    value = literal_value(<span class="stringliteral">&quot;connect&quot;</span>,     result);</div>
+<div class="line"><a name="l00460"></a><span class="lineno">  460</span>&#160;    value = adri_toolsv2Ptr_get()->literal_value(<span class="stringliteral">&quot;connect&quot;</span>,     result);</div>
 <div class="line"><a name="l00461"></a><span class="lineno">  461</span>&#160;    <a class="code" href="adri__wifi_connect_8cpp.html#aaf220b4312a8ad17d52cf0324f4ba087">WIFICONNECT_MOD_stringToMod</a>(value, _connect);</div>
 <div class="line"><a name="l00462"></a><span class="lineno">  462</span>&#160; </div>
-<div class="line"><a name="l00463"></a><span class="lineno">  463</span>&#160;    value = literal_value(<span class="stringliteral">&quot;connectSSID&quot;</span>, result);</div>
+<div class="line"><a name="l00463"></a><span class="lineno">  463</span>&#160;    value = adri_toolsv2Ptr_get()->literal_value(<span class="stringliteral">&quot;connectSSID&quot;</span>, result);</div>
 <div class="line"><a name="l00464"></a><span class="lineno">  464</span>&#160;    <a class="code" href="adri__wifi_connect_8cpp.html#ae50046882121f75684360706feb3b97e">WIFICONNECTSSID_MOD_stringToMod</a>(value, _connectSSID);</div>
 <div class="line"><a name="l00465"></a><span class="lineno">  465</span>&#160; </div>
-<div class="line"><a name="l00466"></a><span class="lineno">  466</span>&#160;    value = literal_value(<span class="stringliteral">&quot;credential_sta&quot;</span>, result);</div>
+<div class="line"><a name="l00466"></a><span class="lineno">  466</span>&#160;    value = adri_toolsv2Ptr_get()->literal_value(<span class="stringliteral">&quot;credential_sta&quot;</span>, result);</div>
 <div class="line"><a name="l00467"></a><span class="lineno">  467</span>&#160;    <span class="keywordflow">if</span> (value != <span class="stringliteral">&quot;&quot;</span>) <a class="code" href="classwifi_connect.html#a2b4dc97b8b4d92d8c38c80c9d253ab5e">credential_sta_pos_set</a>(value.toInt());</div>
 <div class="line"><a name="l00468"></a><span class="lineno">  468</span>&#160; </div>
-<div class="line"><a name="l00469"></a><span class="lineno">  469</span>&#160;    value = literal_value(<span class="stringliteral">&quot;station&quot;</span>, result);</div>
+<div class="line"><a name="l00469"></a><span class="lineno">  469</span>&#160;    value = adri_toolsv2Ptr_get()->literal_value(<span class="stringliteral">&quot;station&quot;</span>, result);</div>
 <div class="line"><a name="l00470"></a><span class="lineno">  470</span>&#160;    <a class="code" href="adri__wifi_connect_8cpp.html#a79e957dc9e8d18ebbef97dfb13ccf00b">WiFiMode_t_stringToMod</a>(value, _station);   </div>
 <div class="line"><a name="l00471"></a><span class="lineno">  471</span>&#160; </div>
 <div class="line"><a name="l00472"></a><span class="lineno">  472</span>&#160;}</div>
@@ -694,13 +694,13 @@ $(document).ready(function(){initNavTree('adri__wifi_connect_8cpp_source.html','
 <div class="line"><a name="l00725"></a><span class="lineno">  725</span>&#160;    <span class="keywordflow">if</span> (_statu_ip == <a class="code" href="adri__wifi_connect_8h.html#a25893425af8c4c64f2fe6dadafdae78dadca0b5d14ef1674e6f0d0d9945683433">AWIP_IP</a>) {</div>
 <div class="line"><a name="l00726"></a><span class="lineno">  726</span>&#160;        IPAddress staticIP; </div>
 <div class="line"><a name="l00727"></a><span class="lineno">  727</span>&#160;        IPAddress subnet(255, 255, 255, 0);</div>
-<div class="line"><a name="l00728"></a><span class="lineno">  728</span>&#160;        staticIP = string2ip(<a class="code" href="adri__wifi_connect_8h.html#a62cde798a5cc26f7d5b539ba520bf0b4">wifi_credential_AP</a>.<a class="code" href="classwifi__credential__ap.html#abd6f05d0b5ad476ed18d9005d29aca27">ip_get</a>());</div>
+<div class="line"><a name="l00728"></a><span class="lineno">  728</span>&#160;        staticIP = adri_toolsv2Ptr_get()->adri_toolsv2Ptr_get()->adri_toolsv2Ptr_get()->string2ip(<a class="code" href="adri__wifi_connect_8h.html#a62cde798a5cc26f7d5b539ba520bf0b4">wifi_credential_AP</a>.<a class="code" href="classwifi__credential__ap.html#abd6f05d0b5ad476ed18d9005d29aca27">ip_get</a>());</div>
 <div class="line"><a name="l00729"></a><span class="lineno">  729</span>&#160;        <span class="comment">// staticIP = {192,168,0,1};</span></div>
 <div class="line"><a name="l00730"></a><span class="lineno">  730</span>&#160;        WiFi.softAPConfig(staticIP, staticIP, subnet);</div>
 <div class="line"><a name="l00731"></a><span class="lineno">  731</span>&#160;    }</div>
 <div class="line"><a name="l00732"></a><span class="lineno">  732</span>&#160; </div>
 <div class="line"><a name="l00733"></a><span class="lineno">  733</span>&#160;    String ap_ssid   = String(ssid);</div>
-<div class="line"><a name="l00734"></a><span class="lineno">  734</span>&#160;    String ap_ip     = ip2string(WiFi.softAPIP());</div>
+<div class="line"><a name="l00734"></a><span class="lineno">  734</span>&#160;    String ap_ip     = adri_toolsv2Ptr_get()->adri_toolsv2Ptr_get()->ip2string(WiFi.softAPIP());</div>
 <div class="line"><a name="l00735"></a><span class="lineno">  735</span>&#160;<span class="preprocessor">    #ifdef DEBUG</span></div>
 <div class="line"><a name="l00736"></a><span class="lineno">  736</span>&#160;        Serial.printf(<span class="stringliteral">&quot;\n[wfifi_connect_ap] ssid: %s - pswd: %s - ip: %s\n&quot;</span>, ap_ssid.c_str(), password, ap_ip.c_str());</div>
 <div class="line"><a name="l00737"></a><span class="lineno">  737</span>&#160;<span class="preprocessor">    #endif    </span></div>
@@ -717,9 +717,9 @@ $(document).ready(function(){initNavTree('adri__wifi_connect_8cpp_source.html','
 <div class="line"><a name="l00748"></a><span class="lineno">  748</span>&#160;    sIp         = <a class="code" href="classwifi_connect.html#addeb2f4ec6d0134e0e33770555e94f44">_credential_sta</a>-&gt;<a class="code" href="classwifi__credential__sta.html#a8aee55d6de745df531ca05b86e069f48">ip_get</a>();</div>
 <div class="line"><a name="l00749"></a><span class="lineno">  749</span>&#160;    sSubnet     = <a class="code" href="classwifi_connect.html#addeb2f4ec6d0134e0e33770555e94f44">_credential_sta</a>-&gt;<a class="code" href="classwifi__credential__sta.html#a9bc7fddc102bb682fc9bd0e8f0c3fb7a">subnet_get</a>();</div>
 <div class="line"><a name="l00750"></a><span class="lineno">  750</span>&#160;    sGateway    = <a class="code" href="classwifi_connect.html#addeb2f4ec6d0134e0e33770555e94f44">_credential_sta</a>-&gt;<a class="code" href="classwifi__credential__sta.html#abc3d920e49c076b940e7ec62439ea859">gateway_get</a>();</div>
-<div class="line"><a name="l00751"></a><span class="lineno">  751</span>&#160;    IPAddress staticIP  = string2ip(sIp);</div>
-<div class="line"><a name="l00752"></a><span class="lineno">  752</span>&#160;    IPAddress gateway   = string2ip(sGateway);</div>
-<div class="line"><a name="l00753"></a><span class="lineno">  753</span>&#160;    IPAddress subnet    = string2ip(sSubnet);</div>
+<div class="line"><a name="l00751"></a><span class="lineno">  751</span>&#160;    IPAddress staticIP  = adri_toolsv2Ptr_get()->adri_toolsv2Ptr_get()->adri_toolsv2Ptr_get()->string2ip(sIp);</div>
+<div class="line"><a name="l00752"></a><span class="lineno">  752</span>&#160;    IPAddress gateway   = adri_toolsv2Ptr_get()->adri_toolsv2Ptr_get()->adri_toolsv2Ptr_get()->string2ip(sGateway);</div>
+<div class="line"><a name="l00753"></a><span class="lineno">  753</span>&#160;    IPAddress subnet    = adri_toolsv2Ptr_get()->adri_toolsv2Ptr_get()->adri_toolsv2Ptr_get()->string2ip(sSubnet);</div>
 <div class="line"><a name="l00754"></a><span class="lineno">  754</span>&#160; </div>
 <div class="line"><a name="l00755"></a><span class="lineno">  755</span>&#160;    <span class="keywordflow">if</span> (<a class="code" href="adri__wifi_connect_8cpp.html#a9441e9b1a57ace9869dd94d809b31a20">isValidIp</a>(sIp, WiFi.subnetMask().toString(), WiFi.gatewayIP().toString())) {</div>
 <div class="line"><a name="l00756"></a><span class="lineno">  756</span>&#160;<span class="preprocessor">        #ifdef DEBUG</span></div>
@@ -867,19 +867,19 @@ $(document).ready(function(){initNavTree('adri__wifi_connect_8cpp_source.html','
 <div class="line"><a name="l00906"></a><span class="lineno">  906</span>&#160;        <span class="keywordflow">return</span>;</div>
 <div class="line"><a name="l00907"></a><span class="lineno">  907</span>&#160;    }</div>
 <div class="line"><a name="l00908"></a><span class="lineno">  908</span>&#160; </div>
-<div class="line"><a name="l00909"></a><span class="lineno">  909</span>&#160;    <a class="code" href="classwifi__credential__sta__best.html">wifi_credential_sta_best</a>.<a class="code" href="classwifi__credential__sta__best.html#a3b5f6988db04c8168d85ea79047e249e">last</a> = literal_value(<span class="stringliteral">&quot;last&quot;</span>, cr_array[<a class="code" href="adri__wifi_connect_8h.html#ad9ef1ce3b047f7c8427b2e146d21f9cd">CREDENTIAL_MAX</a>]);</div>
-<div class="line"><a name="l00910"></a><span class="lineno">  910</span>&#160;    <a class="code" href="classwifi__credential__sta__best.html">wifi_credential_sta_best</a>.<a class="code" href="classwifi__credential__sta__best.html#aa67c70d62b78fef01135d4baaccc96a9">best</a> = literal_value(<span class="stringliteral">&quot;best&quot;</span>, cr_array[<a class="code" href="adri__wifi_connect_8h.html#ad9ef1ce3b047f7c8427b2e146d21f9cd">CREDENTIAL_MAX</a>]);</div>
+<div class="line"><a name="l00909"></a><span class="lineno">  909</span>&#160;    <a class="code" href="classwifi__credential__sta__best.html">wifi_credential_sta_best</a>.<a class="code" href="classwifi__credential__sta__best.html#a3b5f6988db04c8168d85ea79047e249e">last</a> = adri_toolsv2Ptr_get()->literal_value(<span class="stringliteral">&quot;last&quot;</span>, cr_array[<a class="code" href="adri__wifi_connect_8h.html#ad9ef1ce3b047f7c8427b2e146d21f9cd">CREDENTIAL_MAX</a>]);</div>
+<div class="line"><a name="l00910"></a><span class="lineno">  910</span>&#160;    <a class="code" href="classwifi__credential__sta__best.html">wifi_credential_sta_best</a>.<a class="code" href="classwifi__credential__sta__best.html#aa67c70d62b78fef01135d4baaccc96a9">best</a> = adri_toolsv2Ptr_get()->literal_value(<span class="stringliteral">&quot;best&quot;</span>, cr_array[<a class="code" href="adri__wifi_connect_8h.html#ad9ef1ce3b047f7c8427b2e146d21f9cd">CREDENTIAL_MAX</a>]);</div>
 <div class="line"><a name="l00911"></a><span class="lineno">  911</span>&#160; </div>
 <div class="line"><a name="l00912"></a><span class="lineno">  912</span>&#160;    <span class="keywordflow">for</span> (<span class="keywordtype">int</span> i = 0; i &lt; <a class="code" href="adri__wifi_connect_8h.html#ad9ef1ce3b047f7c8427b2e146d21f9cd">CREDENTIAL_MAX</a>; ++i) {</div>
 <div class="line"><a name="l00913"></a><span class="lineno">  913</span>&#160;        <a class="code" href="adri__wifi_connect_8cpp.html#a7e3fa90cb2cd77624980205ce6b86139">wifi_credential_sta_array</a>[i] = <span class="keyword">new</span> <a class="code" href="classwifi__credential__sta.html">wifi_credential_sta</a>();</div>
 <div class="line"><a name="l00914"></a><span class="lineno">  914</span>&#160; </div>
 <div class="line"><a name="l00915"></a><span class="lineno">  915</span>&#160;        <span class="comment">// fsprintf(&quot;#%d - %s\n&quot;,i, cr_array[i].c_str());</span></div>
 <div class="line"><a name="l00916"></a><span class="lineno">  916</span>&#160;        <a class="code" href="adri__wifi_connect_8cpp.html#a028ee4178f8c08d1cf289676386b0521">wifi_credential_set</a>(i, </div>
-<div class="line"><a name="l00917"></a><span class="lineno">  917</span>&#160;            literal_value(<span class="stringliteral">&quot;ssid&quot;</span>,       cr_array[i]).c_str(), </div>
-<div class="line"><a name="l00918"></a><span class="lineno">  918</span>&#160;            literal_value(<span class="stringliteral">&quot;psk&quot;</span>,        cr_array[i]).c_str(), </div>
-<div class="line"><a name="l00919"></a><span class="lineno">  919</span>&#160;            literal_value(<span class="stringliteral">&quot;ip&quot;</span>,         cr_array[i]).c_str(), </div>
-<div class="line"><a name="l00920"></a><span class="lineno">  920</span>&#160;            literal_value(<span class="stringliteral">&quot;subnet&quot;</span>,     cr_array[i]).c_str(), </div>
-<div class="line"><a name="l00921"></a><span class="lineno">  921</span>&#160;            literal_value(<span class="stringliteral">&quot;gateway&quot;</span>,    cr_array[i]).c_str());</div>
+<div class="line"><a name="l00917"></a><span class="lineno">  917</span>&#160;            adri_toolsv2Ptr_get()->literal_value(<span class="stringliteral">&quot;ssid&quot;</span>,       cr_array[i]).c_str(), </div>
+<div class="line"><a name="l00918"></a><span class="lineno">  918</span>&#160;            adri_toolsv2Ptr_get()->literal_value(<span class="stringliteral">&quot;psk&quot;</span>,        cr_array[i]).c_str(), </div>
+<div class="line"><a name="l00919"></a><span class="lineno">  919</span>&#160;            adri_toolsv2Ptr_get()->literal_value(<span class="stringliteral">&quot;ip&quot;</span>,         cr_array[i]).c_str(), </div>
+<div class="line"><a name="l00920"></a><span class="lineno">  920</span>&#160;            adri_toolsv2Ptr_get()->literal_value(<span class="stringliteral">&quot;subnet&quot;</span>,     cr_array[i]).c_str(), </div>
+<div class="line"><a name="l00921"></a><span class="lineno">  921</span>&#160;            adri_toolsv2Ptr_get()->literal_value(<span class="stringliteral">&quot;gateway&quot;</span>,    cr_array[i]).c_str());</div>
 <div class="line"><a name="l00922"></a><span class="lineno">  922</span>&#160;    }  </div>
 <div class="line"><a name="l00923"></a><span class="lineno">  923</span>&#160; </div>
 <div class="line"><a name="l00924"></a><span class="lineno">  924</span>&#160; </div>
@@ -920,15 +920,15 @@ $(document).ready(function(){initNavTree('adri__wifi_connect_8cpp_source.html','
 <div class="line"><a name="l00959"></a><span class="lineno">  959</span>&#160;    String line = <span class="stringliteral">&quot;&quot;</span>;</div>
 <div class="line"><a name="l00960"></a><span class="lineno">  960</span>&#160;    <span class="keywordflow">for</span> (<span class="keywordtype">int</span> i = 0; i &lt; <a class="code" href="adri__wifi_connect_8h.html#ad9ef1ce3b047f7c8427b2e146d21f9cd">CREDENTIAL_MAX</a>; ++i) {</div>
 <div class="line"><a name="l00961"></a><span class="lineno">  961</span>&#160;        <span class="keywordflow">for</span> (<span class="keywordtype">int</span> j = 0; j &lt; <a class="code" href="adri__wifi_connect_8cpp.html#a07a3445c3358b9c56e2eb3478105e7d6">wifi_credential_sta_getValues_count</a>; ++j) {</div>
-<div class="line"><a name="l00962"></a><span class="lineno">  962</span>&#160;            line += literal_item(</div>
+<div class="line"><a name="l00962"></a><span class="lineno">  962</span>&#160;            line += adri_toolsv2Ptr_get()->adri_toolsv2Ptr_get()->literal_item(</div>
 <div class="line"><a name="l00963"></a><span class="lineno">  963</span>&#160;                    <a class="code" href="adri__wifi_connect_8cpp.html#a02efdd8adee4b23b8dd55ee6871d9d20">wifi_credential_sta_getValues</a>[j].name, </div>
 <div class="line"><a name="l00964"></a><span class="lineno">  964</span>&#160;                    <a class="code" href="adri__wifi_connect_8cpp.html#a02efdd8adee4b23b8dd55ee6871d9d20">wifi_credential_sta_getValues</a>[j].getValue(<a class="code" href="adri__wifi_connect_8cpp.html#a7e3fa90cb2cd77624980205ce6b86139">wifi_credential_sta_array</a>[i])); </div>
 <div class="line"><a name="l00965"></a><span class="lineno">  965</span>&#160;        }</div>
 <div class="line"><a name="l00966"></a><span class="lineno">  966</span>&#160;        line += <span class="stringliteral">&quot;\n&quot;</span>;</div>
 <div class="line"><a name="l00967"></a><span class="lineno">  967</span>&#160;    }</div>
 <div class="line"><a name="l00968"></a><span class="lineno">  968</span>&#160; </div>
-<div class="line"><a name="l00969"></a><span class="lineno">  969</span>&#160;    line += literal_item(<span class="stringliteral">&quot;last&quot;</span>, <a class="code" href="classwifi__credential__sta__best.html">wifi_credential_sta_best</a>.<a class="code" href="classwifi__credential__sta__best.html#a3b5f6988db04c8168d85ea79047e249e">last</a>);</div>
-<div class="line"><a name="l00970"></a><span class="lineno">  970</span>&#160;    line += literal_item(<span class="stringliteral">&quot;best&quot;</span>, <a class="code" href="classwifi__credential__sta__best.html">wifi_credential_sta_best</a>.<a class="code" href="classwifi__credential__sta__best.html#aa67c70d62b78fef01135d4baaccc96a9">best</a>);</div>
+<div class="line"><a name="l00969"></a><span class="lineno">  969</span>&#160;    line += adri_toolsv2Ptr_get()->adri_toolsv2Ptr_get()->literal_item(<span class="stringliteral">&quot;last&quot;</span>, <a class="code" href="classwifi__credential__sta__best.html">wifi_credential_sta_best</a>.<a class="code" href="classwifi__credential__sta__best.html#a3b5f6988db04c8168d85ea79047e249e">last</a>);</div>
+<div class="line"><a name="l00970"></a><span class="lineno">  970</span>&#160;    line += adri_toolsv2Ptr_get()->adri_toolsv2Ptr_get()->literal_item(<span class="stringliteral">&quot;best&quot;</span>, <a class="code" href="classwifi__credential__sta__best.html">wifi_credential_sta_best</a>.<a class="code" href="classwifi__credential__sta__best.html#aa67c70d62b78fef01135d4baaccc96a9">best</a>);</div>
 <div class="line"><a name="l00971"></a><span class="lineno">  971</span>&#160;    line += <span class="stringliteral">&quot;\n&quot;</span>;</div>
 <div class="line"><a name="l00972"></a><span class="lineno">  972</span>&#160; </div>
 <div class="line"><a name="l00973"></a><span class="lineno">  973</span>&#160;<span class="preprocessor">    #ifdef DEBUG</span></div>
@@ -966,9 +966,9 @@ $(document).ready(function(){initNavTree('adri__wifi_connect_8cpp_source.html','
 <div class="line"><a name="l01005"></a><span class="lineno"><a class="line" href="classwifi__credential__ap.html#abcab8036a3f8a86bae18a5648f5b337e"> 1005</a></span>&#160;<span class="keywordtype">void</span> <a class="code" href="classwifi__credential__ap.html#abcab8036a3f8a86bae18a5648f5b337e">wifi_credential_ap::sav_toSpiff</a>(){</div>
 <div class="line"><a name="l01006"></a><span class="lineno"> 1006</span>&#160;    String line = <span class="stringliteral">&quot;&quot;</span>;</div>
 <div class="line"><a name="l01007"></a><span class="lineno"> 1007</span>&#160; </div>
-<div class="line"><a name="l01008"></a><span class="lineno"> 1008</span>&#160;    line += literal_item(<span class="stringliteral">&quot;psk&quot;</span>,     _psk);</div>
-<div class="line"><a name="l01009"></a><span class="lineno"> 1009</span>&#160;    line += literal_item(<span class="stringliteral">&quot;ip&quot;</span>,      _ip);</div>
-<div class="line"><a name="l01010"></a><span class="lineno"> 1010</span>&#160;    line += literal_item(<span class="stringliteral">&quot;subnet&quot;</span>,  _subnet);</div>
+<div class="line"><a name="l01008"></a><span class="lineno"> 1008</span>&#160;    line += adri_toolsv2Ptr_get()->adri_toolsv2Ptr_get()->literal_item(<span class="stringliteral">&quot;psk&quot;</span>,     _psk);</div>
+<div class="line"><a name="l01009"></a><span class="lineno"> 1009</span>&#160;    line += adri_toolsv2Ptr_get()->adri_toolsv2Ptr_get()->literal_item(<span class="stringliteral">&quot;ip&quot;</span>,      _ip);</div>
+<div class="line"><a name="l01010"></a><span class="lineno"> 1010</span>&#160;    line += adri_toolsv2Ptr_get()->adri_toolsv2Ptr_get()->literal_item(<span class="stringliteral">&quot;subnet&quot;</span>,  _subnet);</div>
 <div class="line"><a name="l01011"></a><span class="lineno"> 1011</span>&#160; </div>
 <div class="line"><a name="l01012"></a><span class="lineno"> 1012</span>&#160;    <a class="code" href="adri__wifi_connect_8cpp.html#a1f87c7fa26dd4abb02adf68f90e1a504">wifi_credential_sta_toSpiff</a>(line);</div>
 <div class="line"><a name="l01013"></a><span class="lineno"> 1013</span>&#160;}</div>
@@ -987,7 +987,7 @@ $(document).ready(function(){initNavTree('adri__wifi_connect_8cpp_source.html','
 <div class="line"><a name="l01026"></a><span class="lineno"> 1026</span>&#160;}</div>
 <div class="line"><a name="l01027"></a><span class="lineno"><a class="line" href="adri__wifi_connect_8cpp.html#aaa3d9ba54a4d12b6f548217d4fb2bd39"> 1027</a></span>&#160;<span class="keywordtype">boolean</span> <a class="code" href="adri__wifi_connect_8cpp.html#a9441e9b1a57ace9869dd94d809b31a20">isValidIp</a>(IPAddress ip){</div>
 <div class="line"><a name="l01028"></a><span class="lineno"> 1028</span>&#160; </div>
-<div class="line"><a name="l01029"></a><span class="lineno"> 1029</span>&#160;    String s_ip = ip2string(ip);</div>
+<div class="line"><a name="l01029"></a><span class="lineno"> 1029</span>&#160;    String s_ip = adri_toolsv2Ptr_get()->adri_toolsv2Ptr_get()->ip2string(ip);</div>
 <div class="line"><a name="l01030"></a><span class="lineno"> 1030</span>&#160; </div>
 <div class="line"><a name="l01031"></a><span class="lineno"> 1031</span>&#160;    <span class="keywordtype">char</span> buffer[80];</div>
 <div class="line"><a name="l01032"></a><span class="lineno"> 1032</span>&#160;    sprintf(buffer, <span class="stringliteral">&quot;%s&quot;</span>, s_ip.c_str());</div>
@@ -998,14 +998,14 @@ $(document).ready(function(){initNavTree('adri__wifi_connect_8cpp_source.html','
 <div class="line"><a name="l01037"></a><span class="lineno"> 1037</span>&#160;}</div>
 <div class="line"><a name="l01038"></a><span class="lineno"><a class="line" href="adri__wifi_connect_8h.html#ab7f16c1ecbf10685bc3757c9163d6ed3"> 1038</a></span>&#160;<span class="keywordtype">boolean</span> <a class="code" href="adri__wifi_connect_8cpp.html#a9441e9b1a57ace9869dd94d809b31a20">isValidIp</a>(String sIp, String sSubnet, String sGateway  ){</div>
 <div class="line"><a name="l01039"></a><span class="lineno"> 1039</span>&#160; </div>
-<div class="line"><a name="l01040"></a><span class="lineno"> 1040</span>&#160;    IPAddress ip        = string2ip(sIp);</div>
-<div class="line"><a name="l01041"></a><span class="lineno"> 1041</span>&#160;    IPAddress gateway   = string2ip(sGateway);</div>
-<div class="line"><a name="l01042"></a><span class="lineno"> 1042</span>&#160;    IPAddress subnet    = string2ip(sSubnet);</div>
+<div class="line"><a name="l01040"></a><span class="lineno"> 1040</span>&#160;    IPAddress ip        = adri_toolsv2Ptr_get()->adri_toolsv2Ptr_get()->adri_toolsv2Ptr_get()->string2ip(sIp);</div>
+<div class="line"><a name="l01041"></a><span class="lineno"> 1041</span>&#160;    IPAddress gateway   = adri_toolsv2Ptr_get()->adri_toolsv2Ptr_get()->adri_toolsv2Ptr_get()->string2ip(sGateway);</div>
+<div class="line"><a name="l01042"></a><span class="lineno"> 1042</span>&#160;    IPAddress subnet    = adri_toolsv2Ptr_get()->adri_toolsv2Ptr_get()->adri_toolsv2Ptr_get()->string2ip(sSubnet);</div>
 <div class="line"><a name="l01043"></a><span class="lineno"> 1043</span>&#160; </div>
 <div class="line"><a name="l01044"></a><span class="lineno"> 1044</span>&#160;    fsprintf(<span class="stringliteral">&quot;\n[isValidIp] &quot;</span>);</div>
-<div class="line"><a name="l01045"></a><span class="lineno"> 1045</span>&#160;    fsprintf(<span class="stringliteral">&quot;ip: %s &quot;</span>,         ip2string(ip).c_str());</div>
-<div class="line"><a name="l01046"></a><span class="lineno"> 1046</span>&#160;    fsprintf(<span class="stringliteral">&quot;sGateway: %s &quot;</span>,   ip2string(gateway).c_str());</div>
-<div class="line"><a name="l01047"></a><span class="lineno"> 1047</span>&#160;    fsprintf(<span class="stringliteral">&quot;sSubnet: %s &quot;</span>,    ip2string(subnet).c_str());</div>
+<div class="line"><a name="l01045"></a><span class="lineno"> 1045</span>&#160;    fsprintf(<span class="stringliteral">&quot;ip: %s &quot;</span>,         adri_toolsv2Ptr_get()->adri_toolsv2Ptr_get()->ip2string(ip).c_str());</div>
+<div class="line"><a name="l01046"></a><span class="lineno"> 1046</span>&#160;    fsprintf(<span class="stringliteral">&quot;sGateway: %s &quot;</span>,   adri_toolsv2Ptr_get()->adri_toolsv2Ptr_get()->ip2string(gateway).c_str());</div>
+<div class="line"><a name="l01047"></a><span class="lineno"> 1047</span>&#160;    fsprintf(<span class="stringliteral">&quot;sSubnet: %s &quot;</span>,    adri_toolsv2Ptr_get()->adri_toolsv2Ptr_get()->ip2string(subnet).c_str());</div>
 <div class="line"><a name="l01048"></a><span class="lineno"> 1048</span>&#160; </div>
 <div class="line"><a name="l01049"></a><span class="lineno"> 1049</span>&#160;    <span class="keywordflow">for</span> (<span class="keywordtype">int</span> i = 0; i &lt; 4; ++i)</div>
 <div class="line"><a name="l01050"></a><span class="lineno"> 1050</span>&#160;    {</div>
