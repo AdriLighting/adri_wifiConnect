@@ -1,8 +1,11 @@
+	#include <WebSockets.h>    
+  	#include <adri_webserver_reponselist.h>
+
 #include <adri_wifiConnect.h>
-#include <adri_tools.h>
+#include <adri_tools_v2.h>
 #include <adri_timer.h>
 #include <adri_espwebserver_tools.h>
-
+#include "secret.h"
 
                  
 
@@ -40,21 +43,21 @@ void setup() {
 	myWifiTimer_print 	= new adri_timer(1000,	"", false);
 
 	// Iinitialisation AP
-	myWifiAp->hostname_set(ch_toString(myWifiHostname));
+	myWifiAp->hostname_set(adri_toolsv2Ptr_get()->ch_toString(myWifiHostname));
 	wifi_credential_ap_register(myWifiAp);
 
 	// Créations des identifiants
 	if (!wifi_credential_sta_fromSPIFF()) { 	// initialisation de linstance wifi_credential_sta
 		wifi_credential_set(
-			1, 						// postion du ssid selectionner (0 to 2)
-			"ssid",	// ssid
-			"pswd", 			// pswd
+			0, 						// postion du ssid selectionner (0 to 2)
+			SECRET_SSID,			// ssid
+			SECRET_PASS, 			// pswd
 			"",						// ip 		(vide pour ne pas cofigurer d'ip)
 			"",						// subnet 	(vide pour ne pas cofigurer d'subnet)
 			""						// gateway 	(vide pour ne pas cofigurer d'gateway)
 		);
 		wifi_credential_set(
-			0, 						
+			1, 						
 			"ssid", 		
 			"pswd", 			
 			"",						
@@ -63,15 +66,7 @@ void setup() {
 		);	
 		wifi_credential_sta_toSpiff();		
 	}
-		wifi_credential_set(
-			0, 						
-			"ssid", 		
-			"x", 			
-			"",						
-			"",						
-			""						
-		);	
-		wifi_credential_sta_toSpiff();		
+	
 	wifi_credential_sta_print();
 
 
@@ -103,7 +98,7 @@ void setup() {
 		if(!myWifiOTA) 	myWifi->MDSN_begin	();
 		else 			arduinoOTA_setup	(myWifiHostname);
 		wifi_connect_statu 					();
-		fsprintf("\n[myWifiConnectDone] : %s\n", on_time().c_str());
+		fsprintf("\n[myWifiConnectDone] : %s\n", adri_toolsv2Ptr_get()->on_time().c_str());
 		myWifiConnectDone = 1;		
 	}
 
@@ -130,7 +125,7 @@ void loop()
 			fsprintf("\n[connection wifi initialisée]\n");
 		}
 
-		if(myWifiTimer_print->loop()) fsprintf("\n[myWifiTimer_print] : %s\n", on_time().c_str());
+		if(myWifiTimer_print->loop()) fsprintf("\n[myWifiTimer_print] : %s\n", adri_toolsv2Ptr_get()->on_time().c_str());
 
 		myWifi->wifi_loop();	
 		if ( (myWifi->wifi_loop_statu()==wifi_statu_sta_isconnected) && (myWifiConnectDone == 2)) {
@@ -144,7 +139,7 @@ void loop()
 
 			myWifiConnectDone = 1;
 
-			fsprintf("\n[myWifiConnectDone] : %s\n", on_time().c_str());
+			fsprintf("\n[myWifiConnectDone] : %s\n", adri_toolsv2Ptr_get()->on_time().c_str());
 		}		
 	}
 }

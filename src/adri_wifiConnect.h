@@ -6,13 +6,13 @@
     #if defined(ARDUINO_ARCH_ESP32)
         #include <WiFi.h>
     #elif defined(ARDUINO_ARCH_ESP8266)
+        #include <ESP8266WebServer.h>
         #include <ESP8266WiFi.h>
         #include <ESP8266mDNS.h>
         #include <ESP8266WiFiType.h>
     #endif
 
     #include <Arduino.h>
-    #include <adri_timer.h>
 
     #define CREDENTIAL_MAX 3
     #define CREDENTIALAp_MAX 1
