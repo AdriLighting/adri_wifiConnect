@@ -15,7 +15,12 @@
 
 // #define DEBUG
 
-
+#if defined(ESP8266)
+    #define FILESYSTEM LittleFS
+#elif defined(ESP32)
+    #define FILESYSTEM SPIFFS
+#else
+#endif
 
 fs(awc_str_connect,     "connect startup");
 fs(awc_str_connectSSID, "connect ssid");
@@ -208,7 +213,7 @@ boolean wifi_credential_ap_fromSPIFF(String & result) {
 
     String filename = "/" + CREDENTIALAP_FILENAME + ".txt";
 
-    File f=LittleFS.open(filename,"r");
+    File f=FILESYSTEM.open(filename,"r");
 
     if (!f) {
         #ifdef DEBUG
@@ -335,7 +340,11 @@ void wifiConnect::MDSN_begin() {
     MDNS.addService("http", "tcp", 80);
 }
 void wifiConnect::MDSN_loop() {
-    MDNS.update();
+    #if defined(ESP8266)
+        MDNS.update();
+    #elif defined(ESP32)
+    #else
+    #endif        
 }
 void wifiConnect::connect_set(WIFICONNECT_MOD mod)                  {_connect               = mod;}
 void wifiConnect::connectSSID_set(WIFICONNECTSSID_MOD mod)          {_connectSSID           = mod;}
@@ -403,8 +412,8 @@ void WiFiMode_t_toString(WiFiMode_t mod, String & result){
         case WIFI_STA:      result = "WIFI_STA";        break;
         case WIFI_AP:       result = "WIFI_AP";         break;
         case WIFI_AP_STA:   result = "WIFI_AP_STA";     break;
-        case WIFI_SHUTDOWN: result = "WIFI_SHUTDOWN";   break;
-        case WIFI_RESUME:   result = "WIFI_RESUME";     break;
+        // case WIFI_SHUTDOWN: result = "WIFI_SHUTDOWN";   break;
+        // case WIFI_RESUME:   result = "WIFI_RESUME";     break;
         default :           result = "WIFI_STA";        break;
     }
 }
@@ -420,17 +429,22 @@ void wl_status_t_toString(wl_status_t mod, String & result){
         default :                   result = "NULL";                break;
     }
 }
-void station_status_t_toString(station_status_t mod, String & result){
-    switch(mod){
-        case STATION_IDLE:              result = "STATION_IDLE";        break;
-        case STATION_CONNECTING:        result = "STATION_CONNECTING";      break;
-        case STATION_WRONG_PASSWORD:    result = "STATION_WRONG_PASSWORD";    break;
-        case STATION_NO_AP_FOUND:       result = "STATION_NO_AP_FOUND";        break;
-        case STATION_CONNECT_FAIL:      result = "STATION_CONNECT_FAIL";   break;
-        case STATION_GOT_IP:            result = "STATION_GOT_IP";  break;
-        default :                       result = "NULL";                break;
+#if defined(ESP8266)
+    void station_status_t_toString(station_status_t mod, String & result){
+        switch(mod){
+            case STATION_IDLE:              result = "STATION_IDLE";        break;
+            case STATION_CONNECTING:        result = "STATION_CONNECTING";      break;
+            case STATION_WRONG_PASSWORD:    result = "STATION_WRONG_PASSWORD";    break;
+            case STATION_NO_AP_FOUND:       result = "STATION_NO_AP_FOUND";        break;
+            case STATION_CONNECT_FAIL:      result = "STATION_CONNECT_FAIL";   break;
+            case STATION_GOT_IP:            result = "STATION_GOT_IP";  break;
+            default :                       result = "NULL";                break;
+        }
     }
-}
+#elif defined(ESP32)
+#else
+#endif        
+
 void WiFiMode_t_stringToMod(String mod, WiFiMode_t & result){
     if      (mod == "WIFI_STA")     result = WIFI_STA;
     else if (mod == "WIFI_AP_STA")  result = WIFI_AP_STA;
@@ -527,7 +541,7 @@ int wifiConnect_getValues_count = ARRAY_SIZE(wifiConnect_getValues);
 boolean wifiConnect::savToSpiff(){
     String filename = "/" + WIFICONNECT_FILENAME + ".txt";
 
-    File f=LittleFS.open(filename,"w");
+    File f=FILESYSTEM.open(filename,"w");
 
     if (!f) {
         #ifdef DEBUG
@@ -555,7 +569,7 @@ boolean wifiConnect_load_fromSPIFF(String & result) {
 
     String filename = "/" + WIFICONNECT_FILENAME + ".txt";
 
-    File f=LittleFS.open(filename,"r");
+    File f=FILESYSTEM.open(filename,"r");
 
     if (!f) {
         #ifdef DEBUG
@@ -725,13 +739,23 @@ boolean wifiConnect::setup_sta_normal(){
             // ###############################################
             WiFi.disconnect(true);
             WiFi.softAPdisconnect(true);
-            WiFi.setPhyMode(WIFI_PHY_MODE_11B);
+            #if defined(ESP8266)
+                WiFi.setPhyMode(WIFI_PHY_MODE_11B);
+            #elif defined(ESP32)
+            #else
+            #endif                    
 
             delay(1000);
             WiFi.mode(WIFI_STA);   
 
             if (_hostName != bl) WiFi.hostname(_hostName);
-            wifi_set_sleep_type(NONE_SLEEP_T);            
+
+            #if defined(ESP8266)
+                wifi_set_sleep_type(NONE_SLEEP_T);
+            #elif defined(ESP32)
+            #else
+            #endif                    
+                        
             // ###############################################
 
             connect_sta_normal();
@@ -788,13 +812,22 @@ boolean wifiConnect::setup_sta_multi(){
             // ###############################################
             WiFi.disconnect(true);
             WiFi.softAPdisconnect(true);
-            WiFi.setPhyMode(WIFI_PHY_MODE_11B);
+            #if defined(ESP8266)
+                WiFi.setPhyMode(WIFI_PHY_MODE_11B);
+            #elif defined(ESP32)
+            #else
+            #endif   
 
             delay(1000);
             WiFi.mode(WIFI_STA);   
           
             if (_hostName != bl) WiFi.hostname(_hostName);
-            wifi_set_sleep_type(NONE_SLEEP_T);            
+
+            #if defined(ESP8266)
+                wifi_set_sleep_type(NONE_SLEEP_T);
+            #elif defined(ESP32)
+            #else
+            #endif           
             // ###############################################
 
             timer = new adri_timer(60000, "", true);
@@ -1111,13 +1144,21 @@ void wifiConnect::wifi_loop(){
             // ###############################################
             WiFi.disconnect(true);
             WiFi.softAPdisconnect(true);
-            WiFi.setPhyMode(WIFI_PHY_MODE_11B);
+            #if defined(ESP8266)
+                WiFi.setPhyMode(WIFI_PHY_MODE_11B);
+            #elif defined(ESP32)
+            #else
+            #endif 
 
             delay(1000);
             WiFi.mode(WIFI_STA);   
 
             if (_hostName != bl) WiFi.hostname(_hostName);
-            wifi_set_sleep_type(NONE_SLEEP_T);            
+            #if defined(ESP8266)
+                wifi_set_sleep_type(NONE_SLEEP_T);   
+            #elif defined(ESP32)
+            #else
+            #endif                                 
             // ###############################################
 
             WiFi.begin(ssid, password);
@@ -1248,7 +1289,7 @@ void wifi_credential_sta::print(){
 boolean wifi_credential_sta_fromSPIFF(String * array) {
     String filename = "/" + CREDENTIAL_FILENAME + ".txt";
 
-    File f=LittleFS.open(filename,"r");
+    File f=FILESYSTEM.open(filename,"r");
     if (!f) {
         #ifdef DEBUG
             fsprintf("\n[wifi_credential_sta_fromSPIFF] Error reading : %S\n", filename.c_str())
@@ -1347,7 +1388,7 @@ void wifi_credential_sta_print(){
 boolean wifi_credential_sta_toSpiff(){
     String filename = "/" + CREDENTIAL_FILENAME + ".txt";
 
-    File f=LittleFS.open(filename,"w");
+    File f=FILESYSTEM.open(filename,"w");
 
     if (!f) {
         #ifdef DEBUG
@@ -1388,7 +1429,7 @@ boolean wifi_credential_sta_toSpiff(String line){
 
     String filename = "/" + CREDENTIALAP_FILENAME + ".txt";
 
-    File f=LittleFS.open(filename,"w");
+    File f=FILESYSTEM.open(filename,"w");
 
     if (!f) {
         #ifdef DEBUG
@@ -1471,7 +1512,6 @@ boolean isValidIp(String sIp, String sSubnet, String sGateway  ){
 }
 
 
-
 void wifiConnect_connect_sta_normal(char * ssid, char * password, WiFiMode_t mod, wifiConnect_progress * _porgress) {
 
 
@@ -1531,7 +1571,9 @@ void wifiConnect_connect_sta_normal(char * ssid, char * password, WiFiMode_t mod
     #endif  
 }
 
-wl_status_t wifiConnect_connect_sta_normal(char * ssid, char * password, int32_t bestChannel, uint8 bestBSSID[], WiFiMode_t mod, wifiConnect_progress * _porgress, wl_status_t status) {
+
+// #elif defined(ESP8266)
+wl_status_t wifiConnect_connect_sta_normal(char * ssid, char * password, int32_t bestChannel, uint8_t bestBSSID[], WiFiMode_t mod, wifiConnect_progress * _porgress, wl_status_t status) {
 
 
     #ifdef DEBUG
@@ -1589,6 +1631,7 @@ wl_status_t wifiConnect_connect_sta_normal(char * ssid, char * password, int32_t
 
     return WiFi.status();
 }
+// #endif
 
 boolean wifi_connect_result(String debug){
     if (wifiConnect_ptr == nullptr) return false;
@@ -1616,7 +1659,7 @@ void wifi_connect_statu(){
     // wifiConnect_instance()->print_sta();
     // wifi_credentialAp_ptr->print();
 
-Serial.printf("\n[WIFI_intance] localIP: %s - gatewayIP: %s - subnetMask: %s\n", 
+    Serial.printf("\n[WIFI_intance] localIP: %s - gatewayIP: %s - subnetMask: %s\n", 
     WiFi.localIP().toString().c_str(), 
     WiFi.gatewayIP().toString().c_str(), 
     WiFi.subnetMask().toString().c_str());
@@ -1626,17 +1669,21 @@ Serial.printf("\n[WIFI_intance] localIP: %s - gatewayIP: %s - subnetMask: %s\n",
     WiFiMode_t_toString(wifiMod, str_mod);
     fsprintf("[WiFiMode_t] %s\n", str_mod.c_str());
 
+    // #if defined(ESP8266)
     String str_statu;
     wl_status_t wifiStatu = WiFi.status();
     wl_status_t_toString(wifiStatu, str_statu);
     fsprintf("[wl_status_t] %s\n", str_statu.c_str());
+    // #endif
 
+    #if defined(ESP8266)
     String str_station;
     station_status_t stationStatus = wifi_station_get_connect_status();
     station_status_t_toString(stationStatus, str_station);
     fsprintf("[station_status_t] %s\n", str_station.c_str());
 
     fsprintf("[auto_connect] %d\n", wifi_station_get_auto_connect());
+    #endif
 
 
 }
@@ -1646,6 +1693,7 @@ Serial.printf("\n[WIFI_intance] localIP: %s - gatewayIP: %s - subnetMask: %s\n",
 #define DEBUG_WIFI_MULTI(fmt, ...) Serial.printf_P( (PGM_P)PSTR(fmt), ##__VA_ARGS__ )
 // #define DEBUG_ESP_WIFI
 
+// #if defined(ESP8266)
 struct WifiAPEntry {
     char *  ssid;
     char *  passphrase;
@@ -1692,7 +1740,7 @@ wl_status_t ESP8266WiFiMulti_run(wifiConnect * obj,  WiFiMode_t mod, wifiConnect
             // scan done, analyze
             WifiAPEntry bestNetwork { NULL, NULL };
             int bestNetworkDb = 1024;
-            uint8 bestBSSID[6];
+            uint8_t bestBSSID[6];
             int32_t bestChannel;
 
             #ifdef DEBUG_ESP_WIFI
@@ -1717,8 +1765,9 @@ wl_status_t ESP8266WiFiMulti_run(wifiConnect * obj,  WiFiMode_t mod, wifiConnect
                 uint8_t* BSSID_scan;
                 int32_t chan_scan;
                 bool hidden_scan;
-
-                WiFi.getNetworkInfo(n, ssid_scan, sec_scan, rssi_scan, BSSID_scan, chan_scan, hidden_scan);
+                
+// (uint8_t networkItem, String &ssid, uint8_t &encryptionType, int32_t &RSSI, uint8_t* &BSSID, int32_t &channel);
+                WiFi.getNetworkInfo(n, ssid_scan, sec_scan, rssi_scan, BSSID_scan, chan_scan);
 
                 bool known = false;
                 // for(auto entry : wifi_credential_sta_array) {
@@ -1733,7 +1782,7 @@ wl_status_t ESP8266WiFiMulti_run(wifiConnect * obj,  WiFiMode_t mod, wifiConnect
                     if(ssid_scan == ssid) { // SSID match
                         if(pass > 1) known = true;
                         if(-rssi_scan < bestNetworkDb) { // best network
-                            if(sec_scan == ENC_TYPE_NONE || (psk!=(char *)"")) { // check for passphrase if not open wlan
+                            if(sec_scan == WIFI_AUTH_OPEN || (psk!=(char *)"")) { // check for passphrase if not open wlan
                                 bestNetworkDb           = -rssi_scan;
                                 bestChannel             = chan_scan;
                                 bestNetwork.ssid        = ssid;
@@ -1853,7 +1902,7 @@ wl_status_t ESP8266WiFiMulti_run(wifiConnect * obj,  WiFiMode_t mod, wifiConnect
     }
     return status;
 }
-
+// #endif
 
 
 /*
@@ -1877,7 +1926,7 @@ wl_status_t ESP8266WiFiMulti_run(wifiConnect * obj,  WiFiMode_t mod, wifiConnect
 
 // int wifi_credential_fromSPIFF(String * ret) { 
 //     String filename = "/wifi_id.txt";
-//     File f = LittleFS.open(filename,"r");
+//     File f = FILESYSTEM.open(filename,"r");
 
 //     #ifdef DEBUG
 //         Serial.printf("\n[wfifi_getID_fromSPIFF]\n");

@@ -3,16 +3,26 @@
 #ifndef ADRI_WIFICONNECT_H
     #define ADRI_WIFICONNECT_H
 
-    #if defined(ARDUINO_ARCH_ESP32)
-        #include <WiFi.h>
-    #elif defined(ARDUINO_ARCH_ESP8266)
-        #include <ESP8266WebServer.h>
+    #if defined(ESP8266)
+        #include <arduino.h>
         #include <ESP8266WiFi.h>
+        #include <WiFiClient.h>
+        #include <ESP8266WebServer.h>
         #include <ESP8266mDNS.h>
-        #include <ESP8266WiFiType.h>
+        #include <SPI.h>
+        #include <LittleFS.h>
+    #elif defined(ESP32)
+        #include <arduino.h>
+        #include <WiFi.h>
+        #include <WiFiClient.h>
+        #include <WebServer.h>
+        #include <ESPmDNS.h>
+        #include <SPIFFS.h>
+        #include <Update.h>
+        #include <WiFiType.h>
+    #else
     #endif
 
-    #include <Arduino.h>
 
     #define CREDENTIAL_MAX 3
     #define CREDENTIALAp_MAX 1
@@ -251,7 +261,9 @@
     boolean isValidIp(String ip);
     boolean isValidIp(const char * string);
     boolean isValidIp(String sIp, String sSubnet, String sGateway  );
+    // #if defined(ESP8266)
     wl_status_t ESP8266WiFiMulti_run(wifiConnect * obj,  WiFiMode_t mod, wifiConnect_progress * _porgress);    
+    // #endif
     // wl_status_t ESP8266WiFiMulti_run(uint32_t connectTimeoutMs);
     void wifiConnect_connect_sta_normal(char * ssid, char * password, WiFiMode_t mod, wifiConnect_progress * _porgress);
     void wifi_connect_statu();
