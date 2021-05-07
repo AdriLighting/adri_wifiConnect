@@ -337,6 +337,7 @@ void wifiConnect::hostName_set(const char * mod)                    {
 }
 void wifiConnect::MDSN_begin() {
     MDNS.begin(_DNSname);
+    NBNS.begin(_DNSname);
     MDNS.addService("http", "tcp", 80);
 }
 void wifiConnect::MDSN_loop() {
@@ -1767,8 +1768,12 @@ wl_status_t ESP8266WiFiMulti_run(wifiConnect * obj,  WiFiMode_t mod, wifiConnect
                 bool hidden_scan;
                 
 // (uint8_t networkItem, String &ssid, uint8_t &encryptionType, int32_t &RSSI, uint8_t* &BSSID, int32_t &channel);
-                WiFi.getNetworkInfo(n, ssid_scan, sec_scan, rssi_scan, BSSID_scan, chan_scan);
-
+                #if defined(ESP8266)
+                    WiFi.getNetworkInfo(n, ssid_scan, sec_scan, rssi_scan, BSSID_scan, chan_scan, hidden_scan);
+                #elif defined(ESP32)
+                    WiFi.getNetworkInfo(n, ssid_scan, sec_scan, rssi_scan, BSSID_scan, chan_scan);
+                #else
+                #endif        
                 bool known = false;
                 // for(auto entry : wifi_credential_sta_array) {
                 for (int C = 0; C < CREDENTIAL_MAX; ++C) {
@@ -1782,22 +1787,42 @@ wl_status_t ESP8266WiFiMulti_run(wifiConnect * obj,  WiFiMode_t mod, wifiConnect
                     if(ssid_scan == ssid) { // SSID match
                         if(pass > 1) known = true;
                         if(-rssi_scan < bestNetworkDb) { // best network
-                            if(sec_scan == WIFI_AUTH_OPEN || (psk!=(char *)"")) { // check for passphrase if not open wlan
-                                bestNetworkDb           = -rssi_scan;
-                                bestChannel             = chan_scan;
-                                bestNetwork.ssid        = ssid;
-                                bestNetwork.passphrase  = psk;
-                                memcpy((void*) &bestBSSID, (void*) BSSID_scan, sizeof(bestBSSID));
-                                #ifdef DEBUG_ESP_WIFI
-                                    DEBUG_WIFI_MULTI("[SSID BEST] ssid:%-12s psk: %-12s rssi_scan: %-12d chan_scan: %-12d\n", 
-                                        ssid,
-                                        psk,
-                                        -rssi_scan,
-                                        chan_scan
-                                    );
-                                #endif  
-                                obj->_credential_sta = wifi_credential_sta_array[C];
-                            }
+                            #if defined(ESP8266)
+                                if(sec_scan == ENC_TYPE_NONE || (psk!=(char *)"")) { // check for passphrase if not open wlan                          
+                                    bestNetworkDb           = -rssi_scan;
+                                    bestChannel             = chan_scan;
+                                    bestNetwork.ssid        = ssid;
+                                    bestNetwork.passphrase  = psk;
+                                    memcpy((void*) &bestBSSID, (void*) BSSID_scan, sizeof(bestBSSID));
+                                    #ifdef DEBUG_ESP_WIFI
+                                        DEBUG_WIFI_MULTI("[SSID BEST] ssid:%-12s psk: %-12s rssi_scan: %-12d chan_scan: %-12d\n", 
+                                            ssid,
+                                            psk,
+                                            -rssi_scan,
+                                            chan_scan
+                                        );
+                                    #endif  
+                                    obj->_credential_sta = wifi_credential_sta_array[C];
+                                }                            
+                            #elif defined(ESP32)
+                                if(sec_scan == WIFI_AUTH_OPEN || (psk!=(char *)"")) { // check for passphrase if not open wlan                          
+                                    bestNetworkDb           = -rssi_scan;
+                                    bestChannel             = chan_scan;
+                                    bestNetwork.ssid        = ssid;
+                                    bestNetwork.passphrase  = psk;
+                                    memcpy((void*) &bestBSSID, (void*) BSSID_scan, sizeof(bestBSSID));
+                                    #ifdef DEBUG_ESP_WIFI
+                                        DEBUG_WIFI_MULTI("[SSID BEST] ssid:%-12s psk: %-12s rssi_scan: %-12d chan_scan: %-12d\n", 
+                                            ssid,
+                                            psk,
+                                            -rssi_scan,
+                                            chan_scan
+                                        );
+                                    #endif  
+                                    obj->_credential_sta = wifi_credential_sta_array[C];
+                                }                            
+                            #else
+                            #endif        
                         }
                         if (known) break;
                     }

@@ -11,6 +11,9 @@
         #include <ESP8266mDNS.h>
         #include <SPI.h>
         #include <LittleFS.h>
+        #include <ESP8266NetBIOS.h>
+        #include <adri_wifiota.h>
+
     #elif defined(ESP32)
         #include <arduino.h>
         #include <WiFi.h>
@@ -20,6 +23,9 @@
         #include <SPIFFS.h>
         #include <Update.h>
         #include <WiFiType.h>
+        #include <NetBIOS.h>
+        #include <adri_wifiota.h>
+
     #else
     #endif
 
